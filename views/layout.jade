@@ -1,0 +1,30 @@
+!!!5
+html
+	head
+		title=title
+		link(rel='stylesheet', href='/styles/style.css')
+	body
+		header
+			hgroup
+				h1 Out on a discovery 
+				h2 Live crazy, think different
+		nav
+			ul(class='subscription')
+				li
+					a(href='http://feeburner.com/burncsharp', title='subscribe via RSS', rel='subscribe-rss')					 	 		
+			form
+				input(type='text', class='search', placeholder='Search')
+			ul(class='main-navigation')
+				li
+					a(href='/') Blog
+				li	
+					a(href= '/about') About		
+		section(class='main')
+			section(class='content')
+				section
+					block content
+				aside
+					section
+						include recent
+		footer
+			p Copyright © 2012 - Mehfuz Hossain
