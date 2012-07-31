@@ -6,7 +6,11 @@
 require('coffee-script')
 
 var express = require('express')
-  , http = require('http');
+  , http = require('http')
+	, mongoose = require('mongoose');
+
+// init mongo
+mongoose.connect('mongodb://localhost/ligher'	);
 
 // Configuration
 var app = express();
@@ -28,6 +32,9 @@ app.configure(function(){
 app.configure('production', function(){
   app.use(express.errorHandler()); 
 });
+
+// models
+require('./model')(app);
 
 // Routes
 require('./routes')(app);
