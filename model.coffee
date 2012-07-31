@@ -10,12 +10,11 @@ Comments = new Schema
 			date	:	Date
 
 Post = new Schema
-    author    : ObjectId
-   	title     : String
-   	body      : String
-   	buf       : Buffer
-   	date      : Date
-   	comments  : [Comments]
+    author		: ObjectId
+   	title   	: String
+   	body    	: String
+   	date    	: Date
+   	comments	: [Comments]
  
 
 module.exports = model
