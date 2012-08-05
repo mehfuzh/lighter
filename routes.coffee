@@ -1,7 +1,4 @@
 routes = (app) =>
-	mongoose = require('mongoose')
-	mongoose.connect 'mongodb://localhost/ligher'
-	
 	app.get '/', (req, res) ->
 		res.render 'index', 
 			title: 'Blog'
