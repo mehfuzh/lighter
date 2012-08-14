@@ -13,18 +13,18 @@
   describe('create', function() {
     return describe('post', function() {
       before(function(done) {
-        blog.createPost({
-          title: "test",
+        blog.create({
+          title: "this is a test",
           author: "mehfuz",
           body: "some text"
         }, function(result) {
-          console.log(result._id);
+          console.log(result.id);
           return done();
         });
       });
       it('should assert find by title', function(done) {
         blog.findByTitle("test", function(data) {
-          data.title.should.equal("test");
+          data.title.should.equal("this is a test");
           return done();
         });
       });

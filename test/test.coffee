@@ -8,11 +8,11 @@ blog = (require '../models/blog')(mongoose)
 describe 'create', ->
 	describe 'post', ->
 		before  (done)->
-				blog.createPost
-					title 	: "test"
+				blog.create
+					title 	: "this is a test"
 					author 	:	"mehfuz"
 					body		: "some text", (result)->
-						console.log result._id
+						console.log result.id
 						done()
 				return
 		it 'should assert find by title', (done)->
