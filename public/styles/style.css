@@ -115,197 +115,94 @@ video {
   vertical-align: baseline;
   border-image: initial;
 }
-.link-style {
-  color: #F2F2F2;
+.header-link-style {
+  color: #fff;
   text-decoration: none;
+}
+.nav-item-spacing {
+  margin-top: 1em;
+  margin-bottom: 1em;
+  padding-right: 40px;
 }
 .clear {
   content: "";
   display: table;
   clear: both;
 }
-a[rel="subscribe-rss"] {
-  position: relative;
-  top: 0px;
-  text-indent: -999999em;
-  background-color: #DEDEDE;
-  border: 0;
-  padding: 0;
-}
-a[rel="subscribe-rss"],
-a[rel="subscribe-rss"]::after {
-  -moz-mask-image: url('/images/rss.png');
-  -webkit-mask-image: url('/images/rss.png');
-  -o-mask-image: url('/images/rss.png');
-  -ms-mask-image: url('/images/rss.png');
-  -khtml-mask-image: url('/images/rss.png');
-  mask-image: url('/images/rss.png');
-  -moz-mask-repeat: no-repeat;
-  -webkit-mask-repeat: no-repeat;
-  -o-mask-repeat: no-repeat;
-  -ms-mask-repeat: no-repeat;
-  -khtml-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-  width: 22px;
-  height: 22px;
-  margin-top: 6px;
-}
-a[rel="subscribe-rss"]::after {
-  content: "";
-  position: absolute;
-  top: -7px;
-  left: 0;
-  background-color: #ABABAB;
-}
 body {
   background: #252525 url('/images/line-tile.png') top left;
-  max-width: 1200px;
   position: relative;
   margin: 0 auto;
   font-size: 1.15em;
-  font-family: 'UbuntuRegular';
+  font-family: 'DroidSansRegular';
   line-height: 1.5em;
 }
 body .content-left-right-spacing {
   padding-left: 55px;
   padding-right: 55px;
 }
-body header {
-  padding-top: 2em;
-  padding-bottom: 2em;
-  background: #333;
+body header.main {
+  font-family: 'TitilliumText22LRegular';
+  background: url('/images/noise.png');
+  background: -moz-linear-gradient(#000000, #464646);
+  background: -webkit-linear-gradient(#000000, #464646);
+  background: linear-gradient(#000000, #464646);
+  -webkit-box-shadow: 0 -1px 1px #cccccc inset;
+  color: #fff;
+  height: 60px;
   padding-left: 55px;
   padding-right: 55px;
 }
-body header h1 {
-  color: #f2f2f2;
+body header.main h1 {
+  color: inherit;
   font-size: 2.2em;
   font-weight: normal;
   line-height: 1.2em;
-}
-body header h1 a {
-  color: #F2F2F2;
-  text-decoration: none;
-}
-body header h1:visited {
-  color: #F2F2F2;
-  text-decoration: none;
-}
-body header h1:visited {
-  color: #F2F2F2;
-  text-decoration: none;
-}
-body header h2 {
-  margin: .2em 0 0;
-  font-size: 1em;
-  color: #AAA;
-  font-weight: normal;
-}
-body nav {
-  position: relative;
-  font-size: .9em;
-  background: url('/images/noise.png'), -webkit-linear-gradient(#e0e0e0, #cccccc, #b0b0b0);
-  background: url('/images/noise.png'), -moz-linear-gradient(#e0e0e0, #cccccc, #b0b0b0);
-  background: url('/images/noise.png'), -o-linear-gradient(#e0e0e0, #cccccc, #b0b0b0);
-  background: url('/images/noise.png'), -ms-linear-gradient(#e0e0e0, #cccccc, #b0b0b0);
-  background: url('/images/noise.png'), linear-gradient(#e0e0e0, #cccccc, #b0b0b0);
-  border-top: 1px solid #F2F2F2;
-  border-bottom: 1px solid #8C8C8C;
-  padding-top: .35em;
-  padding-bottom: .35em;
-  padding-left: 55px;
-  padding-right: 55px;
-}
-body nav:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-body nav a {
-  color: #6B6B6B;
-  text-shadow: #EBEBEB 0 1px;
+  padding-top: 10px;
+  width: 265px;
   float: left;
+}
+body header.main h1 a {
+  color: #fff;
   text-decoration: none;
-  font-size: 1.1em;
-  padding: .1em 0;
-  line-height: 1.5em;
 }
-body nav a:visited {
-  color: #6B6B6B;
+body header.main h1:visited {
+  color: #fff;
+  text-decoration: none;
 }
-body nav ul {
+body header.main h1:visited {
+  color: #fff;
+  text-decoration: none;
+}
+body header.main nav {
+  float: right;
+  width: 65%;
+}
+body header.main nav ul.main-navigation {
+  float: right;
   margin: 0;
   padding: 0;
-  border: 0;
-  overflow: hidden;
-  float: left;
   display: block;
-  padding-top: .15em;
+  text-transform: uppercase;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  padding-right: 40px;
 }
-body nav ul li {
+body header.main nav ul.main-navigation li {
   list-style-image: none;
   list-style-type: none;
-  white-space: nowrap;
   display: inline;
-  padding-left: 0;
-  padding-right: 0;
 }
-body nav ul li:first-child {
-  padding-left: 0;
-}
-body nav ul li:first {
-  padding-left: 0;
-}
-body nav ul li + li a {
-  border-left: 1px solid #B0B0B0;
-  margin-left: .8em;
-  padding-left: 10px;
-}
-body nav ul.subscription {
-  margin-left: .8em;
-  float: right;
-}
-body nav ul.subscription li:last-child a {
-  padding-right: 0;
-}
-body nav form {
-  float: right;
-  text-align: left;
-  padding-left: .8em;
-}
-body nav form .search {
-  float: right;
-  width: 80%;
-  font-size: 1.2em;
-  line-height: 1.2em;
-  padding: .3em .5em 0;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding;
-  -o-background-clip: padding-box;
-  -ms-background-clip: padding-box;
-  -khtml-background-clip: padding-box;
-  background-clip: padding-box;
-  -moz-box-shadow: #d1d1d1 0 1px;
-  -webkit-box-shadow: #d1d1d1 0 1px;
-  -o-box-shadow: #d1d1d1 0 1px;
-  box-shadow: #d1d1d1 0 1px;
-  background-color: #F2F2F2;
-  border: 1px solid #B3B3B3;
-  color: #888;
-}
-body nav form .search:focus {
-  color: #444;
-  border-color: #80B1DF;
-  -moz-box-shadow: #80b1df 0 0 4px,#80b1df 0 0 3px inset;
-  -webkit-box-shadow: #80b1df 0 0 4px,#80b1df 0 0 3px inset;
-  -o-box-shadow: #80b1df 0 0 4px,#80b1df 0 0 3px inset;
-  box-shadow: #80b1df 0 0 4px,#80b1df 0 0 3px inset;
-  background-color: white;
+body header.main nav ul.main-navigation li a {
+  color: inherit;
+  text-decoration: none;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 body section.main {
   padding: 0;
   margin: 0 auto;
-  background: #f2f2f2 url('/images/noise.png') top left;
+  background: #F2F2F2;
   border-bottom: 1px solid #BFBFBF;
   min-height: 600px;
 }
@@ -321,6 +218,7 @@ body section.main section.content section article {
   padding-left: 55px;
   padding-right: 55px;
   background: url('/images/header-bottom.png') repeat-x 0 0;
+  padding-bottom: 10px;
 }
 body section.main section.content section article header {
   padding: 0px;
@@ -342,11 +240,10 @@ body section.main section.content section article header h1 {
 }
 body section.main section.content section article header h1 a {
   color: #000;
+  text-decoration: none;
 }
 body section.main section.content section article:first-child {
   background: none;
-  padding-top: 27.5px;
-  padding-bottom: 27.5px;
 }
 body section.main section.content section article:first-child header {
   background: url('/images/header-bottom.png') repeat-x 0 100%;
@@ -421,7 +318,6 @@ body footer {
   position: relative;
   padding-top: 1em;
   padding-bottom: 1em;
-  margin-bottom: 3em;
   -webkit-border-bottom-left-radius: 4px;
   -moz-border-radius-bottomleft: 4px;
   -o-border-bottom-left-radius: 4px;

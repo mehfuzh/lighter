@@ -9,7 +9,7 @@
     "less": "~1.3.0",
     "less-middleware": "~0.1.4",
     "mongoose": "*",
-    "mongodb": "~1.1.2"
+    "mongodb": "*"
   },
   "devDependencies": {
     "should": "*",

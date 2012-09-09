@@ -34,7 +34,7 @@ app.configure('production', function(){
 });
 
 // models
-blog = require('./models/blog')(mongoose);
+//blog = require('./models/blog')(mongoose);
 
 // blog.createPost("test", "mehfuz", "some text");
 // 
