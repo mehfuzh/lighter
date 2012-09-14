@@ -1,24 +1,25 @@
-require "should"
+require 'should'
 
 mongoose = require 'mongoose'
 mongoose.connect 'mongodb://localhost/lighter';
 
-blog = (require '../models/blog')(mongoose)
+blog = (require '../modules/blog')(mongoose)
+helper = (require '../modules/helper')()
 
-describe 'create', ->
-	describe 'post', ->
+describe 'blog', ->
+	describe 'create', ->
 		before  (done)->
 				blog.create
 					title 	: "this is a test"
 					author 	:	"mehfuz"
-					body		: "some text", (result)->
+					body		: "some text", (result) ->
 						console.log result.id
 						done()
 				return
-		it 'should assert find by title', (done)->
-			blog.findByTitle "test", (data) ->
-				# data.should.not.equal null
-				data.title.should.equal "test"
+
+		it 'should return the same for permalink', (done)->
+			blog.findByPermaLink helper.linkify("this is a test"), (data) ->
+				(data != null).should.be.true
 				done()
 			return
 		after (done)->

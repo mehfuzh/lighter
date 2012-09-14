@@ -16,7 +16,7 @@
       return Helper;
 
     })();
-    return new Helper;
+    return new Helper();
   };
 
 }).call(this);

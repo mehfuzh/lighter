@@ -3,11 +3,15 @@
   var routes,
     _this = this;
 
-  routes = function(app) {
+  routes = function(app, mongoose) {
     app.get('/', function(req, res) {
-      return res.render('index', {
-        title: 'Blog',
-        postedOn: new Date().toDateString()
+      var blog;
+      blog = (require(__dirname + '/modules/blog'))(mongoose);
+      return blog.findAll(function(posts) {
+        return res.render('index', {
+          title: 'Blog',
+          posts: posts
+        });
       });
     });
     return app.get('/post', function(req, res) {

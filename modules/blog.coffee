@@ -1,5 +1,3 @@
-helper = require './helper'
-
 module.exports = (mongoose)->
 	class Blog
 		constructor: (mongoose) ->
@@ -17,6 +15,7 @@ module.exports = (mongoose)->
 			PostSchema = new Schema
 					author 		: String
 					title			: String
+					permaLink	: String
 					body			: String
 					date			: Date
 					categories: [CategoriesSchema]
@@ -24,13 +23,15 @@ module.exports = (mongoose)->
 					publish		: Boolean
 
 			@Post = mongoose.model 'post', PostSchema
+			@helper = (require __dirname + '/helper')()
 
 		create: (obj, callback) ->				
-			@findByTitle obj.title, (data) =>
+			link =  @helper.linkify(obj.title)
+			@findByPermaLink link, (data) =>
 				if data == null
-					title =  helper.linkify(title)
 					post = new @Post
-							title 		: title
+							title 		: obj.title
+							permaLink	:	link
 							author 		:	obj.author
 							body 			: obj.body
 							publish : 1
@@ -41,17 +42,22 @@ module.exports = (mongoose)->
 						callback(data)
 						return
 				else
-					throw 'duplicate post'
+					callback("duplicate post")
 		
-		findByTitle: (title, callback) ->
-			title =  helper.linkify(title)
+		findByPermaLink: (permaLink, callback) ->
 			@Post.findOne 
-				title : title, (err, data) ->
+				permaLink : permaLink, (err, data) ->
 					if err != null
 						throw err.message
 					callback(data)
 					return
-					
+		findAll: (callback)->
+			@Post.find (err, data) ->
+				if err!= null
+					throw err.message
+				callback(data)
+				return
+			
 		removeAll:->
 			@Post.remove {}, ->
 				console.log "completed"

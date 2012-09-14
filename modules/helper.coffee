@@ -1,8 +1,8 @@
 module.exports = ()->
 	class Helper
-		linkify: (source)->
+		linkify: (source) ->
 			source = source.toLowerCase()
 			source = source.replace(/\s+/g, '-')
-			source.replace(/[?#&]+/g, '')		
-					
-	return new Helper
+			source.replace(/[?#&]+/g, '')							
+	
+	return new Helper()

@@ -10,7 +10,7 @@ var express = require('express')
 	, mongoose = require('mongoose');
 
 // init mongo
-mongoose.connect('mongodb://localhost/ligher');
+mongoose.connect('mongodb://localhost/lighter');
 
 // Configuration
 var app = express();
@@ -33,17 +33,13 @@ app.configure('production', function(){
   app.use(express.errorHandler()); 
 });
 
-// models
-//blog = require('./models/blog')(mongoose);
 
-// blog.createPost("test", "mehfuz", "some text");
-// 
-// post = blog.findByTitle ("test", function(data){
-// 	console.log(data._id); 
-// });
+if (process.env.NODE_ENV != 'production'){
+	require ('./modules/builder')(mongoose);
+}
 
 // Routes
-require('./routes')(app);
+require('./routes')(app, mongoose);
 
 
 http.createServer(app).listen(app.get('port'), function(){
