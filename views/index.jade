@@ -1,10 +1,10 @@
-extend layout
+extends layout
 
-block content
-	each post in posts
+block append content
+	for post in posts
 		article
 			header
 				time= post.date.toDateString()
 				h1 
 					a(href='/post') #{post.title}
-			#{post.body}
+			section!{post.body}

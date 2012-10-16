@@ -242,6 +242,36 @@ body section.main section.content section article header h1 a {
   color: #000;
   text-decoration: none;
 }
+body section.main section.content section article section h1 {
+  font-size: 1.2em;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+body section.main section.content section article section h2 {
+  font-size: 1.1em;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+body section.main section.content section article section p:first-child {
+  padding-top: 0;
+}
+body section.main section.content section article section p {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+body section.main section.content section article section ol,
+body section.main section.content section article section ul {
+  list-style-type: none;
+  padding: 5px 0 5px 0;
+}
+body section.main section.content section article section ol li,
+body section.main section.content section article section ul li {
+  margin: 0 0 5px 20px;
+  padding: 0 0 0 15px;
+  background: url(/images/list.png) no-repeat top left;
+  display: list-item;
+  text-align: -webkit-match-parent;
+}
 body section.main section.content section article:first-child {
   background: none;
 }

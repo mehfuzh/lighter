@@ -1,16 +1,9 @@
 
-/**
- * Module dependencies.
- */
-
 require('coffee-script')
 
 var express = require('express')
   , http = require('http')
-	, mongoose = require('mongoose');
-
-// init mongo
-mongoose.connect('mongodb://localhost/lighter');
+	, settings = require( __dirname + '/modules/settings')();
 
 // Configuration
 var app = express();
@@ -28,18 +21,16 @@ app.configure(function(){
   app.use(express.static(__dirname + '/public'));
 });
 
-
 app.configure('production', function(){
   app.use(express.errorHandler()); 
 });
 
-
 if (process.env.NODE_ENV != 'production'){
-	require ('./modules/builder')(mongoose);
+	require ('./modules/builder')(settings);
 }
 
 // Routes
-require('./routes')(app, mongoose);
+require('./routes')(app, settings);
 
 
 http.createServer(app).listen(app.get('port'), function(){

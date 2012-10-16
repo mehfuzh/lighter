@@ -1,7 +1,6 @@
-routes = (app, mongoose) =>
+routes = (app, settings) =>
+	blog = (require __dirname+'/modules/blog')(settings.mongoose)
 	app.get '/', (req, res) ->
-		blog = (require __dirname+'/modules/blog')(mongoose)
-		
 		blog.findAll (posts) ->
 				console.log posts[0].title
 				res.render 'index'

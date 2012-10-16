@@ -10,14 +10,15 @@ module.exports = (mongoose)->
 			CommentsSchema = new Schema
 					title : String
 					text	:	String
-					date	:	Date
-		
+					date		:	Date
+						
 			PostSchema = new Schema
 					author 		: String
 					title			: String
 					permaLink	: String
 					body			: String
 					date			: Date
+					
 					categories: [CategoriesSchema]
 					comments	:	[CommentsSchema]
 					publish		: Boolean

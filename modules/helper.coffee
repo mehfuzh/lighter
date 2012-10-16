@@ -3,6 +3,5 @@ module.exports = ()->
 		linkify: (source) ->
 			source = source.toLowerCase()
 			source = source.replace(/\s+/g, '-')
-			source.replace(/[?#&]+/g, '')							
-	
+			source.replace(/[?#&]+/g, '')			
 	return new Helper()
