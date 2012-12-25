@@ -5,7 +5,6 @@ mongoose.connect 'mongodb://localhost/lighter';
 
 blog = (require '../modules/blog')(mongoose)
 helper = (require '../modules/helper')()
-
 describe 'blog', ->
 	describe 'create', ->
 		before  (done)->

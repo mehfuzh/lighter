@@ -6,82 +6,159 @@
     Blog = (function() {
 
       function Blog(mongoose) {
-        var CategoriesSchema, CommentsSchema, ObjectId, PostSchema, Schema;
-        Schema = mongoose.Schema;
-        ObjectId = Schema.ObjectId;
-        CategoriesSchema = new Schema({
-          title: String
-        });
-        CommentsSchema = new Schema({
-          title: String,
-          text: String,
-          date: Date
-        });
-        PostSchema = new Schema({
-          author: String,
-          title: String,
-          permaLink: String,
-          body: String,
-          date: Date,
-          categories: [CategoriesSchema],
-          comments: [CommentsSchema],
-          publish: Boolean
-        });
-        this.Post = mongoose.model('post', PostSchema);
+        this.blog = mongoose.model('blog');
+        this.post = mongoose.model('post');
         this.helper = (require(__dirname + '/helper'))();
       }
 
       Blog.prototype.create = function(obj, callback) {
-        var link,
-          _this = this;
-        link = this.helper.linkify(obj.title);
-        return this.findByPermaLink(link, function(data) {
-          var post;
-          if (data === null) {
-            post = new _this.Post({
-              title: obj.title,
-              permaLink: link,
-              author: obj.author,
-              body: obj.body,
-              publish: 1,
-              date: new Date()
-            });
-            return post.save(function(err, data) {
-              if (err !== null) {
-                throw err.message;
-              }
+        var _this = this;
+        return this.blog.findOne({
+          url: obj.url
+        }, function(err, data) {
+          var blog;
+          if (data !== null) {
+            return _this._post({
+              id: data._id,
+              posts: obj.posts
+            }, function(data) {
               callback(data);
             });
           } else {
-            return callback("duplicate post");
+            blog = new _this.blog({
+              url: obj.url,
+              title: obj.title,
+              updated: obj.updated
+            });
+            return blog.save(function(err, data) {
+              if (err === null) {
+                return _this._post({
+                  id: data._id,
+                  posts: obj.posts
+                }, function(data) {
+                  callback(data);
+                });
+              }
+            });
           }
         });
       };
 
-      Blog.prototype.findByPermaLink = function(permaLink, callback) {
-        return this.Post.findOne({
-          permaLink: permaLink
+      Blog.prototype.find = function(url, callback) {
+        var _this = this;
+        return this.blog.findOne({
+          url: url
         }, function(err, data) {
+          var blog;
           if (err !== null) {
             throw err.message;
           }
-          callback(data);
+          blog = data;
+          _this.post.find({
+            id: blog._id
+          }).sort({
+            date: -1
+          }).exec(function(err, data) {
+            var post, posts, _i, _len;
+            posts = [];
+            for (_i = 0, _len = data.length; _i < _len; _i++) {
+              post = data[_i];
+              posts.push(post);
+            }
+            return callback({
+              id: blog._id,
+              url: blog.url,
+              title: blog.title,
+              updated: blog.updated,
+              posts: posts
+            });
+          });
         });
       };
 
-      Blog.prototype.findAll = function(callback) {
-        return this.Post.find(function(err, data) {
-          if (err !== null) {
-            throw err.message;
+      Blog.prototype.findMostRecent = function(url, callback) {
+        var _this = this;
+        return this.blog.findOne({
+          url: url
+        }, function(err, data) {
+          _this.post.find({
+            id: data._id
+          }).sort({
+            date: -1
+          }).limit(5).exec(function(err, data) {
+            var post, recent, _i, _len;
+            recent = [];
+            for (_i = 0, _len = data.length; _i < _len; _i++) {
+              post = data[_i];
+              recent.push({
+                title: post.title,
+                permaLink: post.permaLink
+              });
+            }
+            return callback(recent);
+          });
+        });
+      };
+
+      Blog.prototype.findPost = function(url, permaLink, callback) {
+        var _this = this;
+        return this.blog.findOne({
+          url: url
+        }, function(err, data) {
+          _this.post.findOne({
+            id: data._id,
+            permaLink: permaLink
+          }, function(err, data) {
+            return callback(data);
+          });
+        });
+      };
+
+      Blog.prototype["delete"] = function(url) {
+        var _this = this;
+        return this.blog.find({
+          url: url
+        }, function(err, data) {
+          var blog, _i, _len, _results;
+          _results = [];
+          for (_i = 0, _len = data.length; _i < _len; _i++) {
+            blog = data[_i];
+            _results.push(_this.post.remove({
+              id: blog._id
+            }, function() {
+              return _this.blog.remove({
+                url: url
+              });
+            }));
           }
-          callback(data);
+          return _results;
         });
       };
 
-      Blog.prototype.removeAll = function() {
-        return this.Post.remove({}, function() {
-          return console.log("completed");
-        });
+      Blog.prototype._post = function(obj, callback) {
+        var link, post, postSchema, _i, _len, _ref, _results;
+        _ref = obj.posts;
+        _results = [];
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          post = _ref[_i];
+          link = this.helper.linkify(post.title);
+          postSchema = new this.post({
+            id: obj.id,
+            title: post.title,
+            permaLink: link,
+            author: post.author,
+            body: post.body,
+            publish: 1,
+            date: new Date()
+          });
+          _results.push(postSchema.save(function(err, data) {
+            if (err !== null) {
+              callback(err.message);
+            }
+            callback(data);
+          }));
+        }
+        return _results;
       };
 
       return Blog;

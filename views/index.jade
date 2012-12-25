@@ -1,10 +1,10 @@
 extends layout
 
-block append content
+block content
 	for post in posts
-		article
+		article(class='post')
 			header
 				time= post.date.toDateString()
 				h1 
-					a(href='/post') #{post.title}
+					a(href='#{host}#{post.permaLink}') #{post.title}
 			section!{post.body}

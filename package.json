@@ -9,7 +9,9 @@
     "less": "~1.3.0",
     "less-middleware": "~0.1.4",
     "mongoose": "*",
-    "mongodb": "*"
+    "mongodb": "*",
+    "highlight.js": "~7.3.0",
+    "marked": "~0.2.6"
   },
   "devDependencies": {
     "should": "*",

@@ -4,21 +4,62 @@
     _this = this;
 
   routes = function(app, settings) {
-    var blog;
+    var blog, recent;
     blog = (require(__dirname + '/modules/blog'))(settings.mongoose);
-    app.get('/', function(req, res) {
-      return blog.findAll(function(posts) {
-        console.log(posts[0].title);
-        return res.render('index', {
-          title: 'Blog',
-          posts: posts
+    recent = [];
+    app.get('/:title', function(req, res) {
+      var _this = this;
+      if (recent.length === 0) {
+        blog.findMostRecent(settings.url, function(result) {
+          recent = result;
+        });
+      }
+      return blog.findPost(settings.url, req.params.title, function(result) {
+        return res.render('post', {
+          host: settings.url,
+          title: result.title,
+          body: result.body,
+          date: result.date,
+          recent: recent
         });
       });
     });
-    return app.get('/post', function(req, res) {
-      return res.render('post', {
-        title: 'Blog',
-        postedOn: new Date().toDateString()
+    app.get('/', function(req, res) {
+      var host;
+      host = settings.url;
+      return blog.find(host, function(result) {
+        var post, _i, _len, _ref;
+        _ref = result.posts.slice(0, 5);
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          post = _ref[_i];
+          recent.push({
+            title: post.title,
+            permaLink: post.permaLink
+          });
+        }
+        return res.render('index', {
+          host: host,
+          title: result.title,
+          posts: result.posts,
+          recent: recent
+        });
+      });
+    });
+    app.get('/atom', function(req, res) {
+      res.header({
+        'Content-Type': 'application/xml'
+      });
+      return res.render('atom', {
+        title: 'Blog entries',
+        feedUrl: settings.url + 'atom/feeds'
+      });
+    });
+    return app.get('/atom/feeds', function(req, res) {
+      res.header({
+        'Content-Type': 'application/xml'
+      });
+      return blog.find(settings.url, function(result) {
+        return res.render('feeds', result);
       });
     });
   };

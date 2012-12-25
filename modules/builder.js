@@ -6,16 +6,29 @@
     fs = require('fs');
     blog = require(__dirname + '/blog')(settings.mongoose);
     return fs.readFile(__dirname + '/../bin/post.md', 'utf8', function(err, result) {
-      var parts;
-      blog.removeAll();
-      parts = result.split('#block');
+      var content, post, posts, _i, _len, _ref;
+      blog["delete"](settings.url);
+      posts = [];
+      _ref = result.split('#post');
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        post = _ref[_i];
+        if (post !== '') {
+          content = post.split('#block');
+          posts.push({
+            title: content[0],
+            body: settings.marked(content[1]),
+            author: content[2]
+          });
+        }
+      }
       return blog.create({
-        title: parts[0],
-        body: settings.marked(parts[1]),
-        author: parts[2]
+        url: settings.url,
+        title: 'Mehfuz\'s Blog',
+        updated: new Date(),
+        posts: posts
       }, function(result) {
         if (result.id) {
-          return console.log(result.id);
+          return console.log(result.permaLink);
         }
       });
     });

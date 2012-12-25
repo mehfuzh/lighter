@@ -1,24 +1,25 @@
 !!!5
 html
 	head
-		title=title
+		title #{title}
 		link(rel='stylesheet', href='/styles/style.css')
-	body
-		header(class='main')	
-				h1 
-					a(href='/') Mehfuz's blog
-				nav
-					ul(class='main-navigation')
-						li
-							a(href='/') Blog
-						li	
-							a(href= '/about') About	
-		section(class='main')
-			section(class='content')
-				section
-					block content
-				aside
+		link(rel='stylesheet', href='/styles/highlight.css')
+		body
+			header(class='main')	
+					h1 
+						a(href='/') Mehfuz's blog
+					nav
+						ul(class='main-navigation')
+							li
+								a(href='/') Blog
+							li	
+								a(href= '/about') About	
+			section(class='main')
+				section(class='content')
 					section
-						include recent
-		footer
-			p Copyright © 2012 - Mehfuz Hossain
+						block content
+					aside
+						section
+							include recent
+			footer
+				p Copyright © 2012 - Mehfuz Hossain

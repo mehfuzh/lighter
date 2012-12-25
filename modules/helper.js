@@ -9,6 +9,8 @@
 
       Helper.prototype.linkify = function(source) {
         source = source.toLowerCase();
+        source = source.replace(/^\s*|\s*$/g, '');
+        source = source.replace(/:+/g, '');
         source = source.replace(/\s+/g, '-');
         return source.replace(/[?#&]+/g, '');
       };
