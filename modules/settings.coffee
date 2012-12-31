@@ -13,6 +13,7 @@ module.exports = ->
 					
 		marked: @marked
 		mongoose: @mongoose
-		url:'http://localhost:3000/'			
+		url:'http://localhost:3000/'
+		engine: 'Lighter Blog Engine'			
 	new Settings()
 	

@@ -1,7 +1,7 @@
 doctype xml
 
 feed(xmlns='http://www.w3.org/2005/Atom', xml:base='#{url}atom/feeds')
-	id urn:uuid:#{_id}
+	id urn:uuid:#{id}
 	title #{title}
 	updated #{updated.toISOString()}
 	link(rel='self', href='/atom/feeds')

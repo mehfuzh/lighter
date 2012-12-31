@@ -2,6 +2,17 @@ routes = (app, settings) =>
 	blog = (require __dirname+'/modules/blog')(settings.mongoose)
 	recent = []
 
+	app.get '/atom', (req, res) ->
+		res.header({'Content-Type': 'application/xml' })
+		res.render 'atom', 
+			title : 'Blog entries'
+			feedUrl	: settings.url + 'atom/feeds'
+
+	app.get '/atom/feeds', (req, res) ->
+		res.header({'Content-Type': 'application/xml' })
+		blog.find settings.url, (result)->
+			res.render 'feeds', result
+			
 	app.get '/:title', (req, res) ->
 		if recent.length is 0
 			# get the most recent posts, to be displayed on the right
@@ -22,7 +33,7 @@ routes = (app, settings) =>
 		blog.find host, (result) ->
 				for post in result.posts[0...5]
 					recent.push({
-							title			:	post.title
+							title		:	post.title
 							permaLink	:	post.permaLink
 					})
 				res.render 'index'
@@ -30,16 +41,11 @@ routes = (app, settings) =>
 					title : result.title
 					posts : result.posts
 					recent : recent
-			
-	app.get '/atom', (req, res) ->
-		res.header({'Content-Type': 'application/xml' })
-		res.render 'atom', 
-			title : 'Blog entries'
-			feedUrl	: settings.url + 'atom/feeds'
 
-	app.get '/atom/feeds', (req, res) ->
+	app.get '/metablog/wlwmanifest', (req, res) ->
 		res.header({'Content-Type': 'application/xml' })
-		blog.find settings.url, (result)->
-			res.render 'feeds', result
-
+		res.render 'wlwmanifest', 
+			service : settings.engine
+			host	: settings.url	
+					
 module.exports = routes
