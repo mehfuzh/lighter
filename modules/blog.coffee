@@ -65,6 +65,11 @@ module.exports = (mongoose)->
 					permaLink: permaLink,(err, data)=>
 						callback(data)
 				return
+				
+		findPostById: (id, callback)->
+			@post.findOne 
+				_id : id, (err, data)=>
+					callback(data)
 	
 		delete: (url) ->
 				@blog.find url : url, (err, data) =>

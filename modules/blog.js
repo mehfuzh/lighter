@@ -114,6 +114,15 @@
         });
       };
 
+      Blog.prototype.findPostById = function(id, callback) {
+        var _this = this;
+        return this.post.findOne({
+          _id: id
+        }, function(err, data) {
+          return callback(data);
+        });
+      };
+
       Blog.prototype["delete"] = function(url) {
         var _this = this;
         return this.blog.find({

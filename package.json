@@ -3,19 +3,16 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
-    "express": "3.0.0beta7",
+    "express": "*",
     "jade": ">= 0.0.1",
-    "coffee-script": "*",
-    "less": "~1.3.0",
-    "less-middleware": "~0.1.4",
+    "less": ">=1.3.0",
+    "less-middleware": ">=0.1.4",
     "mongoose": "*",
     "mongodb": "*",
-    "highlight.js": "~7.3.0",
-    "marked": "~0.2.6",
-    "node-dev": "*"
+    "highlight.js": ">=7.3.0",
+    "marked": ">=0.2.6"
   },
   "devDependencies": {
-    "should": "*",
-    "node-dev": "*"
+    "should": "*"
   }
 }

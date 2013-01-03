@@ -7,21 +7,59 @@
     var blog, recent;
     blog = (require(__dirname + '/modules/blog'))(settings.mongoose);
     recent = [];
-    app.get('/atom', function(req, res) {
+    app.get('/api/atom', function(req, res) {
       res.header({
         'Content-Type': 'application/xml'
       });
-      return res.render('atom', {
+      return res.render('atom/atom', {
         title: 'Blog entries',
-        feedUrl: settings.url + 'atom/feeds'
+        feedUrl: settings.url + 'api/atom/feeds'
       });
     });
-    app.get('/atom/feeds', function(req, res) {
+    app.get('/api/atom/feeds', function(req, res) {
       res.header({
         'Content-Type': 'application/xml'
       });
       return blog.find(settings.url, function(result) {
-        return res.render('feeds', result);
+        return res.render('atom/feeds', result);
+      });
+    });
+    app.post('/api/atom/feeds', function(req, res) {
+      var parser, xml2js;
+      res.header({
+        'Content-Type': 'application/atom+xml',
+        'Content-Location': '/entries/blogs/1'
+      });
+      res.statusCode = 201;
+      xml2js = require('xml2js');
+      parser = new xml2js.Parser({
+        ignoreAttrs: true,
+        explicitArray: false
+      });
+      return req.addListener('data', function(data) {
+        return parser.parseString(data, function(err, result) {
+          return console.log(result.entry);
+        });
+      });
+    });
+    app.get('/api/atom/entries/:id', function(req, res) {
+      res.header({
+        'Content-Type': 'application/xml'
+      });
+      return blog.findPostById(req.params.id, function(result) {
+        return res.render('atom/entries', {
+          post: result,
+          url: settings.url
+        });
+      });
+    });
+    app.get('/rsd.xml', function(req, res) {
+      res.header({
+        'Content-Type': 'application/xml'
+      });
+      return res.render('rsd', {
+        url: settings.url,
+        engine: settings.engine
       });
     });
     app.get('/:title', function(req, res) {
@@ -41,18 +79,20 @@
         });
       });
     });
-    app.get('/', function(req, res) {
+    return app.get('/', function(req, res) {
       var host;
       host = settings.url;
       return blog.find(host, function(result) {
         var post, _i, _len, _ref;
-        _ref = result.posts.slice(0, 5);
-        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-          post = _ref[_i];
-          recent.push({
-            title: post.title,
-            permaLink: post.permaLink
-          });
+        if (recent.length === 0) {
+          _ref = result.posts.slice(0, 5);
+          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+            post = _ref[_i];
+            recent.push({
+              title: post.title,
+              permaLink: post.permaLink
+            });
+          }
         }
         return res.render('index', {
           host: host,
@@ -60,15 +100,6 @@
           posts: result.posts,
           recent: recent
         });
-      });
-    });
-    return app.get('/metablog/wlwmanifest', function(req, res) {
-      res.header({
-        'Content-Type': 'application/xml'
-      });
-      return res.render('wlwmanifest', {
-        service: settings.engine,
-        host: settings.url
       });
     });
   };

@@ -1,9 +1,12 @@
-!!!5
+doctype html
 html
 	head
 		title #{title}
 		link(rel='stylesheet', href='/styles/style.css')
 		link(rel='stylesheet', href='/styles/highlight.css')
+		link(rel='EditURI', type='application/rsd+xml', title='RSD', href='/rsd.xml')
+		link(rel='alternate', type='application/atom+xml', title='#{title}', href='/api/atom')
+
 		body
 			header(class='main')	
 					h1 
