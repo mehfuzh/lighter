@@ -25,7 +25,15 @@
 
       Settings.prototype.url = 'http://localhost:3000/';
 
+      Settings.prototype.title = 'Mehfuz\'s Blog';
+
+      Settings.prototype.updated = new Date();
+
       Settings.prototype.engine = 'Lighter Blog Engine';
+
+      Settings.prototype.format = function(content) {
+        return this.marked(content);
+      };
 
       return Settings;
 

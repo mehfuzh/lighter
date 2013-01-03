@@ -1,12 +1,17 @@
-module.exports = (mongoose)->
+module.exports = (settings)->
 	class Blog
-		constructor: (mongoose) ->
-			@blog = mongoose.model 'blog'
-			@post = mongoose.model 'post'
+		constructor: (settings) ->
+			@settings = settings
+			@blog = settings.mongoose.model 'blog'
+			@post = settings.mongoose.model 'post'
 			@helper = (require __dirname + '/helper')()
 
 		create: (obj, callback) ->		
-			@blog.findOne url : obj.url, (err, data)=>
+			@blog.findOne url : @settings.url, (err, data)=>
+				# format
+				for post in obj.posts
+					post.title = post.title.trim()
+			
 				if data isnt null
 					@_post
 						id 		: data._id
@@ -16,9 +21,9 @@ module.exports = (mongoose)->
 								return
 				else
 					blog = new @blog
-						url		: obj.url
-						title	: obj.title
-						updated : obj.updated
+						url		: @settings.url
+						title	: @settings.title
+						updated : @settings.updated
 					blog.save (err, data) =>
 							if err == null
 								@_post
@@ -27,15 +32,16 @@ module.exports = (mongoose)->
 									, (data)->
 											callback(data)
 											return
-
-		find: (url, callback)->
-			@blog.findOne url : url, (err, data) =>
+		find:(callback, format)->
+			@blog.findOne url : @settings.url, (err, data) =>
 				if err!= null
 					throw err.message
 				blog = data
 				@post.find({id : blog._id}).sort({date: -1}).exec (err, data)=>
 					posts = []
 					for post in data
+						if (format)
+							post.body = settings.format(post.body)
 						posts.push post
 					callback({
 						id 		: blog._id
@@ -46,8 +52,8 @@ module.exports = (mongoose)->
 					})
 				return
 				
-		findMostRecent: (url, callback) ->
-			@blog.findOne url: url, (err, data) =>
+		findMostRecent: (callback) ->
+			@blog.findOne url: @settings.url, (err, data) =>
 				@post.find({id : data._id}).sort({date: -1}).limit(5).exec (err, data)=>
 						recent = []
 						for post in data
@@ -58,11 +64,13 @@ module.exports = (mongoose)->
 						callback(recent)
 				return
 				
-		findPost: (url, permaLink, callback)->
-			@blog.findOne url: url, (err, data) =>
+		findPost: (permaLink, callback, format)->
+			@blog.findOne url: @settings.url, (err, data) =>
 				@post.findOne 
 					id : data._id 
 					permaLink: permaLink,(err, data)=>
+						if (format)
+							data.body = @settings.format(data.body)
 						callback(data)
 				return
 				
@@ -71,11 +79,11 @@ module.exports = (mongoose)->
 				_id : id, (err, data)=>
 					callback(data)
 	
-		delete: (url) ->
-				@blog.find url : url, (err, data) =>
-					for blog in data
-							@post.remove id : blog._id, ()=>
-									@blog.remove url : url
+		delete: () ->
+			@blog.find url : @settings.url, (err, data) =>
+				for blog in data
+					@post.remove id : blog._id, ()=>
+						@blog.remove url : @settings.url
 
 		_post: (obj, callback) ->
 			for post in obj.posts
@@ -94,4 +102,4 @@ module.exports = (mongoose)->
 						callback(data)
 						return
 																	
-	new Blog mongoose
+	new Blog settings

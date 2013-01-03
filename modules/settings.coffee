@@ -14,6 +14,11 @@ module.exports = ->
 		marked: @marked
 		mongoose: @mongoose
 		url:'http://localhost:3000/'
-		engine: 'Lighter Blog Engine'			
+		title: 'Mehfuz\'s Blog'
+		updated: new Date()
+		engine: 'Lighter Blog Engine'
+		format: (content) ->
+			@marked(content)
+						
 	new Settings()
 	

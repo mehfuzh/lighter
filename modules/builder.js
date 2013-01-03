@@ -4,10 +4,10 @@
   module.exports = function(settings) {
     var blog, fs;
     fs = require('fs');
-    blog = require(__dirname + '/blog')(settings.mongoose);
+    blog = require(__dirname + '/blog')(settings);
     return fs.readFile(__dirname + '/../bin/post.md', 'utf8', function(err, result) {
       var content, post, posts, _i, _len, _ref;
-      blog["delete"](settings.url);
+      blog["delete"]();
       posts = [];
       _ref = result.split('#post');
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
@@ -16,15 +16,12 @@
           content = post.split('#block');
           posts.push({
             title: content[0],
-            body: settings.marked(content[1]),
+            body: content[1],
             author: content[2]
           });
         }
       }
       return blog.create({
-        url: settings.url,
-        title: 'Mehfuz\'s Blog',
-        updated: new Date(),
         posts: posts
       }, function(result) {
         if (result.id) {

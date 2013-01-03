@@ -5,7 +5,7 @@
 
   routes = function(app, settings) {
     var blog, recent;
-    blog = (require(__dirname + '/modules/blog'))(settings.mongoose);
+    blog = (require(__dirname + '/modules/blog'))(settings);
     recent = [];
     app.get('/api/atom', function(req, res) {
       res.header({
@@ -20,17 +20,12 @@
       res.header({
         'Content-Type': 'application/xml'
       });
-      return blog.find(settings.url, function(result) {
+      return blog.find(function(result) {
         return res.render('atom/feeds', result);
       });
     });
     app.post('/api/atom/feeds', function(req, res) {
       var parser, xml2js;
-      res.header({
-        'Content-Type': 'application/atom+xml',
-        'Content-Location': '/entries/blogs/1'
-      });
-      res.statusCode = 201;
       xml2js = require('xml2js');
       parser = new xml2js.Parser({
         ignoreAttrs: true,
@@ -38,7 +33,27 @@
       });
       return req.addListener('data', function(data) {
         return parser.parseString(data, function(err, result) {
-          return console.log(result.entry);
+          return blog.create({
+            posts: [
+              {
+                title: result.entry.title,
+                body: result.entry.content,
+                author: 'Mehfuz Hossain'
+              }
+            ]
+          }, function(result) {
+            var location;
+            location = settings.url + 'api/atom/entries/' + result._id;
+            res.header({
+              'Content-Type': req.headers['content-type'],
+              'Location': location
+            });
+            res.statusCode = 201;
+            return res.render('atom/entries', {
+              post: result,
+              url: settings.url
+            });
+          });
         });
       });
     });
@@ -65,11 +80,11 @@
     app.get('/:title', function(req, res) {
       var _this = this;
       if (recent.length === 0) {
-        blog.findMostRecent(settings.url, function(result) {
+        blog.findMostRecent(function(result) {
           recent = result;
         });
       }
-      return blog.findPost(settings.url, req.params.title, function(result) {
+      return blog.findPost(req.params.title, function(result) {
         return res.render('post', {
           host: settings.url,
           title: result.title,
@@ -77,12 +92,10 @@
           date: result.date,
           recent: recent
         });
-      });
+      }, true);
     });
     return app.get('/', function(req, res) {
-      var host;
-      host = settings.url;
-      return blog.find(host, function(result) {
+      return blog.find(function(result) {
         var post, _i, _len, _ref;
         if (recent.length === 0) {
           _ref = result.posts.slice(0, 5);
@@ -95,12 +108,12 @@
           }
         }
         return res.render('index', {
-          host: host,
+          host: result.url,
           title: result.title,
           posts: result.posts,
           recent: recent
         });
-      });
+      }, true);
     });
   };
 

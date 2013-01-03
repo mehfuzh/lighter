@@ -10,7 +10,8 @@
     "mongoose": "*",
     "mongodb": "*",
     "highlight.js": ">=7.3.0",
-    "marked": ">=0.2.6"
+    "marked": ">=0.2.6",
+    "xml2js": "~0.2.2"
   },
   "devDependencies": {
     "should": "*"

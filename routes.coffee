@@ -1,5 +1,5 @@
 routes = (app, settings) =>
-	blog = (require __dirname+'/modules/blog')(settings.mongoose)
+	blog = (require __dirname+'/modules/blog')(settings)
 	recent = []			
 				
 	app.get '/api/atom', (req, res) ->
@@ -10,28 +10,33 @@ routes = (app, settings) =>
 
 	app.get '/api/atom/feeds', (req, res) ->
 		res.header({'Content-Type': 'application/xml' })
-		blog.find settings.url, (result)->
-				res.render 'atom/feeds', result
+		blog.find (result)->
+			res.render 'atom/feeds', result
 	
 	app.post '/api/atom/feeds', (req, res) ->
-		res.header({
-			'Content-Type': 'application/atom+xml' 
-			'Content-Location' : '/entries/blogs/1'
-			})
-		# post is created.
-		res.statusCode = 201;
-		
 		xml2js = require 'xml2js'
 		parser = new xml2js.Parser({
 			ignoreAttrs 	: true
 			explicitArray : false
 		})
 		req.addListener 'data', (data) ->
-				parser.parseString data, (err, result) ->
-					console.log result.entry
-		# blog.find settings.url, (result)->
-		# 		res.render 'atom/feeds', result	
-		
+			parser.parseString data, (err, result) ->
+				blog.create
+					posts : [{
+						title   : result.entry.title
+						body    : result.entry.content
+						author : 'Mehfuz Hossain' 
+					}], (result)->
+						location = settings.url + 'api/atom/entries/' + result._id
+						res.header({
+							'Content-Type'		: req.headers['content-type'] 
+							'Location'			: location
+							})
+						# post is created.
+						res.statusCode = 201
+						res.render 'atom/entries', 
+							post : result
+							url  : settings.url
 			
 	app.get '/api/atom/entries/:id', (req, res) ->
 		res.header({'Content-Type': 'application/xml' })
@@ -49,38 +54,33 @@ routes = (app, settings) =>
 	app.get '/:title', (req, res) ->
 		if recent.length is 0
 			# get the most recent posts, to be displayed on the right
-			blog.findMostRecent settings.url, (result)=>
+			blog.findMostRecent (result)=>
 				recent = result
 				return
 
-		blog.findPost settings.url, req.params.title, (result)->
+		blog.findPost req.params.title, (result)->
 			res.render 'post', 
-				host 		:	settings.url
+				host 	: settings.url
 				title  	: result.title
 				body   	: result.body
 				date   	: result.date
-				recent 	: recent	
-	
+				recent 	: recent
+		,true		
+
 				
 	app.get '/', (req, res) ->
-		host  = settings.url
-		blog.find host, (result) ->
-				if (recent.length == 0)
-					for post in result.posts[0...5]
-						recent.push({
-								title		:	post.title
-								permaLink	:	post.permaLink
-						})
-				res.render 'index'
-					host : host
-					title : result.title
-					posts : result.posts
-					recent : recent
+		blog.find (result) ->
+			if (recent.length == 0)
+				for post in result.posts[0...5]
+					recent.push({
+							title		:	post.title
+							permaLink	:	post.permaLink
+					})
+			res.render 'index'
+				host : result.url
+				title : result.title
+				posts : result.posts
+				recent : recent
+		,true
 				
-	# app.post '/api/wlwmanifest.xml', (req, res) ->
-	# 	res.header({'Content-Type': 'text/xml' })
-	# 	res.render 'wlwmanifest', 
-	# 		service : settings.engine
-	# 		host	: settings.url	
-					
 module.exports = routes
