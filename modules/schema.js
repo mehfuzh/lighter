@@ -35,6 +35,7 @@
         });
         mongoose.model('blog', BlogSchema);
         mongoose.model('post', PostSchema);
+        mongoose.model('category', CategoriesSchema);
       }
 
       return Schema;

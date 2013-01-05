@@ -6,7 +6,11 @@ routes = (app, settings) =>
 		res.header({'Content-Type': 'application/xml' })
 		res.render 'atom/atom', 
 			title : 'Blog entries'
-			feedUrl	: settings.url + 'api/atom/feeds'
+			url	: settings.url
+			
+	app.get '/api/atom/categories', (req, res) ->
+		res.header({'Content-Type': 'application/xml' })
+		res.render 'atom/categories'
 
 	app.get '/api/atom/feeds', (req, res) ->
 		res.header({'Content-Type': 'application/xml' })
@@ -21,6 +25,7 @@ routes = (app, settings) =>
 		})
 		req.addListener 'data', (data) ->
 			parser.parseString data, (err, result) ->
+				console.log result
 				blog.create
 					posts : [{
 						title   : result.entry.title

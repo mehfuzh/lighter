@@ -13,8 +13,14 @@
       });
       return res.render('atom/atom', {
         title: 'Blog entries',
-        feedUrl: settings.url + 'api/atom/feeds'
+        url: settings.url
       });
+    });
+    app.get('/api/atom/categories', function(req, res) {
+      res.header({
+        'Content-Type': 'application/xml'
+      });
+      return res.render('atom/categories');
     });
     app.get('/api/atom/feeds', function(req, res) {
       res.header({
@@ -33,6 +39,7 @@
       });
       return req.addListener('data', function(data) {
         return parser.parseString(data, function(err, result) {
+          console.log(result);
           return blog.create({
             posts: [
               {

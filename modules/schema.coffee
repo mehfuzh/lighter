@@ -10,7 +10,7 @@ module.exports = (mongoose)->
 				CommentsSchema = new Schema
 						title : String
 						text	:	String
-						date		:	Date
+						date	:	Date
 
 				PostSchema = new Schema
 						id				:	ObjectId
@@ -19,7 +19,7 @@ module.exports = (mongoose)->
 						permaLink	: String
 						body			: String
 						date			: Date
-						categories: [CategoriesSchema]
+						categories:	[CategoriesSchema]
 						comments	:	[CommentsSchema]
 						publish		: Boolean
 
@@ -30,5 +30,6 @@ module.exports = (mongoose)->
 				
 				mongoose.model 'blog', BlogSchema
 				mongoose.model 'post', PostSchema
+				mongoose.model 'category', CategoriesSchema
 
 	new Schema(mongoose)

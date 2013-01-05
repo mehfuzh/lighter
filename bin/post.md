@@ -51,6 +51,10 @@ You can also find the location feature in most of the Photo apps that saves wher
 #block
 
 Mehfuz Hossain
+
+#block
+ios
+
 #post
 iOS Programming 101: Intro to MapKit API and Add an Annotation on Map
 
@@ -65,3 +69,6 @@ MapKit is a neat API, comes with the iOS SDK, that allows you to display maps, n
 #block
 
 Jon Asher
+
+#block
+ios objective-c

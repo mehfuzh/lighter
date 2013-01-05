@@ -6,7 +6,7 @@
     fs = require('fs');
     blog = require(__dirname + '/blog')(settings);
     return fs.readFile(__dirname + '/../bin/post.md', 'utf8', function(err, result) {
-      var content, post, posts, _i, _len, _ref;
+      var categories, category, content, post, posts, _i, _j, _len, _len1, _ref, _ref1;
       blog["delete"]();
       posts = [];
       _ref = result.split('#post');
@@ -14,10 +14,18 @@
         post = _ref[_i];
         if (post !== '') {
           content = post.split('#block');
+          categories = [];
+          _ref1 = content[3].split(' ');
+          for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
+            category = _ref1[_j];
+            category = category.replace(/^\n*|\n*$/g, '');
+            categories.push(category);
+          }
           posts.push({
             title: content[0],
             body: content[1],
-            author: content[2]
+            author: content[2],
+            categories: categories
           });
         }
       }

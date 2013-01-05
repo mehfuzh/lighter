@@ -1,7 +1,8 @@
 doctype xml
-service(xmlns='http://www.w3.org/2007/app', xmlns:atom='http://www.w3.org/2005/Atom')
+service(xmlns:app='http://www.w3.org/2007/app', xmlns:atom='http://www.w3.org/2005/Atom')
 	workspace
 		atom:title Main Site
-		collection(href='#{feedUrl}')
+		app:collection(href='#{url}api/atom/feeds')
 			atom:title #{title}
+			app:categories(href='#{url}api/atom/categories')
 			
