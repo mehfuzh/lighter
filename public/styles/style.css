@@ -242,6 +242,9 @@ body section.main section.content section article header h1 a {
   text-decoration: none;
 }
 body section.main section.content section article section {
+  width: 100%;
+  /* twitter bootstrap*/
+
   background: url('/images/header-bottom.png') repeat-x 100% 100%;
   margin-bottom: 1.5em;
   padding-bottom: 1em;
@@ -283,6 +286,22 @@ body section.main section.content section article section blockquote {
   margin: 5px 5px 20px;
   padding: 25px 5px 5px 70px;
 }
+body section.main section.content section article section span.category {
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  display: inline-block;
+  padding: 2px 4px;
+  font-size: 11.844px;
+  font-weight: bold;
+  line-height: 14px;
+  color: #ffffff;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  white-space: nowrap;
+  vertical-align: baseline;
+  background-color: #333333;
+  margin-right: 5px;
+}
 body section.main section.content section article section code {
   moz-border-radius-topleft: 5px;
   -webkit-border-top-left-radius: 5px;
@@ -292,7 +311,6 @@ body section.main section.content section article section code {
   border-top-right-radius: 5px;
   background: url('/images/code_bg.png') repeat-x 0 0, #002b36;
   padding-top: 40px;
-  overflow-x: auto;
   margin-top: 20px;
   margin-bottom: 20px;
 }

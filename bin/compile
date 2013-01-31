@@ -1,1 +1,1 @@
-coffee -cw modules/ routes.coffee test/
+coffee -cw modules/ routes.coffee config.coffee test/

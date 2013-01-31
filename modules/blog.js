@@ -10,6 +10,7 @@
         this.blog = settings.mongoose.model('blog');
         this.post = settings.mongoose.model('post');
         this.helper = (require(__dirname + '/helper'))();
+        this.category = (require(__dirname + '/category'))(settings);
       }
 
       Blog.prototype.create = function(obj, callback) {
@@ -111,10 +112,10 @@
 
       Blog.prototype.findPost = function(permaLink, callback, format) {
         var _this = this;
-        return this.blog.findOne({
+        this.blog.findOne({
           url: this.settings.url
         }, function(err, data) {
-          _this.post.findOne({
+          return _this.post.findOne({
             id: data._id,
             permaLink: permaLink
           }, function(err, data) {
@@ -135,46 +136,56 @@
         });
       };
 
-      Blog.prototype["delete"] = function() {
+      Blog.prototype["delete"] = function(callback) {
         var _this = this;
         return this.blog.find({
           url: this.settings.url
         }, function(err, data) {
-          var blog, _i, _len, _results;
-          _results = [];
+          var blog, _i, _len;
           for (_i = 0, _len = data.length; _i < _len; _i++) {
             blog = data[_i];
-            _results.push(_this.post.remove({
+            _this.post.remove({
               id: blog._id
             }, function() {
               return _this.blog.remove({
                 url: _this.settings.url
               });
-            }));
+            });
           }
-          return _results;
+          return _this.category.clear(function() {
+            return callback();
+          });
         });
       };
 
       Blog.prototype._post = function(obj, callback) {
-        var link, post, postSchema, _i, _len, _ref, _results;
+        var post, postSchema, _i, _len, _ref, _results,
+          _this = this;
         _ref = obj.posts;
         _results = [];
         for (_i = 0, _len = _ref.length; _i < _len; _i++) {
           post = _ref[_i];
-          link = this.helper.linkify(post.title);
           postSchema = new this.post({
             id: obj.id,
             title: post.title,
-            permaLink: link,
+            permaLink: this.helper.linkify(post.title),
             author: post.author,
             body: post.body,
             publish: 1,
-            date: new Date()
+            date: new Date(),
+            categories: post.categories
           });
           _results.push(postSchema.save(function(err, data) {
+            var category, _j, _len1, _ref1;
             if (err !== null) {
               callback(err.message);
+            }
+            if (data.categories) {
+              _ref1 = data.categories;
+              for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
+                category = _ref1[_j];
+                _this.category.refresh(category, function(id) {});
+              }
             }
             callback(data);
           }));

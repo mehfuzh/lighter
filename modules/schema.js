@@ -6,13 +6,20 @@
     Schema = (function() {
 
       function Schema(mongoose) {
-        var BlogSchema, CategoriesSchema, CommentsSchema, ObjectId, PostSchema;
+        var BlogSchema, CategorySchema, CommentSchema, ObjectId, PostSchema, UserSchema;
         Schema = mongoose.Schema;
         ObjectId = Schema.ObjectId;
-        CategoriesSchema = new Schema({
+        UserSchema = new Schema({
+          username: String,
+          password: String,
+          acive: Boolean,
+          created: Date
+        });
+        CategorySchema = new Schema({
+          permaLink: String,
           title: String
         });
-        CommentsSchema = new Schema({
+        CommentSchema = new Schema({
           title: String,
           text: String,
           date: Date
@@ -24,8 +31,8 @@
           permaLink: String,
           body: String,
           date: Date,
-          categories: [CategoriesSchema],
-          comments: [CommentsSchema],
+          categories: [String],
+          comments: [CommentSchema],
           publish: Boolean
         });
         BlogSchema = new Schema({
@@ -33,9 +40,10 @@
           title: String,
           updated: Date
         });
+        mongoose.model('user', UserSchema);
         mongoose.model('blog', BlogSchema);
+        mongoose.model('category', CategorySchema);
         mongoose.model('post', PostSchema);
-        mongoose.model('category', CategoriesSchema);
       }
 
       return Schema;

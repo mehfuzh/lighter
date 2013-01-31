@@ -4,9 +4,23 @@
     _this = this;
 
   routes = function(app, settings) {
-    var blog, recent;
+    var authorize, blog, category, helper, recent, request, xml2js;
     blog = (require(__dirname + '/modules/blog'))(settings);
+    helper = (require(__dirname + '/modules/helper'))();
+    category = (require(__dirname + '/modules/category'))(settings);
+    request = (require(__dirname + '/modules/request'))(settings);
+    xml2js = require('xml2js');
     recent = [];
+    authorize = function(req, res, next) {
+      return request.validate(req, function(result) {
+        if (result === null) {
+          res.statusCode = 401;
+          return res.end();
+        } else {
+          return next();
+        }
+      });
+    };
     app.get('/api/atom', function(req, res) {
       res.header({
         'Content-Type': 'application/xml'
@@ -20,7 +34,11 @@
       res.header({
         'Content-Type': 'application/xml'
       });
-      return res.render('atom/categories');
+      return category.all(function(result) {
+        return res.render('atom/categories', {
+          categories: result
+        });
+      });
     });
     app.get('/api/atom/feeds', function(req, res) {
       res.header({
@@ -30,22 +48,34 @@
         return res.render('atom/feeds', result);
       });
     });
-    app.post('/api/atom/feeds', function(req, res) {
-      var parser, xml2js;
-      xml2js = require('xml2js');
-      parser = new xml2js.Parser({
-        ignoreAttrs: true,
-        explicitArray: false
+    app.post('/api/atom/feeds', authorize, function(req, res) {
+      var parser,
+        _this = this;
+      request.validate(req, function(result) {
+        if (result === null) {
+          res.statusCode = 401;
+          return res.end();
+        }
       });
+      parser = new xml2js.Parser();
       return req.addListener('data', function(data) {
         return parser.parseString(data, function(err, result) {
-          console.log(result);
+          var cat, categories, _i, _len, _ref;
+          categories = [];
+          if (typeof result.entry.category !== 'undefined') {
+            _ref = result.entry.category;
+            for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+              cat = _ref[_i];
+              categories.push(cat.$.term);
+            }
+          }
           return blog.create({
             posts: [
               {
-                title: result.entry.title,
-                body: result.entry.content,
-                author: 'Mehfuz Hossain'
+                title: result.entry.title[0]._,
+                body: result.entry.content[0]._,
+                author: 'Mehfuz Hossain',
+                categories: categories
               }
             ]
           }, function(result) {
@@ -75,6 +105,10 @@
         });
       });
     });
+    app.put('/api/atom/entries/:id', function(req, res) {
+      console.log(req.headers);
+      return res.end();
+    });
     app.get('/rsd.xml', function(req, res) {
       res.header({
         'Content-Type': 'application/xml'
@@ -96,6 +130,7 @@
           host: settings.url,
           title: result.title,
           body: result.body,
+          categories: result.categories,
           date: result.date,
           recent: recent
         });

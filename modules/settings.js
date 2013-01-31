@@ -27,6 +27,10 @@
 
       Settings.prototype.title = 'Mehfuz\'s Blog';
 
+      Settings.prototype.username = 'admin';
+
+      Settings.prototype.password = 'admin';
+
       Settings.prototype.updated = new Date();
 
       Settings.prototype.engine = 'Lighter Blog Engine';

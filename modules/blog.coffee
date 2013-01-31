@@ -5,6 +5,7 @@ module.exports = (settings)->
 			@blog = settings.mongoose.model 'blog'
 			@post = settings.mongoose.model 'post'
 			@helper = (require __dirname + '/helper')()
+			@category = (require __dirname + '/category')(settings)
 
 		create: (obj, callback) ->		
 			@blog.findOne url : @settings.url, (err, data)=>
@@ -72,33 +73,38 @@ module.exports = (settings)->
 						if (format)
 							data.body = @settings.format(data.body)
 						callback(data)
-				return
-				
+			return 
+			
 		findPostById: (id, callback)->
 			@post.findOne 
 				_id : id, (err, data)=>
 					callback(data)
 	
-		delete: () ->
+		delete: (callback) ->     
 			@blog.find url : @settings.url, (err, data) =>
 				for blog in data
 					@post.remove id : blog._id, ()=>
 						@blog.remove url : @settings.url
+				@category.clear () ->
+						callback()
 
 		_post: (obj, callback) ->
 			for post in obj.posts
-				link =  @helper.linkify(post.title)
 				postSchema = new @post
 						id 				: obj.id
 						title 		: post.title
-						permaLink	:	link
+						permaLink	:	 @helper.linkify(post.title)
 						author 		:	post.author
 						body 			: post.body
 						publish : 1
 						date			:	new Date()		
-				postSchema.save (err, data) ->
-					if err != null
+						categories : post.categories
+				postSchema.save (err, data) =>
+						if err != null
 							callback(err.message)
+						if (data.categories)
+							for category in data.categories
+								@category.refresh category, (id)->
 						callback(data)
 						return
 																	

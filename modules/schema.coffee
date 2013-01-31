@@ -2,12 +2,19 @@ module.exports = (mongoose)->
 	class Schema
 		constructor: (mongoose)->
 				Schema = mongoose.Schema
-				ObjectId = Schema.ObjectId
+				ObjectId = Schema.ObjectId 
+				
+				UserSchema = new Schema
+					username	: String
+					password	:	String
+					acive		  : Boolean 
+					created		:	Date
 
-				CategoriesSchema = new Schema
+				CategorySchema = new Schema
+						permaLink	: String
 						title	: String
 
-				CommentsSchema = new Schema
+				CommentSchema = new Schema
 						title : String
 						text	:	String
 						date	:	Date
@@ -19,17 +26,18 @@ module.exports = (mongoose)->
 						permaLink	: String
 						body			: String
 						date			: Date
-						categories:	[CategoriesSchema]
-						comments	:	[CommentsSchema]
+						categories:	[String]
+						comments	:	[CommentSchema]
 						publish		: Boolean
 
 				 BlogSchema = new Schema
 						url			: String
 						title		: String
-						updated : Date
-				
+						updated : Date                
+						
+				mongoose.model 'user', UserSchema
 				mongoose.model 'blog', BlogSchema
+				mongoose.model 'category', CategorySchema
 				mongoose.model 'post', PostSchema
-				mongoose.model 'category', CategoriesSchema
 
 	new Schema(mongoose)

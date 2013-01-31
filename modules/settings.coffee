@@ -1,9 +1,9 @@
 module.exports = ->
 	class Settings
 		constructor: ->
-			@mongoose = require('mongoose')
+			@mongoose = require('mongoose')  
 			# init mongo
-			@mongoose.connect('mongodb://localhost/lighter');
+			@mongoose.connect 'mongodb://localhost/lighter'
 			@marked = require('marked')			
 			@marked.setOptions
 				highlight:(code,lang) ->
@@ -11,12 +11,14 @@ module.exports = ->
 					hl.tabReplace = '    '
 					(hl.highlightAuto code).value
 					
-		marked: @marked
-		mongoose: @mongoose
-		url:'http://localhost:3000/'
-		title: 'Mehfuz\'s Blog'
-		updated: new Date()
-		engine: 'Lighter Blog Engine'
+		marked		:	@marked
+		mongoose	:	@mongoose
+		url				:	'http://localhost:3000/'
+		title			:	'Mehfuz\'s Blog' 
+		username	:	'admin'
+		password	:	'admin'
+		updated		:	new Date()
+		engine		:	'Lighter Blog Engine'
 		format: (content) ->
 			@marked(content)
 						

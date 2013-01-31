@@ -6,5 +6,5 @@ module.exports = ()->
 			source = source.replace(/:+/g, '')
 			source = source.replace(/\s+/g, '-')
 			source.replace(/[?#&]+/g, '')			
-			
+				
 	return new Helper()

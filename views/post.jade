@@ -6,3 +6,5 @@ block content
 				time #{date.toDateString()}
 				h1 #{title}
 		section !{body}
+			for category in categories
+				span(class='category') #{category}

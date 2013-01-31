@@ -1,40 +1,59 @@
 routes = (app, settings) =>
-	blog = (require __dirname+'/modules/blog')(settings)
-	recent = []			
-				
-	app.get '/api/atom', (req, res) ->
-		res.header({'Content-Type': 'application/xml' })
+	blog = (require __dirname+'/modules/blog')(settings) 
+	helper = (require __dirname+'/modules/helper')()
+	
+	category = (require __dirname + '/modules/category')(settings) 
+	request = (require __dirname + '/modules/request')(settings)
+	xml2js = require 'xml2js'
+
+	recent = []			 
+	
+	authorize = (req, res, next)->
+		request.validate req, (result)->
+				if result == null
+					res.statusCode = 401
+					res.end()
+				else
+					next() 
+					
+	app.get '/api/atom', authorize, (req, res) ->
+		res.header({'Content-Type': 'application/xml' })      
 		res.render 'atom/atom', 
 			title : 'Blog entries'
 			url	: settings.url
-			
+
 	app.get '/api/atom/categories', (req, res) ->
 		res.header({'Content-Type': 'application/xml' })
-		res.render 'atom/categories'
+		category.all (result)->
+			res.render 'atom/categories',
+				categories:result
 
 	app.get '/api/atom/feeds', (req, res) ->
 		res.header({'Content-Type': 'application/xml' })
 		blog.find (result)->
 			res.render 'atom/feeds', result
 	
-	app.post '/api/atom/feeds', (req, res) ->
-		xml2js = require 'xml2js'
-		parser = new xml2js.Parser({
-			ignoreAttrs 	: true
-			explicitArray : false
-		})
-		req.addListener 'data', (data) ->
-			parser.parseString data, (err, result) ->
-				console.log result
+	app.post '/api/atom/feeds' (req, res) -> 
+		parser = new xml2js.Parser()
+		req.addListener 'data', (data) =>
+			parser.parseString data, (err, result) =>
+				categories = []
+			  
+				# process category.
+				if typeof(result.entry.category) != 'undefined'
+						for cat in result.entry.category
+							categories.push(cat.$.term)
+	    
 				blog.create
 					posts : [{
-						title   : result.entry.title
-						body    : result.entry.content
-						author : 'Mehfuz Hossain' 
+						title   		: result.entry.title[0]._
+						body    		: result.entry.content[0]._
+						author 			: 'Mehfuz Hossain'
+						categories 	: categories
 					}], (result)->
 						location = settings.url + 'api/atom/entries/' + result._id
 						res.header({
-							'Content-Type'		: req.headers['content-type'] 
+							'Content-Type'	: req.headers['content-type'] 
 							'Location'			: location
 							})
 						# post is created.
@@ -48,7 +67,11 @@ routes = (app, settings) =>
 		blog.findPostById req.params.id, (result)->
 				res.render 'atom/entries', 
 					post : result
-					url  : settings.url 
+					url  : settings.url        
+
+	app.put '/api/atom/entries/:id', (req, res)->
+		console.log req.headers                    
+		res.end()
 
 	app.get '/rsd.xml', (req, res) ->
 					res.header({'Content-Type': 'application/xml' })
@@ -65,11 +88,12 @@ routes = (app, settings) =>
 
 		blog.findPost req.params.title, (result)->
 			res.render 'post', 
-				host 	: settings.url
-				title  	: result.title
-				body   	: result.body
-				date   	: result.date
-				recent 	: recent
+				host 				: settings.url
+				title  			: result.title
+				body   			: result.body
+				categories 	: result.categories
+				date   			: result.date
+				recent 			: recent
 		,true		
 
 				
