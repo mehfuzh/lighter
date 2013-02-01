@@ -6,17 +6,20 @@ routes = (app, settings) =>
 	request = (require __dirname + '/modules/request')(settings)
 	xml2js = require 'xml2js'
 
-	recent = []			 
-	
+	recent = []
+
 	authorize = (req, res, next)->
 		request.validate req, (result)->
-				if result == null
-					res.statusCode = 401
-					res.end()
+				if result != null
+					console.log result
+					next()
+					return
 				else
-					next() 
+					res.send(401) 
+					return
+		return
 					
-	app.get '/api/atom', authorize, (req, res) ->
+	app.get '/api/atom',authorize, (req, res) ->
 		res.header({'Content-Type': 'application/xml' })      
 		res.render 'atom/atom', 
 			title : 'Blog entries'
@@ -33,7 +36,7 @@ routes = (app, settings) =>
 		blog.find (result)->
 			res.render 'atom/feeds', result
 	
-	app.post '/api/atom/feeds' (req, res) -> 
+	app.post '/api/atom/feeds', (req, res) -> 
 		parser = new xml2js.Parser()
 		req.addListener 'data', (data) =>
 			parser.parseString data, (err, result) =>
@@ -69,9 +72,16 @@ routes = (app, settings) =>
 					post : result
 					url  : settings.url        
 
-	app.put '/api/atom/entries/:id', (req, res)->
-		console.log req.headers                    
-		res.end()
+	app.put '/api/atom/entries/:id' , (req, res)->
+		blog.findPostById req.params.id, (result)->
+			console.log req.rawBody
+			res.render 'atom/entries', 
+				post : result
+				url  : settings.url        
+
+	app.delete '/api/atom/entries/:id', authorize , (req, res)->
+		blog.deletePost req.params.id,()->
+			res.end()
 
 	app.get '/rsd.xml', (req, res) ->
 					res.header({'Content-Type': 'application/xml' })
@@ -98,7 +108,7 @@ routes = (app, settings) =>
 
 				
 	app.get '/', (req, res) ->
-		blog.find (result) ->
+		blog.findFormatted (result) ->
 			if (recent.length == 0)
 				for post in result.posts[0...5]
 					recent.push({
@@ -110,6 +120,5 @@ routes = (app, settings) =>
 				title : result.title
 				posts : result.posts
 				recent : recent
-		,true
 				
 module.exports = routes

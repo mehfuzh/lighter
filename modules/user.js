@@ -8,6 +8,7 @@
       function User(settings) {
         this.settings = settings;
         this.user = settings.mongoose.model('user');
+        this.crypto = require('crypto');
       }
 
       User.prototype.init = function(callback) {
@@ -15,11 +16,13 @@
         return this.user.findOne({
           username: settings.username
         }, function(err, data) {
-          var user;
+          var password, user;
           if (data === null) {
+            password = _this.crypto.createHash('md5').update(settings.password.trim()).digest('hex');
+            console.log(password);
             user = new _this.user({
               username: settings.username,
-              password: settings.password,
+              password: password,
               active: true,
               created: new Date()
             });
@@ -36,16 +39,20 @@
       };
 
       User.prototype.find = function(username, password, callback) {
+        password = password.trim();
+        password = this.crypto.createHash('md5').update(password).digest('hex');
         return this.user.findOne({
-          username: username,
+          username: username.trim(),
           password: password
         }, function(err, data) {
           return callback(data);
         });
       };
 
-      User.prototype["delete"] = function() {
-        return this.user.remove(function() {});
+      User.prototype["delete"] = function(callback) {
+        return this.user.remove(function() {
+          return callback();
+        });
       };
 
       return User;

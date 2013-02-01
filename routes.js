@@ -12,16 +12,16 @@
     xml2js = require('xml2js');
     recent = [];
     authorize = function(req, res, next) {
-      return request.validate(req, function(result) {
-        if (result === null) {
-          res.statusCode = 401;
-          return res.end();
+      request.validate(req, function(result) {
+        if (result !== null) {
+          console.log(result);
+          next();
         } else {
-          return next();
+          res.send(401);
         }
       });
     };
-    app.get('/api/atom', function(req, res) {
+    app.get('/api/atom', authorize, function(req, res) {
       res.header({
         'Content-Type': 'application/xml'
       });
@@ -48,15 +48,9 @@
         return res.render('atom/feeds', result);
       });
     });
-    app.post('/api/atom/feeds', authorize, function(req, res) {
+    app.post('/api/atom/feeds', function(req, res) {
       var parser,
         _this = this;
-      request.validate(req, function(result) {
-        if (result === null) {
-          res.statusCode = 401;
-          return res.end();
-        }
-      });
       parser = new xml2js.Parser();
       return req.addListener('data', function(data) {
         return parser.parseString(data, function(err, result) {
@@ -106,8 +100,18 @@
       });
     });
     app.put('/api/atom/entries/:id', function(req, res) {
-      console.log(req.headers);
-      return res.end();
+      return blog.findPostById(req.params.id, function(result) {
+        console.log(req.rawBody);
+        return res.render('atom/entries', {
+          post: result,
+          url: settings.url
+        });
+      });
+    });
+    app["delete"]('/api/atom/entries/:id', authorize, function(req, res) {
+      return blog.deletePost(req.params.id, function() {
+        return res.end();
+      });
     });
     app.get('/rsd.xml', function(req, res) {
       res.header({
@@ -137,7 +141,7 @@
       }, true);
     });
     return app.get('/', function(req, res) {
-      return blog.find(function(result) {
+      return blog.findFormatted(function(result) {
         var post, _i, _len, _ref;
         if (recent.length === 0) {
           _ref = result.posts.slice(0, 5);
@@ -155,7 +159,7 @@
           posts: result.posts,
           recent: recent
         });
-      }, true);
+      });
     });
   };
 

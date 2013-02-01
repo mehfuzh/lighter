@@ -11,10 +11,8 @@ require('./config')(app)
 require(__dirname + '/modules/schema')(settings.mongoose);
 
 //  create user 
-
-
 if (process.env.NODE_ENV != 'production'){
-	require ('./modules/builder')(settings);
+	require (__dirname +'/modules/builder')(settings);
 }
 
 var user = require('./modules/user')(settings);
@@ -24,6 +22,7 @@ user.init(function(data){
 		console.log('user %s is initialized!',  data.username);
 	}
 });
+
 
 // Routes
 require('./routes')(app, settings);

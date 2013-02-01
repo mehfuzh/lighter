@@ -11,6 +11,18 @@
       app.set('view engine', 'jade');
       app.use(express.favicon());
       app.use(express.logger('dev'));
+      app.use(function(req, res, next) {
+        var data,
+          _this = this;
+        data = null;
+        req.on('data', function(chunk) {
+          data += chunk;
+        });
+        return req.on('end', function() {
+          req.rawBody = data;
+          next();
+        });
+      });
       app.use(express.bodyParser());
       app.use(express.methodOverride());
       app.use(app.router);

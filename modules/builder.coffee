@@ -4,7 +4,6 @@ module.exports = (settings) ->
 	user = require(__dirname + '/user')(settings) 
 	
 	fs.readFile __dirname + '/../bin/post.md','utf8', (err, result)->  
-		user.delete ()->
 	 	blog.delete ()->
 			posts = []	
 			for post in result.split('#post')
@@ -17,11 +16,9 @@ module.exports = (settings) ->
 					posts.push
 						title 	: content[0]
 						body 	: content[1]
-						author	: content[2]				
+						author	: content[2]
 						categories : categories		
 			blog.create
 				posts : posts, (result)->
 					if result.id isnt null
 						console.log result.permaLink
-													
-								

@@ -2,24 +2,26 @@
 (function() {
 
   module.exports = function(settings) {
-    var Request, user;
-    user = require(__dirname + '/user')(settings);
+    var Request;
     Request = (function() {
 
       function Request(settings) {
         this.settings = settings;
+        this.user = require(__dirname + '/user')(settings);
       }
 
       Request.prototype.validate = function(req, callback) {
-        var authValue, buff, content, credentials;
+        var authValue, buff, content, credentials, password, username;
         authValue = req.headers['authorization'];
         if (authValue.indexOf('Basic') >= 0) {
           buff = new Buffer(authValue.split(' ')[1], 'base64');
           content = buff.toString('utf8');
           if (content.indexOf(':') >= 0) {
             credentials = content.split(':');
-            return user.find(credentials[0], credentials[1], function(data) {
-              return callback(data);
+            username = credentials[0];
+            password = credentials[1];
+            this.user.find(username, password, function(data) {
+              callback(data);
             });
           }
         } else {

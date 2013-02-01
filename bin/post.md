@@ -49,7 +49,6 @@ Location services provide a way to improve your app by enhancing the user experi
 You can also find the location feature in most of the Photo apps that saves where the pictures are taken. The Core Location framework provides the necessary Objective-C interfaces for obtaining information about the user’s location. With the GPS coordinate obtained, you can make use of the API to decode the actual street or utilize the Map framework to further display the location on Map.
 
 #block
-
 Mehfuz Hossain
 
 #block
@@ -67,8 +66,7 @@ A month ago, we covered how to use Core Location framework to retrieve the user�
 MapKit is a neat API, comes with the iOS SDK, that allows you to display maps, navigate through maps, add annotations for specific locations, add overlays on existing maps, etc. In this tutorial, we’ll walk you though the basics of the API and show you how to place a pin on the map. As usual, rather than going through the theory, we’ll work on a simple app. Through the practice, we hope you’ll get a better idea about MapKit.
 
 #block
-
 Jon Asher
 
 #block
-ios objective-c
+objective-c

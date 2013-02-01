@@ -32,6 +32,7 @@
               callback(data);
             });
           } else {
+            console.log('here');
             blog = new _this.blog({
               url: _this.settings.url,
               title: _this.settings.title,
@@ -49,6 +50,10 @@
             });
           }
         });
+      };
+
+      Blog.prototype.findFormatted = function(callback, format) {
+        return this.find(callback, true);
       };
 
       Blog.prototype.find = function(callback, format) {
@@ -133,6 +138,14 @@
           _id: id
         }, function(err, data) {
           return callback(data);
+        });
+      };
+
+      Blog.prototype.deletePost = function(id, callback) {
+        return this.post.remove({
+          _id: id
+        }, function() {
+          return callback();
         });
       };
 

@@ -7,7 +7,7 @@ module.exports = (settings)->
 			@helper = (require __dirname + '/helper')()
 			@category = (require __dirname + '/category')(settings)
 
-		create: (obj, callback) ->		
+		create: (obj, callback) ->
 			@blog.findOne url : @settings.url, (err, data)=>
 				# format
 				for post in obj.posts
@@ -21,6 +21,7 @@ module.exports = (settings)->
 								callback(data)
 								return
 				else
+					console.log 'here'
 					blog = new @blog
 						url		: @settings.url
 						title	: @settings.title
@@ -33,6 +34,9 @@ module.exports = (settings)->
 									, (data)->
 											callback(data)
 											return
+		findFormatted:(callback, format)->
+			@find	callback, true
+			
 		find:(callback, format)->
 			@blog.findOne url : @settings.url, (err, data) =>
 				if err!= null
@@ -79,7 +83,12 @@ module.exports = (settings)->
 			@post.findOne 
 				_id : id, (err, data)=>
 					callback(data)
-	
+		
+		deletePost: (id, callback)->
+			@post.remove
+				_id : id, ()->
+					callback()
+		
 		delete: (callback) ->     
 			@blog.find url : @settings.url, (err, data) =>
 				for blog in data
