@@ -21,7 +21,6 @@ module.exports = (settings)->
 								callback(data)
 								return
 				else
-					console.log 'here'
 					blog = new @blog
 						url		: @settings.url
 						title	: @settings.title
@@ -83,6 +82,18 @@ module.exports = (settings)->
 			@post.findOne 
 				_id : id, (err, data)=>
 					callback(data)
+		
+		updatePost: (post, callback)->
+			@post.findOne
+				_id : post.id, (err, data)=>
+					data.body = post.body
+					data.title = post.title
+					data.categories = post.categories
+					if (data.categories)
+						for category in data.categories
+							@category.refresh category, (id)->
+					data.save (err, data)->
+						callback(data)
 		
 		deletePost: (id, callback)->
 			@post.remove

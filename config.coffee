@@ -9,7 +9,7 @@ config = (app)->
 		app.use(express.favicon())
 		app.use(express.logger('dev'))
 		app.use (req, res, next)->
-			data = null
+			data = ''
 			req.on 'data', (chunk)=>
 				data+= chunk
 				return

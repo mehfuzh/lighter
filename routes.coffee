@@ -18,8 +18,17 @@ routes = (app, settings) =>
 					res.send(401) 
 					return
 		return
+		
+	parseCategory = (entry)->
+		categories = []
+		# process category.
+		if typeof(entry.category) != 'undefined'
+				for cat in entry.category
+					categories.push(cat.$.term)
+		categories
+		
 					
-	app.get '/api/atom',authorize, (req, res) ->
+	app.get '/api/atom', (req, res) ->
 		res.header({'Content-Type': 'application/xml' })      
 		res.render 'atom/atom', 
 			title : 'Blog entries'
@@ -36,34 +45,26 @@ routes = (app, settings) =>
 		blog.find (result)->
 			res.render 'atom/feeds', result
 	
-	app.post '/api/atom/feeds', (req, res) -> 
-		parser = new xml2js.Parser()
-		req.addListener 'data', (data) =>
-			parser.parseString data, (err, result) =>
-				categories = []
-			  
-				# process category.
-				if typeof(result.entry.category) != 'undefined'
-						for cat in result.entry.category
-							categories.push(cat.$.term)
-	    
-				blog.create
-					posts : [{
-						title   		: result.entry.title[0]._
-						body    		: result.entry.content[0]._
-						author 			: 'Mehfuz Hossain'
-						categories 	: categories
-					}], (result)->
-						location = settings.url + 'api/atom/entries/' + result._id
-						res.header({
-							'Content-Type'	: req.headers['content-type'] 
-							'Location'			: location
-							})
-						# post is created.
-						res.statusCode = 201
-						res.render 'atom/entries', 
-							post : result
-							url  : settings.url
+	app.post '/api/atom/feeds', authorize, (req, res) -> 
+		parser = new xml2js.Parser()  
+		parser.parseString req.rawBody, (err, result) -> 
+			blog.create
+				posts : [{
+					title   		: result.entry.title[0]._
+					body    		: result.entry.content[0]._
+					author 			: 'Mehfuz Hossain'
+					categories 	: parseCategory result.entry
+				}], (result)->
+					location = settings.url + 'api/atom/entries/' + result._id
+					res.header({
+						'Content-Type'	: req.headers['content-type'] 
+						'Location'			: location
+						})
+					# post is created.
+					res.statusCode = 201
+					res.render 'atom/entries', 
+						post : result
+						url  : settings.url 
 			
 	app.get '/api/atom/entries/:id', (req, res) ->
 		res.header({'Content-Type': 'application/xml' })
@@ -72,12 +73,17 @@ routes = (app, settings) =>
 					post : result
 					url  : settings.url        
 
-	app.put '/api/atom/entries/:id' , (req, res)->
-		blog.findPostById req.params.id, (result)->
-			console.log req.rawBody
-			res.render 'atom/entries', 
-				post : result
-				url  : settings.url        
+	app.put '/api/atom/entries/:id',authorize, (req, res)->
+			parser = new xml2js.Parser()
+			parser.parseString req.rawBody, (err, result) ->
+				blog.updatePost 
+					id		:	req.params.id
+					title	:	result.entry.title[0]._ 
+					body	:	result.entry.content[0]._
+					categories	: parseCategory result.entry, (result)->
+				  res.render 'atom/entries', 
+						post : result
+						url  : settings.url        
 
 	app.delete '/api/atom/entries/:id', authorize , (req, res)->
 		blog.deletePost req.params.id,()->

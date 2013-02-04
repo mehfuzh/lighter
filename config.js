@@ -14,7 +14,7 @@
       app.use(function(req, res, next) {
         var data,
           _this = this;
-        data = null;
+        data = '';
         req.on('data', function(chunk) {
           data += chunk;
         });

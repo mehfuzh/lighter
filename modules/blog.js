@@ -32,7 +32,6 @@
               callback(data);
             });
           } else {
-            console.log('here');
             blog = new _this.blog({
               url: _this.settings.url,
               title: _this.settings.title,
@@ -138,6 +137,28 @@
           _id: id
         }, function(err, data) {
           return callback(data);
+        });
+      };
+
+      Blog.prototype.updatePost = function(post, callback) {
+        var _this = this;
+        return this.post.findOne({
+          _id: post.id
+        }, function(err, data) {
+          var category, _i, _len, _ref;
+          data.body = post.body;
+          data.title = post.title;
+          data.categories = post.categories;
+          if (data.categories) {
+            _ref = data.categories;
+            for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+              category = _ref[_i];
+              _this.category.refresh(category, function(id) {});
+            }
+          }
+          return data.save(function(err, data) {
+            return callback(data);
+          });
         });
       };
 
