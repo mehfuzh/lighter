@@ -68,13 +68,12 @@ module.exports = (settings)->
 						callback(recent)
 				return
 				
-		findPost: (permaLink, callback, format)->
+		findPost: (permaLink, callback)->
 			@blog.findOne url: @settings.url, (err, data) =>
 				@post.findOne 
 					id : data._id 
 					permaLink: permaLink,(err, data)=>
-						if (format)
-							data.body = @settings.format(data.body)
+						data.body = @settings.format(data.body)
 						callback(data)
 			return 
 			

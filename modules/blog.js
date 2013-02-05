@@ -114,7 +114,7 @@
         });
       };
 
-      Blog.prototype.findPost = function(permaLink, callback, format) {
+      Blog.prototype.findPost = function(permaLink, callback) {
         var _this = this;
         this.blog.findOne({
           url: this.settings.url
@@ -123,9 +123,7 @@
             id: data._id,
             permaLink: permaLink
           }, function(err, data) {
-            if (format) {
-              data.body = _this.settings.format(data.body);
-            }
+            data.body = _this.settings.format(data.body);
             return callback(data);
           });
         });

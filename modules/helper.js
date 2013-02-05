@@ -2,7 +2,9 @@
 (function() {
 
   module.exports = function() {
-    var Helper;
+    var Helper, date, util;
+    util = require('util');
+    date = new Date();
     Helper = (function() {
 
       function Helper() {}
@@ -12,7 +14,8 @@
         source = source.replace(/^\s*|\s*$/g, '');
         source = source.replace(/:+/g, '');
         source = source.replace(/\s+/g, '-');
-        return source.replace(/[?#&]+/g, '');
+        source.replace(/[?#&]+/g, '');
+        return util.format("%s/%s/%s", date.getFullYear(), date.getMonth() + 1, source);
       };
 
       return Helper;

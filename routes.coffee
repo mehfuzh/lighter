@@ -1,4 +1,5 @@
-routes = (app, settings) =>
+routes = (app, settings) => 
+	util = require('util')
 	blog = (require __dirname+'/modules/blog')(settings) 
 	helper = (require __dirname+'/modules/helper')()
 	
@@ -95,14 +96,14 @@ routes = (app, settings) =>
 						url : settings.url
 						engine : settings.engine
 				
-	app.get '/:title', (req, res) ->
+	app.get '/:year/:month/:title', (req, res) ->
+		link = util.format("%s/%s/%s", req.params.year, req.params.month, req.params.title)
 		if recent.length is 0
 			# get the most recent posts, to be displayed on the right
 			blog.findMostRecent (result)=>
 				recent = result
 				return
-
-		blog.findPost req.params.title, (result)->
+		blog.findPost link, (result)->
 			res.render 'post', 
 				host 				: settings.url
 				title  			: result.title
@@ -110,8 +111,6 @@ routes = (app, settings) =>
 				categories 	: result.categories
 				date   			: result.date
 				recent 			: recent
-		,true		
-
 				
 	app.get '/', (req, res) ->
 		blog.findFormatted (result) ->

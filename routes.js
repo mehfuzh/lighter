@@ -4,7 +4,8 @@
     _this = this;
 
   routes = function(app, settings) {
-    var authorize, blog, category, helper, parseCategory, recent, request, xml2js;
+    var authorize, blog, category, helper, parseCategory, recent, request, util, xml2js;
+    util = require('util');
     blog = (require(__dirname + '/modules/blog'))(settings);
     helper = (require(__dirname + '/modules/helper'))();
     category = (require(__dirname + '/modules/category'))(settings);
@@ -130,14 +131,16 @@
         engine: settings.engine
       });
     });
-    app.get('/:title', function(req, res) {
-      var _this = this;
+    app.get('/:year/:month/:title', function(req, res) {
+      var link,
+        _this = this;
+      link = util.format("%s/%s/%s", req.params.year, req.params.month, req.params.title);
       if (recent.length === 0) {
         blog.findMostRecent(function(result) {
           recent = result;
         });
       }
-      return blog.findPost(req.params.title, function(result) {
+      return blog.findPost(link, function(result) {
         return res.render('post', {
           host: settings.url,
           title: result.title,
@@ -146,7 +149,7 @@
           date: result.date,
           recent: recent
         });
-      }, true);
+      });
     });
     return app.get('/', function(req, res) {
       return blog.findFormatted(function(result) {
