@@ -13,7 +13,7 @@
       Request.prototype.validate = function(req, callback) {
         var authValue, buff, content, credentials, password, username;
         authValue = req.headers['authorization'];
-        if (authValue.indexOf('Basic') >= 0) {
+        if (typeof authValue !== 'undefined' && authValue.indexOf('Basic') >= 0) {
           buff = new Buffer(authValue.split(' ')[1], 'base64');
           content = buff.toString('utf8');
           if (content.indexOf(':') >= 0) {

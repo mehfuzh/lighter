@@ -6,7 +6,7 @@ module.exports = (settings)->
 
 		validate:(req, callback)->  
 			authValue = req.headers['authorization']     
-			if authValue.indexOf('Basic') >= 0
+			if typeof(authValue) != 'undefined' and authValue.indexOf('Basic') >= 0
 				buff = new Buffer(authValue.split(' ')[1] ,'base64')
 				content = buff.toString('utf8')
 				if content.indexOf(':') >= 0
