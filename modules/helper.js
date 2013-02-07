@@ -2,9 +2,8 @@
 (function() {
 
   module.exports = function() {
-    var Helper, date, util;
+    var Helper, util;
     util = require('util');
-    date = new Date();
     Helper = (function() {
 
       function Helper() {}
@@ -15,7 +14,18 @@
         source = source.replace(/:+/g, '');
         source = source.replace(/\s+/g, '-');
         source.replace(/[?#&]+/g, '');
-        return util.format("%s/%s/%s", date.getFullYear(), date.getMonth() + 1, source);
+        return util.format("%s/%s", this.dateNow(), source);
+      };
+
+      Helper.prototype.dateNow = function() {
+        var dateNow, mm, yy;
+        dateNow = new Date();
+        mm = dateNow.getMonth() + 1;
+        if (mm < 10) {
+          mm = '0' + mm;
+        }
+        yy = dateNow.getFullYear();
+        return util.format('%s/%s', yy, mm);
       };
 
       return Helper;
