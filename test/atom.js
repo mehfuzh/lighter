@@ -39,25 +39,37 @@
           return done();
         });
       });
-      return;
-      describe('With authorization header', function() {});
-      return it('should respond correct status code', function(done) {
-        var post;
-        post = request.post('/api/atom/feeds');
-        post.set('Content-Type', 'application/atom+xml');
-        post.set('authorization', util.format('Basic %s', new Buffer('admin:admin').toString('base64')));
-        return fs.readFile(__dirname + '/post.xml', 'utf8', function(err, result) {
-          post.write(result);
-          return post.expect(201).end(function(err, res) {
-            var parser;
-            if (err !== null) {
-              throw err;
-            }
-            parser = new xml2js.Parser();
-            parser.parseString(res.text, function(err, result) {
-              result.entry.title[0].should.be.ok;
-              return result.entry.content[0].should.be.ok;
+      return describe('With authorization header', function() {
+        var id,
+          _this = this;
+        id = '';
+        it('should respond correct status code', function(done) {
+          var post;
+          post = request.post('/api/atom/feeds');
+          post.set('Content-Type', 'application/atom+xml');
+          post.set('authorization', util.format('Basic %s', new Buffer('admin:admin').toString('base64')));
+          return fs.readFile(__dirname + '/post.xml', 'utf8', function(err, result) {
+            post.write(result);
+            return post.expect(201).end(function(err, res) {
+              var parser;
+              if (err !== null) {
+                throw err;
+              }
+              parser = new xml2js.Parser();
+              parser.parseString(res.text, function(err, result) {
+                var lastIndex;
+                result.entry.title[0].should.be.ok;
+                result.entry.content[0].should.be.ok;
+                result.entry.id[0].should.be.ok;
+                lastIndex = result.entry.id[0].lastIndexOf('/') + 1;
+                return id = result.entry.id[0].substr(lastIndex);
+              });
+              return done();
             });
+          });
+        });
+        return afterEach(function(done) {
+          return blog.deletePost(id, function() {
             return done();
           });
         });

@@ -10,8 +10,9 @@
 
   describe('Blog', function() {
     return describe('findPost', function() {
-      var expected;
+      var expected, _id;
       expected = 'test post';
+      _id = '';
       beforeEach(function(done) {
         var _this = this;
         return blog.create({
@@ -23,7 +24,7 @@
             }
           ]
         }, function(result) {
-          console.log(result.id);
+          _id = result._id;
           return done();
         });
       });
@@ -35,7 +36,7 @@
         });
       });
       return afterEach(function(done) {
-        return blog["delete"](function() {
+        return blog.deletePost(_id, function() {
           return done();
         });
       });

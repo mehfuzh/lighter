@@ -5,6 +5,7 @@ blog = require __dirname + '/init'
 describe 'Blog', ->    
 	describe 'findPost', ->
 		expected = 'test post'
+		_id = ''
 		beforeEach (done)->     
 		  	blog.create
 				  posts			: [{
@@ -12,7 +13,7 @@ describe 'Blog', ->
 						author 	:	'Mehfuz Hossain'
 						body		:	'Empty body'}]
 						,(result) =>
-							console.log result.id
+							_id = result._id
 							done()
   	
 	 	it 'should return expected for permaLink', (done)->    
@@ -22,6 +23,6 @@ describe 'Blog', ->
 				 	done()
 	  
 	  afterEach (done)->        
-				blog.delete ()->
+				blog.deletePost _id, ()->
 			  	done()  
  
