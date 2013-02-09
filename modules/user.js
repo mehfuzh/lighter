@@ -17,9 +17,8 @@
           username: settings.username
         }, function(err, data) {
           var password, user;
+          password = _this.crypto.createHash('md5').update(settings.password.trim()).digest('hex');
           if (data === null) {
-            password = _this.crypto.createHash('md5').update(settings.password.trim()).digest('hex');
-            console.log(password);
             user = new _this.user({
               username: settings.username,
               password: password,
@@ -33,7 +32,11 @@
               return callback(data);
             });
           } else {
-            return callback(data);
+            data.username = settings.username;
+            data.password = password;
+            return data.save(function(err, data) {
+              return callback(data);
+            });
           }
         });
       };

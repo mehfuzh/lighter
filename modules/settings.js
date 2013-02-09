@@ -29,7 +29,7 @@
 
       Settings.prototype.username = 'admin';
 
-      Settings.prototype.password = 'admin';
+      Settings.prototype.password = '1234';
 
       Settings.prototype.updated = new Date();
 

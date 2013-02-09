@@ -16,7 +16,7 @@ module.exports = ->
 		url				:	'http://localhost:3000/'
 		title			:	'Mehfuz\'s Blog' 
 		username	:	'admin'
-		password	:	'admin'
+		password	:	'1234'
 		updated		:	new Date()
 		engine		:	'Lighter Blog Engine'
 		format: (content) ->

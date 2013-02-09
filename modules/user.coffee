@@ -8,9 +8,8 @@ module.exports = (settings)->
 		# 	initializes the user from settings.
 		init:	(callback)->
 			 	@user.findOne username : settings.username, (err, data)=>
+						password = @crypto.createHash('md5').update(settings.password.trim()).digest('hex')
 						if data is null
-							password = @crypto.createHash('md5').update(settings.password.trim()).digest('hex')
-							console.log password
 							user = new @user
 								username	:	settings.username
 								password	:	password
@@ -20,8 +19,12 @@ module.exports = (settings)->
 								if err isnt null
 									throw err
 								callback(data)
-						else    
-					  	callback(data) 
+						else 
+							data.username = settings.username
+							data.password = password
+							data.save (err, data)->
+							  callback(data) 
+
 		find:(username, password, callback)->
 			password = password.trim()
 			password = @crypto.createHash('md5').update(password).digest('hex')
