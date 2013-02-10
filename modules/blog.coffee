@@ -8,7 +8,7 @@ module.exports = (settings)->
 			@category = (require __dirname + '/category')(settings)
 
 		create: (obj, callback) ->
-			@blog.findOne url : @settings.url, (err, data)=>
+			@blog.findOne url : @settings.url(), (err, data)=>
 				# format
 				for post in obj.posts
 					post.title = post.title.trim()
@@ -22,7 +22,7 @@ module.exports = (settings)->
 								return
 				else
 					blog = new @blog
-						url		: @settings.url
+						url		: @settings.url()
 						title	: @settings.title
 						updated : @settings.updated
 					blog.save (err, data) =>
@@ -37,7 +37,7 @@ module.exports = (settings)->
 			@find	callback, true
 			
 		find:(callback, format)->
-			@blog.findOne url : @settings.url, (err, data) =>
+			@blog.findOne url : @settings.url(), (err, data) =>
 				if err!= null
 					throw err.message
 				blog = data
@@ -57,7 +57,7 @@ module.exports = (settings)->
 				return
 				
 		findMostRecent: (callback) ->
-			@blog.findOne url: @settings.url, (err, data) =>
+			@blog.findOne url: @settings.url(), (err, data) =>
 				@post.find({id : data._id}).sort({date: -1}).limit(5).exec (err, data)=>
 						recent = []
 						for post in data
@@ -69,7 +69,7 @@ module.exports = (settings)->
 				return
 				
 		findPost: (permaLink, callback)->
-			@blog.findOne url: @settings.url, (err, data) =>
+			@blog.findOne url: @settings.url(), (err, data) =>
 				@post.findOne 
 					id : data._id 
 					permaLink: permaLink,(err, data)=>
@@ -100,7 +100,7 @@ module.exports = (settings)->
 					callback()
 		
 		delete: (callback) ->     
-			@blog.find url : @settings.url, (err, data) =>
+			@blog.find url : @settings.url(), (err, data) =>
 				for blog in data
 					@post.remove id : blog._id, ()=>
 						@blog.remove url : @settings.url

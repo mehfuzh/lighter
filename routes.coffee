@@ -33,7 +33,7 @@ routes = (app, settings) =>
 		res.header({'Content-Type': 'application/xml' })      
 		res.render 'atom/atom', 
 			title : 'Blog entries'
-			url	: settings.url
+			url	: settings.url()
 
 	app.get '/api/atom/categories', (req, res) ->
 		res.header({'Content-Type': 'application/xml' })
@@ -56,7 +56,7 @@ routes = (app, settings) =>
 					author 			: 'Mehfuz Hossain'
 					categories 	: parseCategory result.entry
 				}], (result)->
-					location = settings.url + 'api/atom/entries/' + result._id
+					location = settings.url() + 'api/atom/entries/' + result._id
 					res.header({
 						'Content-Type'	: req.headers['content-type'] 
 						'Location'			: location
@@ -65,14 +65,14 @@ routes = (app, settings) =>
 					res.statusCode = 201
 					res.render 'atom/entries', 
 						post : result
-						url  : settings.url 
+						url  : settings.url() 
 			
 	app.get '/api/atom/entries/:id', (req, res) ->
 		res.header({'Content-Type': 'application/xml' })
 		blog.findPostById req.params.id, (result)->
 				res.render 'atom/entries', 
 					post : result
-					url  : settings.url        
+					url  : settings.url()        
 
 	app.put '/api/atom/entries/:id',authorize, (req, res)->
 			parser = new xml2js.Parser()
@@ -84,7 +84,7 @@ routes = (app, settings) =>
 					categories	: parseCategory result.entry, (result)->
 				  res.render 'atom/entries', 
 						post : result
-						url  : settings.url        
+						url  : settings.url()        
 
 	app.delete '/api/atom/entries/:id', authorize , (req, res)->
 		blog.deletePost req.params.id,()->
@@ -93,7 +93,7 @@ routes = (app, settings) =>
 	app.get '/rsd.xml', (req, res) ->
 					res.header({'Content-Type': 'application/xml' })
 					res.render 'rsd',
-						url : settings.url
+						url : settings.url()
 						engine : settings.engine
 				
 	app.get '/:year/:month/:title', (req, res) ->
@@ -105,7 +105,7 @@ routes = (app, settings) =>
 				return
 		blog.findPost link, (result)->
 			res.render 'post', 
-				host 				: settings.url
+				host 				: settings.url()
 				title  			: result.title
 				body   			: result.body
 				categories 	: result.categories

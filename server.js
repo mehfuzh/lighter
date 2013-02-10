@@ -1,12 +1,13 @@
 
 var express = require('express')
-  , http = require('http')
-	, settings = require( __dirname + '/modules/settings')();
+  , http = require('http');
 
 // Configuration
 var app = express();
 
 require('./config')(app)
+
+var settings = require( __dirname + '/modules/settings')(app)
 
 require(__dirname + '/modules/schema')(settings.mongoose);
 

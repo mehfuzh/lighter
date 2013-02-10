@@ -1,6 +1,6 @@
-module.exports = ->
+module.exports = (app)->
 	class Settings
-		constructor: ->
+		constructor:(app) ->
 			@mongoose = require('mongoose')  
 			# init mongo        
 			url = process.env.MONGODB_URI || process.env.MONGOLAB_URI || 'mongodb://localhost/lighter'
@@ -14,8 +14,8 @@ module.exports = ->
 					
 		marked		:	@marked
 		mongoose	:	@mongoose
-		url				:	'http://localhost:3000/'
-		title			:	'Mehfuz\'s Blog' 
+		url				:	()=> app.host || 'http://localhost/'
+		title			:	process.env.BLOG_TITLE || 'Mehfuz\'s Blog'
 		username	:	process.env.USERNAME || 'admin'
 		password	:	process.env.PASSWORD || 'admin'
 		updated		:	new Date()

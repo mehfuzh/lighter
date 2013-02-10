@@ -1,5 +1,5 @@
 express = require 'express'
-
+util = require 'util'
 config = (app)->
 
 	app.configure ()->
@@ -9,6 +9,7 @@ config = (app)->
 		app.use(express.favicon())
 		app.use(express.logger('dev'))
 		app.use (req, res, next)->
+			app.host = util.format('http://%s/', req.headers['host'])
 			data = ''
 			req.on 'data', (chunk)=>
 				data+= chunk

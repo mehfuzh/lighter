@@ -40,7 +40,7 @@
       });
       return res.render('atom/atom', {
         title: 'Blog entries',
-        url: settings.url
+        url: settings.url()
       });
     });
     app.get('/api/atom/categories', function(req, res) {
@@ -76,7 +76,7 @@
           ]
         }, function(result) {
           var location;
-          location = settings.url + 'api/atom/entries/' + result._id;
+          location = settings.url() + 'api/atom/entries/' + result._id;
           res.header({
             'Content-Type': req.headers['content-type'],
             'Location': location
@@ -84,7 +84,7 @@
           res.statusCode = 201;
           return res.render('atom/entries', {
             post: result,
-            url: settings.url
+            url: settings.url()
           });
         });
       });
@@ -96,7 +96,7 @@
       return blog.findPostById(req.params.id, function(result) {
         return res.render('atom/entries', {
           post: result,
-          url: settings.url
+          url: settings.url()
         });
       });
     });
@@ -112,7 +112,7 @@
         }, function(result) {
           return res.render('atom/entries', {
             post: result,
-            url: settings.url
+            url: settings.url()
           });
         });
       });
@@ -127,7 +127,7 @@
         'Content-Type': 'application/xml'
       });
       return res.render('rsd', {
-        url: settings.url,
+        url: settings.url(),
         engine: settings.engine
       });
     });
@@ -142,7 +142,7 @@
       }
       return blog.findPost(link, function(result) {
         return res.render('post', {
-          host: settings.url,
+          host: settings.url(),
           title: result.title,
           body: result.body,
           categories: result.categories,

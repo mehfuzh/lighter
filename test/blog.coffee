@@ -1,6 +1,7 @@
 require 'should'      
 helper = (require '../modules/helper')() 
-blog = require __dirname + '/init'
+app = {}
+blog = (require __dirname + '/init')
 
 describe 'Blog', ->    
 	describe 'findPost', ->

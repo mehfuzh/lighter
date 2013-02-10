@@ -6,11 +6,11 @@ request = require 'supertest'
 xml2js = require 'xml2js'      
 util = require('util')                               
 
-blog = require __dirname + '/init'
 path = require 'path'
 fs = require('fs')  
 
 app = express()         
+blog = (require __dirname + '/init')
 
 (require path.join(__dirname, '../config'))(app)
 (require path.join(__dirname, '../routes'))(app, blog.settings)
