@@ -1,19 +1,19 @@
 doctype xml
-feed(xmlns='http://www.w3.org/2005/Atom', xml:base='#{url}')
-	id #{url}
+feed(xmlns='http://www.w3.org/2005/Atom', xml:base='#{host}')
+	id #{host}
 	title #{title}
-	link(rel='self', href='#{url}api/atom/feeds')
-	link(href='#{url}')
+	link(rel='self', href='#{host}api/atom/feeds')
+	link(href='#{host}')
 	updated #{updated.toISOString()}
 	
 	for post in posts
 		entry(xmlns='http://www.w3.org/2005/Atom')
 			title #{post.title}
-			id #{url}api/atom/entries/#{post._id}
+			id #{host}api/atom/entries/#{post._id}
 			updated #{post.date.toISOString()}
 			author
 				name #{post.author}
 			content #{post.body}		
-			link(href='#{url}api/atom/entries/#{post._id}')
-			link(rel='edit', href='#{url}api/atom/entries/#{post._id}')
+			link(href='#{host}api/atom/entries/#{post._id}')
+			link(rel='edit', href='#{host}api/atom/entries/#{post._id}')
 			

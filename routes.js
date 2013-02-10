@@ -40,7 +40,7 @@
       });
       return res.render('atom/atom', {
         title: 'Blog entries',
-        url: settings.url()
+        host: app.host
       });
     });
     app.get('/api/atom/categories', function(req, res) {
@@ -58,7 +58,12 @@
         'Content-Type': 'application/xml'
       });
       return blog.find(function(result) {
-        return res.render('atom/feeds', result);
+        return res.render('atom/feeds', {
+          host: app.host,
+          title: result.title,
+          updated: result.updated,
+          posts: result.posts
+        });
       });
     });
     app.post('/api/atom/feeds', authorize, function(req, res) {
@@ -76,7 +81,7 @@
           ]
         }, function(result) {
           var location;
-          location = settings.url() + 'api/atom/entries/' + result._id;
+          location = app.host + 'api/atom/entries/' + result._id;
           res.header({
             'Content-Type': req.headers['content-type'],
             'Location': location
@@ -84,7 +89,7 @@
           res.statusCode = 201;
           return res.render('atom/entries', {
             post: result,
-            url: settings.url()
+            host: app.host
           });
         });
       });
@@ -96,7 +101,7 @@
       return blog.findPostById(req.params.id, function(result) {
         return res.render('atom/entries', {
           post: result,
-          url: settings.url()
+          host: app.host
         });
       });
     });
@@ -112,7 +117,7 @@
         }, function(result) {
           return res.render('atom/entries', {
             post: result,
-            url: settings.url()
+            host: app.host
           });
         });
       });
@@ -127,7 +132,7 @@
         'Content-Type': 'application/xml'
       });
       return res.render('rsd', {
-        url: settings.url(),
+        host: app.host,
         engine: settings.engine
       });
     });
@@ -142,7 +147,7 @@
       }
       return blog.findPost(link, function(result) {
         return res.render('post', {
-          host: settings.url(),
+          host: app.host,
           title: result.title,
           body: result.body,
           categories: result.categories,
@@ -165,7 +170,7 @@
           }
         }
         return res.render('index', {
-          host: result.url,
+          host: app.host,
           title: result.title,
           posts: result.posts,
           recent: recent

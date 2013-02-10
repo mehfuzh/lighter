@@ -33,7 +33,7 @@ routes = (app, settings) =>
 		res.header({'Content-Type': 'application/xml' })      
 		res.render 'atom/atom', 
 			title : 'Blog entries'
-			url	: settings.url()
+			host	: app.host
 
 	app.get '/api/atom/categories', (req, res) ->
 		res.header({'Content-Type': 'application/xml' })
@@ -44,7 +44,11 @@ routes = (app, settings) =>
 	app.get '/api/atom/feeds', (req, res) ->
 		res.header({'Content-Type': 'application/xml' })
 		blog.find (result)->
-			res.render 'atom/feeds', result
+			res.render 'atom/feeds',
+				host		:	app.host
+				title		:	result.title
+				updated	:	result.updated
+				posts		:	result.posts
 	
 	app.post '/api/atom/feeds', authorize, (req, res) -> 
 		parser = new xml2js.Parser()  
@@ -56,7 +60,7 @@ routes = (app, settings) =>
 					author 			: 'Mehfuz Hossain'
 					categories 	: parseCategory result.entry
 				}], (result)->
-					location = settings.url() + 'api/atom/entries/' + result._id
+					location = app.host + 'api/atom/entries/' + result._id
 					res.header({
 						'Content-Type'	: req.headers['content-type'] 
 						'Location'			: location
@@ -65,14 +69,14 @@ routes = (app, settings) =>
 					res.statusCode = 201
 					res.render 'atom/entries', 
 						post : result
-						url  : settings.url() 
+						host  : app.host 
 			
 	app.get '/api/atom/entries/:id', (req, res) ->
 		res.header({'Content-Type': 'application/xml' })
 		blog.findPostById req.params.id, (result)->
 				res.render 'atom/entries', 
 					post : result
-					url  : settings.url()        
+					host  : app.host
 
 	app.put '/api/atom/entries/:id',authorize, (req, res)->
 			parser = new xml2js.Parser()
@@ -84,7 +88,7 @@ routes = (app, settings) =>
 					categories	: parseCategory result.entry, (result)->
 				  res.render 'atom/entries', 
 						post : result
-						url  : settings.url()        
+						host  : app.host
 
 	app.delete '/api/atom/entries/:id', authorize , (req, res)->
 		blog.deletePost req.params.id,()->
@@ -93,7 +97,7 @@ routes = (app, settings) =>
 	app.get '/rsd.xml', (req, res) ->
 					res.header({'Content-Type': 'application/xml' })
 					res.render 'rsd',
-						url : settings.url()
+						host : app.host
 						engine : settings.engine
 				
 	app.get '/:year/:month/:title', (req, res) ->
@@ -105,7 +109,7 @@ routes = (app, settings) =>
 				return
 		blog.findPost link, (result)->
 			res.render 'post', 
-				host 				: settings.url()
+				host 				: app.host
 				title  			: result.title
 				body   			: result.body
 				categories 	: result.categories
@@ -121,9 +125,9 @@ routes = (app, settings) =>
 							permaLink	:	post.permaLink
 					})
 			res.render 'index'
-				host : result.url
-				title : result.title
-				posts : result.posts
-				recent : recent
+				host 		:	app.host
+				title 	:	result.title
+				posts 	:	result.posts
+				recent	:	recent
 				
 module.exports = routes

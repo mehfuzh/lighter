@@ -16,7 +16,7 @@
       Blog.prototype.create = function(obj, callback) {
         var _this = this;
         return this.blog.findOne({
-          url: this.settings.url()
+          url: this.settings.url
         }, function(err, data) {
           var blog, post, _i, _len, _ref;
           _ref = obj.posts;
@@ -33,7 +33,7 @@
             });
           } else {
             blog = new _this.blog({
-              url: _this.settings.url(),
+              url: _this.settings.url,
               title: _this.settings.title,
               updated: _this.settings.updated
             });
@@ -58,7 +58,7 @@
       Blog.prototype.find = function(callback, format) {
         var _this = this;
         return this.blog.findOne({
-          url: this.settings.url()
+          url: this.settings.url
         }, function(err, data) {
           var blog;
           if (err !== null) {
@@ -81,7 +81,6 @@
             }
             return callback({
               id: blog._id,
-              url: blog.url,
               title: blog.title,
               updated: blog.updated,
               posts: posts
@@ -93,7 +92,7 @@
       Blog.prototype.findMostRecent = function(callback) {
         var _this = this;
         return this.blog.findOne({
-          url: this.settings.url()
+          url: this.settings.url
         }, function(err, data) {
           _this.post.find({
             id: data._id
@@ -117,7 +116,7 @@
       Blog.prototype.findPost = function(permaLink, callback) {
         var _this = this;
         this.blog.findOne({
-          url: this.settings.url()
+          url: this.settings.url
         }, function(err, data) {
           return _this.post.findOne({
             id: data._id,
@@ -171,7 +170,7 @@
       Blog.prototype["delete"] = function(callback) {
         var _this = this;
         return this.blog.find({
-          url: this.settings.url()
+          url: this.settings.url
         }, function(err, data) {
           var blog, _i, _len;
           for (_i = 0, _len = data.length; _i < _len; _i++) {

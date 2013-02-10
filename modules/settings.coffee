@@ -1,4 +1,4 @@
-module.exports = (app)->
+module.exports = ()->
 	class Settings
 		constructor:(app) ->
 			@mongoose = require('mongoose')  
@@ -14,7 +14,7 @@ module.exports = (app)->
 					
 		marked		:	@marked
 		mongoose	:	@mongoose
-		url				:	()=> 'http://lighter-engine.herokuapp.com/'
+		url				:	'/'
 		title			:	process.env.BLOG_TITLE || 'Mehfuz\'s Blog'
 		username	:	process.env.USERNAME || 'admin'
 		password	:	process.env.PASSWORD || 'admin'

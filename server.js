@@ -7,7 +7,7 @@ var app = express();
 
 require('./config')(app)
 
-var settings = require( __dirname + '/modules/settings')(app)
+var settings = require( __dirname + '/modules/settings')()
 
 require(__dirname + '/modules/schema')(settings.mongoose);
 
