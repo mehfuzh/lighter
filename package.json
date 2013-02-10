@@ -13,6 +13,10 @@
     "marked": ">=0.2.6",
     "xml2js": "~0.2.2"
   },
+ "engines": {
+    "node": "0.8.1",
+    "npm": "1.1.35"
+  },
   "devDependencies": {
     "should": "*",
     "supertest": "~0.5.1"
