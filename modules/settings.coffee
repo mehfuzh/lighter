@@ -14,7 +14,7 @@ module.exports = (app)->
 					
 		marked		:	@marked
 		mongoose	:	@mongoose
-		url				:	()=> app.host || 'http://localhost/'
+		url				:	()=> 'http://lighter-engine.herokuapp.com/'
 		title			:	process.env.BLOG_TITLE || 'Mehfuz\'s Blog'
 		username	:	process.env.USERNAME || 'admin'
 		password	:	process.env.PASSWORD || 'admin'

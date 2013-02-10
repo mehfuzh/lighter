@@ -29,7 +29,7 @@
       Settings.prototype.mongoose = Settings.mongoose;
 
       Settings.prototype.url = function() {
-        return app.host || 'http://localhost/';
+        return 'http://lighter-engine.herokuapp.com/';
       };
 
       Settings.prototype.title = process.env.BLOG_TITLE || 'Mehfuz\'s Blog';
