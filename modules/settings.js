@@ -6,8 +6,10 @@
     Settings = (function() {
 
       function Settings() {
+        var url;
         this.mongoose = require('mongoose');
-        this.mongoose.connect('mongodb://localhost/lighter');
+        url = process.env.MONGODB_URI || process.env.MONGOLAB_URI || 'mongodb://localhost/lighter';
+        this.mongoose.connect(url);
         this.marked = require('marked');
         this.marked.setOptions({
           highlight: function(code, lang) {
@@ -29,7 +31,7 @@
 
       Settings.prototype.username = 'admin';
 
-      Settings.prototype.password = '1234';
+      Settings.prototype.password = 'admin';
 
       Settings.prototype.updated = new Date();
 

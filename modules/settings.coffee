@@ -2,8 +2,9 @@ module.exports = ->
 	class Settings
 		constructor: ->
 			@mongoose = require('mongoose')  
-			# init mongo
-			@mongoose.connect 'mongodb://localhost/lighter'
+			# init mongo        
+			url = process.env.MONGODB_URI || process.env.MONGOLAB_URI || 'mongodb://localhost/lighter'
+			@mongoose.connect url
 			@marked = require('marked')			
 			@marked.setOptions
 				highlight:(code,lang) ->
@@ -16,7 +17,7 @@ module.exports = ->
 		url				:	'http://localhost:3000/'
 		title			:	'Mehfuz\'s Blog' 
 		username	:	'admin'
-		password	:	'1234'
+		password	:	'admin'
 		updated		:	new Date()
 		engine		:	'Lighter Blog Engine'
 		format: (content) ->

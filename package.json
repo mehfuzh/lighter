@@ -11,11 +11,10 @@
     "mongodb": "*",
     "highlight.js": ">=7.3.0",
     "marked": ">=0.2.6",
-    "xml2js": "~0.2.2",
-    "should": "~1.2.1",
-    "supertest": "~0.5.1"
+    "xml2js": "~0.2.2"
   },
   "devDependencies": {
-    "should": "*"
+    "should": "*",
+    "supertest": "~0.5.1"
   }
 }
