@@ -143,13 +143,40 @@ body {
 			margin-right : 300px;
 			border-right: 1px solid #e0e0e0;
 			position:relative;
+			section.comments{  
+			  display:inline-block;
+				z-index: 1;
+				position: relative;
+				overflow: hidden;
+				margin: 10px auto 0;
+				padding: 40px 8px 0;
+				background: #ccc!important;
+				-webkit-box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.45);
+				-moz-box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.45);
+				box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.45);
+		  	margin-bottom:20px;
+				div.controls{
+					font-size: 37px;
+					font-weight: 400;
+					line-height: 26px;
+					top:0px;
+					left : 10px;
+					position:absolute;
+					color: #000;
+				}
+				#disqus_thread{ 
+					padding:20px; 
+				  background:white;
+				}
+		 	}
+			
 			section
 			{
 				float:left;
 				article{
 					.content-left-right-spacing;
 					padding-bottom: 10px;
-					
+				  
 					header{
 						padding:0px;
 						position: relative;
@@ -173,7 +200,6 @@ body {
 							}
 						}
 					}
-					
 					section{
 						width:100%;
 						h1{

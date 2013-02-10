@@ -211,6 +211,32 @@ body section.main section.content {
   border-right: 1px solid #e0e0e0;
   position: relative;
 }
+body section.main section.content section.comments {
+  display: inline-block;
+  z-index: 1;
+  position: relative;
+  overflow: hidden;
+  margin: 10px auto 0;
+  padding: 40px 8px 0;
+  background: #ccc!important;
+  -webkit-box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.45);
+  -moz-box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.45);
+  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.45);
+  margin-bottom: 20px;
+}
+body section.main section.content section.comments div.controls {
+  font-size: 37px;
+  font-weight: 400;
+  line-height: 26px;
+  top: 0px;
+  left: 10px;
+  position: absolute;
+  color: #000;
+}
+body section.main section.content section.comments #disqus_thread {
+  padding: 20px;
+  background: white;
+}
 body section.main section.content section {
   float: left;
 }
