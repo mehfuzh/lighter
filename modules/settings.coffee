@@ -16,8 +16,8 @@ module.exports = ->
 		mongoose	:	@mongoose
 		url				:	'http://localhost:3000/'
 		title			:	'Mehfuz\'s Blog' 
-		username	:	process.env.USERNAME
-		password	:	process.env.PASSWORD
+		username	:	process.env.USERNAME || 'admin'
+		password	:	process.env.PASSWORD || 'admin'
 		updated		:	new Date()
 		engine		:	'Lighter Blog Engine'
 		format: (content) ->
