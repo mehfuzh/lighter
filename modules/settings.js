@@ -29,9 +29,9 @@
 
       Settings.prototype.title = 'Mehfuz\'s Blog';
 
-      Settings.prototype.username = 'admin';
+      Settings.prototype.username = process.env.USERNAME;
 
-      Settings.prototype.password = 'admin';
+      Settings.prototype.password = process.env.PASSWORD;
 
       Settings.prototype.updated = new Date();
 

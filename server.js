@@ -23,7 +23,6 @@ user.init(function(data){
 	}
 });
 
-
 // Routes
 require('./routes')(app, settings);
 
