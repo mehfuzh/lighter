@@ -118,12 +118,17 @@
         this.blog.findOne({
           url: this.settings.url
         }, function(err, data) {
+          var blog;
+          blog = data;
           return _this.post.findOne({
-            id: data._id,
+            id: blog._id,
             permaLink: permaLink
           }, function(err, data) {
             data.body = _this.settings.format(data.body);
-            return callback(data);
+            return callback({
+              title: blog.title,
+              post: data
+            });
           });
         });
       };

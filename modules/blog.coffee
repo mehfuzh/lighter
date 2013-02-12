@@ -69,11 +69,15 @@ module.exports = (settings)->
 				
 		findPost: (permaLink, callback)->
 			@blog.findOne url: @settings.url, (err, data) =>
+				blog = data
 				@post.findOne 
-					id : data._id 
+					id : blog._id 
 					permaLink: permaLink,(err, data)=>
 						data.body = @settings.format(data.body)
-						callback(data)
+						callback({
+							title	:	blog.title
+							post	:	data
+						})
 			return 
 			
 		findPostById: (id, callback)->

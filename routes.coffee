@@ -107,15 +107,11 @@ routes = (app, settings) =>
 			blog.findMostRecent (result)=>
 				recent = result
 				return
-		blog.findPost link, (result)->
-			res.render 'post', 
-				host 				: app.host
-				title  			: result.title
-				body   			: result.body
-				categories 	: result.categories
-				date   			: result.date
-				recent 			: recent
-				
+		blog.findPost link, (result)->  
+			result.host = app.host
+			result.recent = recent
+			res.render 'post', result
+								
 	app.get '/', (req, res) ->
 		blog.findFormatted (result) ->
 			if (recent.length == 0)
@@ -124,10 +120,8 @@ routes = (app, settings) =>
 							title		:	post.title
 							permaLink	:	post.permaLink
 					})
-			res.render 'index'
-				host 		:	app.host
-				title 	:	result.title
-				posts 	:	result.posts
-				recent	:	recent
+			result.host = app.host
+			result.recent = recent
+			res.render 'index', result
 				
 module.exports = routes

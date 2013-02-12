@@ -146,14 +146,9 @@
         });
       }
       return blog.findPost(link, function(result) {
-        return res.render('post', {
-          host: app.host,
-          title: result.title,
-          body: result.body,
-          categories: result.categories,
-          date: result.date,
-          recent: recent
-        });
+        result.host = app.host;
+        result.recent = recent;
+        return res.render('post', result);
       });
     });
     return app.get('/', function(req, res) {
@@ -169,12 +164,9 @@
             });
           }
         }
-        return res.render('index', {
-          host: app.host,
-          title: result.title,
-          posts: result.posts,
-          recent: recent
-        });
+        result.host = app.host;
+        result.recent = recent;
+        return res.render('index', result);
       });
     });
   };

@@ -3,10 +3,10 @@ extends layout
 block content
 	article	
 		header
-			time #{date.toDateString()}
-			h1 #{title}
-		section !{body}
-			for category in categories
+			time #{post.date.toDateString()}
+			h1 #{post.title}
+		section !{post.body}
+			for category in post.categories
 				span(class='category') #{category}
 		section(class='comments')
 			div(class='controls') ...

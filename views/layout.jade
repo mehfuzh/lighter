@@ -3,17 +3,18 @@ html
 	head
 		title #{title}
 		link(rel='stylesheet', href='/styles/style.css')
-		link(rel='stylesheet', href='/styles/highlight.css')
+		link(rel='stylesheet', href='/styles/highlight.css') 
+		link(rel='alternate', href='/api/atom/feeds', title='#{title}', type='application/atom+xml')
 		link(rel='EditURI', type='application/rsd+xml', title='RSD', href='/rsd.xml')
 		script(type='text/javascript', src='/disqus.js')
 		body
 			header(class='main')	
 					h1 
-						a(href='/') Mehfuz's blog
+						a(href='/') #{title}
 					nav
 						ul(class='main-navigation')
 							li
-								a(href='/') Blog
+								a(href='/') RSS
 							li	
 								a(href= '/about') About	
 			section(class='main')
