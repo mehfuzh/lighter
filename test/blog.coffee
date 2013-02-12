@@ -1,6 +1,5 @@
 require 'should'      
 helper = (require '../modules/helper')() 
-app = {}
 blog = (require __dirname + '/init')
 
 describe 'Blog', ->    
@@ -19,7 +18,7 @@ describe 'Blog', ->
   	
 	 	it 'should return expected for permaLink', (done)->    
 				blog.findPost helper.linkify(expected), (data) ->
-				 	data.title.should.equal expected
+				 	data.post.title.should.equal expected
 				 	console.log data
 				 	done()
 	  
