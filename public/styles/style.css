@@ -115,15 +115,29 @@ video {
   vertical-align: baseline;
   border-image: initial;
 }
-@media screen and (max-width: 1024px) {
-  body {
-    -webkit-text-size-adjust: 150%;
-  }
+@media screen and (device-width: 768px) {
   body header.main nav {
     dispay: none;
   }
   body aside {
     display: none;
+  }
+  body section.main {
+    -webkit-text-size-adjust: 125%;
+  }
+  body section.main section.content {
+    width: 100%;
+  }
+}
+@media screen and (device-width: 320px) {
+  body header.main nav {
+    dispay: none;
+  }
+  body aside {
+    display: none;
+  }
+  body section.main {
+    -webkit-text-size-adjust: 125%;
   }
   body section.main section.content {
     width: 100%;

@@ -1,4 +1,5 @@
-@media screen and (device-width:768px){
+.layout(@width:125%)
+{
 	body{    
 	 header.main{ 
 		 nav {
@@ -9,10 +10,19 @@
 			display:none;
 		}         
 		section.main{
-		 -webkit-text-size-adjust:125%;
+		 -webkit-text-size-adjust:@width;
 			section.content{
 					width:100%;
 	  	}
-		} 
+		}
 	}
 }
+
+@media screen and (device-width:768px){
+	 .layout;
+}
+
+@media screen and (device-width:320px){
+	 .layout(150%);
+}
+
