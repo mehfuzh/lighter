@@ -130,6 +130,8 @@ video {
   clear: both;
 }
 body {
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
   background: #252525 url('/images/line-tile.png') top left;
   position: relative;
   margin: 0 auto;
