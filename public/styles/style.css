@@ -115,6 +115,20 @@ video {
   vertical-align: baseline;
   border-image: initial;
 }
+@media screen and (max-width: 1024px) {
+  body {
+    -webkit-text-size-adjust: 150%;
+  }
+  body header.main nav {
+    dispay: none;
+  }
+  body aside {
+    display: none;
+  }
+  body section.main section.content {
+    width: 100%;
+  }
+}
 .header-link-style {
   color: #fff;
   text-decoration: none;
@@ -130,8 +144,6 @@ video {
   clear: both;
 }
 body {
-  -webkit-text-size-adjust: 100%;
-  -ms-text-size-adjust: 100%;
   background: #252525 url('/images/line-tile.png') top left;
   position: relative;
   margin: 0 auto;
@@ -450,15 +462,4 @@ body footer {
 }
 body footer p:last-child {
   margin-bottom: 0px;
-}
-@media screen and (max-width: 1024px) {
-  body header.main nav {
-    dispay: none;
-  }
-  body aside {
-    display: none;
-  }
-  body section.main section.content {
-    width: 100%;
-  }
 }
