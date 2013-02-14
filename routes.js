@@ -140,11 +140,9 @@
       var link,
         _this = this;
       link = util.format("%s/%s/%s", req.params.year, req.params.month, req.params.title);
-      if (recent.length === 0) {
-        blog.findMostRecent(function(result) {
-          recent = result;
-        });
-      }
+      blog.findMostRecent(function(result) {
+        recent = result;
+      });
       return blog.findPost(link, function(result) {
         result.host = app.host;
         result.recent = recent;
@@ -154,15 +152,14 @@
     return app.get('/', function(req, res) {
       return blog.findFormatted(function(result) {
         var post, _i, _len, _ref;
-        if (recent.length === 0) {
-          _ref = result.posts.slice(0, 5);
-          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-            post = _ref[_i];
-            recent.push({
-              title: post.title,
-              permaLink: post.permaLink
-            });
-          }
+        recent = [];
+        _ref = result.posts.slice(0, 5);
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          post = _ref[_i];
+          recent.push({
+            title: post.title,
+            permaLink: post.permaLink
+          });
         }
         result.host = app.host;
         result.recent = recent;

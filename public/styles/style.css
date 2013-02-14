@@ -176,7 +176,6 @@ body header.main h1:visited {
 }
 body header.main nav {
   float: right;
-  width: 65%;
 }
 body header.main nav ul.main-navigation {
   float: right;
@@ -205,6 +204,7 @@ body section.main {
   background: #F2F2F2;
   border-bottom: 1px solid #BFBFBF;
   min-height: 600px;
+  min-width: 800px;
 }
 body section.main section.content {
   margin-right: 300px;
@@ -375,6 +375,7 @@ body aside section {
   font-size: .8em;
   line-height: 1.4em;
   margin-bottom: 1.5em;
+  width: 100%;
 }
 body aside section h1 {
   margin: 1.5em 0 0;
@@ -396,13 +397,20 @@ body aside section ul {
 body aside section li {
   padding: .5em 0;
   border-bottom: 1px solid #e0e0e0;
-  -moz-box-shadow: #fff 0 1px;
-  -webkit-box-shadow: #fff 0 5px;
-  -o-box-shadow: #fff 0 1px;
-  box-shadow: #fff 0 1px;
+  -moz-box-shadow: #ffffff 0 1px;
+  -webkit-box-shadow: #ffffff 0 1px;
+  -o-box-shadow: #ffffff 0 1px;
+  box-shadow: #ffffff 0 1px;
 }
 body aside section li a {
   color: inherit;
+}
+body aside section li:last-child {
+  border-bottom: none;
+  -moz-box-shadow: #ffffff 0 0px;
+  -webkit-box-shadow: #ffffff 0 0px;
+  -o-box-shadow: #ffffff 0 0px;
+  box-shadow: #ffffff 0 0px;
 }
 body aside:after {
   content: "";
@@ -440,4 +448,15 @@ body footer {
 }
 body footer p:last-child {
   margin-bottom: 0px;
+}
+@media screen and (max-width: 1024px) {
+  body header.main nav {
+    dispay: none;
+  }
+  body aside {
+    display: none;
+  }
+  body section.main section.content {
+    width: 100%;
+  }
 }

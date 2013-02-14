@@ -102,24 +102,23 @@ routes = (app, settings) =>
 				
 	app.get '/:year/:month/:title', (req, res) ->
 		link = util.format("%s/%s/%s", req.params.year, req.params.month, req.params.title)
-		if recent.length is 0
-			# get the most recent posts, to be displayed on the right
-			blog.findMostRecent (result)=>
-				recent = result
-				return
+		# get the most recent posts, to be displayed on the right
+		blog.findMostRecent (result)=>
+			recent = result
+			return
 		blog.findPost link, (result)->  
 			result.host = app.host
 			result.recent = recent
 			res.render 'post', result
 								
 	app.get '/', (req, res) ->
-		blog.findFormatted (result) ->
-			if (recent.length == 0)
-				for post in result.posts[0...5]
-					recent.push({
-							title		:	post.title
-							permaLink	:	post.permaLink
-					})
+		blog.findFormatted (result) -> 
+			recent = []
+			for post in result.posts[0...5]
+				recent.push({
+						title		:	post.title
+						permaLink	:	post.permaLink
+				}) 
 			result.host = app.host
 			result.recent = recent
 			res.render 'index', result
