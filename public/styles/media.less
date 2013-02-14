@@ -1,4 +1,4 @@
-@media screen and (max-width:1024px){
+@media screen and (device-width:768px){
 	body{    
 	 header.main{ 
 		 nav {
@@ -9,12 +9,21 @@
 			display:none;
 		}         
 		section.main{
-		 -webkit-text-size-adjust:150%;
+		 -webkit-text-size-adjust:125%;
 			section.content{
 					width:100%;
 	  	}
 		} 
 	}
 }
+
+@media screen and (device-width:768px) and (orientation:landscape){
+	body{    
+  	section.main{
+		 -webkit-text-size-adjust:100%;
+		} 
+	}
+}
+
 
 
