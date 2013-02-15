@@ -24,4 +24,6 @@ Typing _mocha_ in your terminal will run the tests. You also need to have mongod
 
 The project comes with a heroku Procfile this is for specifying dynos and heroku related settings but not needed for running the project.
                        
-TBD
+The project structure is based on express web framework and uses less for stylesheets. The main route file is routes.coffee and settings are defined in modules/settings.cofffee
+
+TBD.
