@@ -1,0 +1,34 @@
+.layout body header.main nav {
+  dispay: none;
+}
+.layout body section.main section.content {
+  margin-right: 0px;
+  border-right: none;
+}
+.layout body section.main section.content aside {
+  display: none;
+}
+@media screen and (max-width: 1024px) {
+  body header.main nav {
+    dispay: none;
+  }
+  body section.main section.content {
+    margin-right: 0px;
+    border-right: none;
+  }
+  body section.main section.content aside {
+    display: none;
+  }
+}
+@media screen and (max-width: 320px) {
+  body header.main nav {
+    dispay: none;
+  }
+  body section.main section.content {
+    margin-right: 0px;
+    border-right: none;
+  }
+  body section.main section.content aside {
+    display: none;
+  }
+}
