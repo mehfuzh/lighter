@@ -131,10 +131,10 @@ video {
 }
 body {
   background: #252525 url('/images/line-tile.png') top left;
+  font-family: 'LacunaRegular';
   position: relative;
   margin: 0 auto;
   font-size: 1.15em;
-  font-family: 'DroidSansRegular';
   line-height: 1.5em;
 }
 body .content-left-right-spacing {
@@ -222,25 +222,20 @@ body section.main section.content section.comments {
   z-index: 1;
   position: relative;
   overflow: hidden;
-  margin: 10px auto 0;
-  padding: 40px 8px 0;
+  margin: 10px auto 20px 0;
+  padding: 40px 10px 0px 10px;
   background: #ccc!important;
-  -webkit-box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.45);
-  -moz-box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.45);
-  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.45);
-  margin-bottom: 20px;
 }
 body section.main section.content section.comments div.controls {
-  font-size: 37px;
-  font-weight: 400;
-  line-height: 26px;
-  top: 0px;
+  font-size: 30px;
+  top: 8px;
   left: 10px;
   position: absolute;
-  color: rgba(34, 59, 74, 0.4);
+  color: #888;
+  text-shadow: #d9d9d9 0 1px;
 }
 body section.main section.content section.comments #disqus_thread {
-  padding: 20px;
+  padding: 20px 20px 0 20px;
   background: white;
 }
 body section.main section.content section {
