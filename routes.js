@@ -54,7 +54,7 @@
       });
     });
     app.get('/api/atom/feeds', function(req, res) {
-      if (settings.feedUrl) {
+      if (settings.feedUrl && !req.header['private']) {
         return res.redirect(settings.feedUrl);
       } else {
         res.header({

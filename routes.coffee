@@ -42,7 +42,7 @@ routes = (app, settings) =>
 				categories:result
 
 	app.get '/api/atom/feeds', (req, res) -> 
-		if settings.feedUrl
+		if settings.feedUrl && !req.header['private']
 			res.redirect(settings.feedUrl)
 		else
 			res.header({'Content-Type': 'application/xml' }) 
