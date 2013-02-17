@@ -1,2 +1,2 @@
 #! /usr/bin/env sh
-FEED_URL='http://feeds.feedburner.com/burncsharp' node-dev server.js
+node-dev server.js
