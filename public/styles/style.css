@@ -218,11 +218,11 @@ body section.main section.content section.comments {
   moz-border-radius-topright: 5px;
   -webkit-border-top-right-radius: 5px;
   border-top-right-radius: 5px;
-  display: inline-block;
+  display: block;
   z-index: 1;
   position: relative;
   overflow: hidden;
-  margin: 10px auto 20px 0;
+  margin: 5px auto 20px 0;
   padding: 40px 10px 0px 10px;
   background: #ccc!important;
 }
@@ -322,7 +322,7 @@ body section.main section.content section article section blockquote {
   margin: 5px 5px 20px;
   padding: 25px 5px 5px 70px;
 }
-body section.main section.content section article section span.category {
+body section.main section.content section article section div.category {
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
@@ -358,7 +358,7 @@ body section.main section.content section article:first-child header {
   margin-bottom: 1.5em;
 }
 body section.main section.content section article:last-child section {
-  padding-bottom: 2em;
+  padding-bottom: 1em;
   background: none;
 }
 body section.main section.content:after {

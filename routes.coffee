@@ -7,8 +7,6 @@ routes = (app, settings) =>
 	request = (require __dirname + '/modules/request')(settings)
 	xml2js = require 'xml2js'
 
-	recent = []
-
 	authorize = (req, res, next)->
 		request.validate req, (result)->
 				if result != null
@@ -105,28 +103,32 @@ routes = (app, settings) =>
 					res.render 'rsd',
 						host : app.host
 						engine : settings.engine
-				
+			 
+	findMostRecent = (callback)->
+		blog.findMostRecent (result)->
+			callback(result)
+			return
+
 	app.get '/:year/:month/:title', (req, res) ->
 		link = util.format("%s/%s/%s", req.params.year, req.params.month, req.params.title)
 		# get the most recent posts, to be displayed on the right
-		blog.findMostRecent (result)=>
+		recent = [] 
+		findMostRecent (result)=>
 			recent = result
+			blog.findPost link, (result)->  
+				result.host = app.host
+				result.recent = recent
+				res.render 'post', result
 			return
-		blog.findPost link, (result)->  
-			result.host = app.host
-			result.recent = recent
-			res.render 'post', result
 								
 	app.get '/', (req, res) ->
-		blog.findFormatted (result) -> 
-			recent = []
-			for post in result.posts[0...5]
-				recent.push({
-						title		:	post.title
-						permaLink	:	post.permaLink
-				}) 
-			result.host = app.host
-			result.recent = recent
-			res.render 'index', result
+		recent = []
+		findMostRecent (result)=>
+			recent = result
+			blog.findFormatted (result) -> 
+				result.host = app.host
+				result.recent = recent
+				res.render 'index', result
+			return
 				
 module.exports = routes

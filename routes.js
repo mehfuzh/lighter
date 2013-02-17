@@ -4,14 +4,13 @@
     _this = this;
 
   routes = function(app, settings) {
-    var authorize, blog, category, helper, parseCategory, processGetFeeds, recent, request, util, xml2js;
+    var authorize, blog, category, findMostRecent, helper, parseCategory, processGetFeeds, request, util, xml2js;
     util = require('util');
     blog = (require(__dirname + '/modules/blog'))(settings);
     helper = (require(__dirname + '/modules/helper'))();
     category = (require(__dirname + '/modules/category'))(settings);
     request = (require(__dirname + '/modules/request'))(settings);
     xml2js = require('xml2js');
-    recent = [];
     authorize = function(req, res, next) {
       request.validate(req, function(result) {
         if (result !== null) {
@@ -142,34 +141,36 @@
         engine: settings.engine
       });
     });
+    findMostRecent = function(callback) {
+      return blog.findMostRecent(function(result) {
+        callback(result);
+      });
+    };
     app.get('/:year/:month/:title', function(req, res) {
-      var link,
+      var link, recent,
         _this = this;
       link = util.format("%s/%s/%s", req.params.year, req.params.month, req.params.title);
-      blog.findMostRecent(function(result) {
+      recent = [];
+      return findMostRecent(function(result) {
         recent = result;
-      });
-      return blog.findPost(link, function(result) {
-        result.host = app.host;
-        result.recent = recent;
-        return res.render('post', result);
+        blog.findPost(link, function(result) {
+          result.host = app.host;
+          result.recent = recent;
+          return res.render('post', result);
+        });
       });
     });
     return app.get('/', function(req, res) {
-      return blog.findFormatted(function(result) {
-        var post, _i, _len, _ref;
-        recent = [];
-        _ref = result.posts.slice(0, 5);
-        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-          post = _ref[_i];
-          recent.push({
-            title: post.title,
-            permaLink: post.permaLink
-          });
-        }
-        result.host = app.host;
-        result.recent = recent;
-        return res.render('index', result);
+      var recent,
+        _this = this;
+      recent = [];
+      return findMostRecent(function(result) {
+        recent = result;
+        blog.findFormatted(function(result) {
+          result.host = app.host;
+          result.recent = recent;
+          return res.render('index', result);
+        });
       });
     });
   };
