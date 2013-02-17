@@ -42,10 +42,10 @@ routes = (app, settings) =>
 				categories:result
 
 	app.get '/api/atom/feeds', (req, res) -> 
-		res.header({'Content-Type': 'application/xml' }) 
-		if settings.FEED_URL
-			res.redirect(settings.FEED_URL)
+		if settings.feedUrl
+			res.redirect(settings.feedUrl)
 		else
+			res.header({'Content-Type': 'application/xml' }) 
 			blog.find (result)->
 				res.render 'atom/feeds',
 					host		:	app.host

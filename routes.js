@@ -54,12 +54,12 @@
       });
     });
     app.get('/api/atom/feeds', function(req, res) {
-      res.header({
-        'Content-Type': 'application/xml'
-      });
-      if (settings.FEED_URL) {
-        return res.redirect(settings.FEED_URL);
+      if (settings.feedUrl) {
+        return res.redirect(settings.feedUrl);
       } else {
+        res.header({
+          'Content-Type': 'application/xml'
+        });
         return blog.find(function(result) {
           return res.render('atom/feeds', {
             host: app.host,
