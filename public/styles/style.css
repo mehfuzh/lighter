@@ -245,6 +245,7 @@ body section.main section.content section article {
   padding-left: 55px;
   padding-right: 55px;
   padding-bottom: 10px;
+  text-align: justify;
 }
 body section.main section.content section article header {
   padding: 0px;
@@ -292,6 +293,10 @@ body section.main section.content section article section p:first-child {
 body section.main section.content section article section p {
   padding-top: 5px;
   padding-bottom: 5px;
+}
+body section.main section.content section article section p strong {
+  font-weight: bold;
+  color: red;
 }
 body section.main section.content section article section ol,
 body section.main section.content section article section ul {

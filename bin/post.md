@@ -63,7 +63,7 @@ A month ago, we covered how to use Core Location framework to retrieve the user�
 
 >The Map Kit framework provides an interface for embedding maps directly into your own windows and views. This framework also provides support for annotating the map, adding overlays, and performing reverse-geocoding lookups to determine placemark information for a given map coordinate.
 
-MapKit is a neat API, comes with the iOS SDK, that allows you to display maps, navigate through maps, add annotations for specific locations, add overlays on existing maps, etc. In this tutorial, we’ll walk you though the basics of the API and show you how to place a pin on the map. As usual, rather than going through the theory, we’ll work on a simple app. Through the practice, we hope you’ll get a better idea about MapKit.
+__MapKit__ is a neat API, comes with the iOS SDK, that allows you to display maps, navigate through maps, add annotations for specific locations, add overlays on existing maps, etc. In this tutorial, we’ll walk you though the basics of the API and show you how to place a pin on the map. As usual, rather than going through the theory, we’ll work on a simple app. Through the practice, we hope you’ll get a better idea about MapKit.
 
 #block
 Jon Asher
