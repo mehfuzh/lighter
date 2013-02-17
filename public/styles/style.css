@@ -296,7 +296,11 @@ body section.main section.content section article section p {
 }
 body section.main section.content section article section p strong {
   font-weight: bold;
-  color: red;
+  font-size: 1.1em;
+  letter-spacing: 0.1em;
+}
+body section.main section.content section article section p em {
+  font-style: italic;
 }
 body section.main section.content section article section ol,
 body section.main section.content section article section ul {
@@ -323,7 +327,7 @@ body section.main section.content section article section span.category {
   -moz-border-radius: 3px;
   border-radius: 3px;
   display: inline-block;
-  padding: 2px 4px;
+  padding: 4px 4px;
   font-size: 11.844px;
   font-weight: bold;
   line-height: 14px;
