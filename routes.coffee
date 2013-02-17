@@ -41,14 +41,17 @@ routes = (app, settings) =>
 			res.render 'atom/categories',
 				categories:result
 
-	app.get '/api/atom/feeds', (req, res) ->
-		res.header({'Content-Type': 'application/xml' })
-		blog.find (result)->
-			res.render 'atom/feeds',
-				host		:	app.host
-				title		:	result.title
-				updated	:	result.updated
-				posts		:	result.posts
+	app.get '/api/atom/feeds', (req, res) -> 
+		res.header({'Content-Type': 'application/xml' }) 
+		if settings.FEED_URL
+			res.redirect(settings.FEED_URL)
+		else
+			blog.find (result)->
+				res.render 'atom/feeds',
+					host		:	app.host
+					title		:	result.title
+					updated	:	result.updated
+					posts		:	result.posts  
 	
 	app.post '/api/atom/feeds', authorize, (req, res) -> 
 		parser = new xml2js.Parser()  

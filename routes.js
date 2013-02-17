@@ -57,14 +57,18 @@
       res.header({
         'Content-Type': 'application/xml'
       });
-      return blog.find(function(result) {
-        return res.render('atom/feeds', {
-          host: app.host,
-          title: result.title,
-          updated: result.updated,
-          posts: result.posts
+      if (settings.FEED_URL) {
+        return res.redirect(settings.FEED_URL);
+      } else {
+        return blog.find(function(result) {
+          return res.render('atom/feeds', {
+            host: app.host,
+            title: result.title,
+            updated: result.updated,
+            posts: result.posts
+          });
         });
-      });
+      }
     });
     app.post('/api/atom/feeds', authorize, function(req, res) {
       var parser;

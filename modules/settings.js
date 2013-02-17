@@ -33,6 +33,8 @@
 
       Settings.prototype.password = process.env.PASSWORD || 'admin';
 
+      Settings.prototype.feedUrl = process.env.FEED_URL || null;
+
       Settings.prototype.updated = new Date();
 
       Settings.prototype.engine = 'Lighter Blog Engine';
