@@ -4,7 +4,7 @@
     _this = this;
 
   routes = function(app, settings) {
-    var authorize, blog, category, helper, parseCategory, recent, request, util, xml2js;
+    var authorize, blog, category, helper, parseCategory, processGetFeeds, recent, request, util, xml2js;
     util = require('util');
     blog = (require(__dirname + '/modules/blog'))(settings);
     helper = (require(__dirname + '/modules/helper'))();
@@ -53,8 +53,8 @@
         });
       });
     });
-    app.get('/api/atom/feeds', function(req, res) {
-      if (settings.feedUrl && !req.header['private']) {
+    processGetFeeds = function(req, res) {
+      if (settings.feedUrl && parseInt(req.params['public']) === 1) {
         return res.redirect(settings.feedUrl);
       } else {
         res.header({
@@ -69,7 +69,9 @@
           });
         });
       }
-    });
+    };
+    app.get('/api/atom/feeds', processGetFeeds);
+    app.get('/api/atom/feeds/:public', processGetFeeds);
     app.post('/api/atom/feeds', authorize, function(req, res) {
       var parser;
       parser = new xml2js.Parser();
