@@ -212,6 +212,7 @@ body section.main section.content {
   position: relative;
 }
 body section.main section.content section.comments {
+  width: 100%;
   moz-border-radius-topleft: 5px;
   -webkit-border-top-left-radius: 5px;
   border-top-left-radius: 5px;
@@ -270,7 +271,6 @@ body section.main section.content section article header h1 a {
   text-decoration: none;
 }
 body section.main section.content section article section {
-  width: 100%;
   /* twitter bootstrap*/
 
   background: url('/images/header-bottom.png') repeat-x 100% 100%;

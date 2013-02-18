@@ -1,6 +1,9 @@
 .layout body header.main nav {
   dispay: none;
 }
+.layout body section.main {
+  min-width: 0px;
+}
 .layout body section.main section.content {
   margin-right: 0px;
   border-right: none;
@@ -11,6 +14,9 @@
 @media screen and (max-width: 1024px) {
   body header.main nav {
     dispay: none;
+  }
+  body section.main {
+    min-width: 0px;
   }
   body section.main section.content {
     margin-right: 0px;
@@ -23,6 +29,9 @@
 @media screen and (max-width: 320px) {
   body header.main nav {
     dispay: none;
+  }
+  body section.main {
+    min-width: 0px;
   }
   body section.main section.content {
     margin-right: 0px;

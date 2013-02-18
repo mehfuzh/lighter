@@ -76,19 +76,6 @@
       }
     };
     app.get('/api/atom/feeds', processGetFeeds);
-    app.get('/api/atom/feeds/private', function(req, res) {
-      res.header({
-        'Content-Type': 'application/atom+xml'
-      });
-      return blog.find('encode', function(result) {
-        return res.render('atom/feeds', {
-          host: app.host,
-          title: result.title,
-          updated: result.updated,
-          posts: result.posts
-        });
-      });
-    });
     app.get('/api/atom/feeds/:public', processGetFeeds);
     app.post('/api/atom/feeds', authorize, function(req, res) {
       var parser;
