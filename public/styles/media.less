@@ -23,14 +23,27 @@
 	 .layout;
 }
 
-@media screen and (max-width:480px){
+@media screen and (max-width:320px){
 	.layout;
-	header.main{
-		padding-right:0px;
-	}
-	
-	footer{
-		padding-right:0px;
+	body{
+		header.main{
+			padding-right:0px;
+		} 
+		
+		section.main{
+			section.content{
+				section{ 
+					width:100%;
+					article{
+						padding-right:0px;
+					}
+				}
+			}
+		}
+		
+		footer{
+			padding-right:0px;
+		}
 	} 
 }
 

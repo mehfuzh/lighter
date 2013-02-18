@@ -26,7 +26,7 @@
     display: none;
   }
 }
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 320px) {
   body header.main nav {
     dispay: none;
   }
@@ -39,5 +39,17 @@
   }
   body section.main section.content aside {
     display: none;
+  }
+  body header.main {
+    padding-right: 0px;
+  }
+  body section.main section.content section {
+    width: 100%;
+  }
+  body section.main section.content section article {
+    padding-right: 0px;
+  }
+  body footer {
+    padding-right: 0px;
   }
 }
