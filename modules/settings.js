@@ -43,6 +43,11 @@
         return this.marked(content);
       };
 
+      Settings.prototype.htmlEscape = function(html) {
+        html = html.replace(/&(?!\w+;)/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        return html;
+      };
+
       return Settings;
 
     })();
