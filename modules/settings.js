@@ -40,7 +40,7 @@
       Settings.prototype.engine = 'Lighter Blog Engine';
 
       Settings.prototype.format = function(content) {
-        return require(__dirname + '/helper')().htmlEscape(this.marked(content));
+        return this.marked(content);
       };
 
       return Settings;
