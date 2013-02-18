@@ -22,7 +22,7 @@ module.exports = ()->
 		updated		:	new Date()
 		engine		:	'Lighter Blog Engine'
 		format: (content) ->
-			@marked(content)
+			(@marked(content))
 						
 	new Settings()
 	

@@ -57,7 +57,7 @@
         return res.redirect(settings.feedUrl);
       } else {
         res.header({
-          'Content-Type': 'application/xml'
+          'Content-Type': 'application/atom+xml'
         });
         return blog.find(function(result) {
           return res.render('atom/feeds', {
@@ -72,9 +72,8 @@
     app.get('/api/atom/feeds', processGetFeeds);
     app.get('/api/atom/feeds/private', function(req, res) {
       res.header({
-        'Content-Type': 'application/xml'
+        'Content-Type': 'application/atom+xml'
       });
-      console.log('here');
       return blog.findFormatted(function(result) {
         return res.render('atom/feeds', {
           host: app.host,

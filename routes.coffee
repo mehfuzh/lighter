@@ -43,7 +43,7 @@ routes = (app, settings) =>
 			if settings.feedUrl && parseInt(req.params['public']) == 1
 				res.redirect(settings.feedUrl)
 			else
-				res.header({'Content-Type': 'application/xml' })  
+				res.header({'Content-Type': 'application/atom+xml' })  
 				blog.find (result)->
 					res.render 'atom/feeds',
 						host		:	app.host
@@ -54,8 +54,7 @@ routes = (app, settings) =>
 	app.get '/api/atom/feeds', processGetFeeds
 	
 	app.get '/api/atom/feeds/private', (req, res) ->
-		res.header({'Content-Type': 'application/xml' }) 
-		console.log 'here' 
+		res.header({'Content-Type': 'application/atom+xml' }) 
 		blog.findFormatted (result)->
 			res.render 'atom/feeds',
 				host		:	app.host
