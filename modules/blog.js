@@ -51,11 +51,7 @@
         });
       };
 
-      Blog.prototype.findFormatted = function(callback, format) {
-        return this.find(callback, true);
-      };
-
-      Blog.prototype.find = function(callback, format) {
+      Blog.prototype.find = function(format, callback) {
         var _this = this;
         return this.blog.findOne({
           url: this.settings.url
@@ -70,12 +66,15 @@
           }).sort({
             date: -1
           }).exec(function(err, data) {
-            var post, posts, _i, _len;
+            var body, post, posts, _i, _len;
             posts = [];
             for (_i = 0, _len = data.length; _i < _len; _i++) {
               post = data[_i];
-              if (format) {
-                post.body = settings.format(post.body);
+              if (format === 'encode') {
+                body = _this.settings.format(post.body);
+                post.body = _this.helper.htmlEscape(body);
+              } else if (format === 'sanitize') {
+                post.body = _this.settings.format(post.body);
               }
               posts.push(post);
             }

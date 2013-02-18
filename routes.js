@@ -53,13 +53,18 @@
       });
     });
     processGetFeeds = function(req, res) {
+      var content;
       if (settings.feedUrl && parseInt(req.params['public']) === 1) {
         return res.redirect(settings.feedUrl);
       } else {
         res.header({
           'Content-Type': 'application/atom+xml'
         });
-        return blog.find(function(result) {
+        content = '';
+        if (req.headers['accept']) {
+          content = 'encode';
+        }
+        return blog.find(content, function(result) {
           return res.render('atom/feeds', {
             host: app.host,
             title: result.title,
@@ -74,20 +79,12 @@
       res.header({
         'Content-Type': 'application/atom+xml'
       });
-      return blog.findFormatted(function(result) {
-        var post, posts, _i, _len, _ref;
-        posts = [];
-        _ref = result.posts;
-        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-          post = _ref[_i];
-          post.body = helper.htmlEscape(post.body);
-          posts.push(post);
-        }
+      return blog.find('encode', function(result) {
         return res.render('atom/feeds', {
           host: app.host,
           title: result.title,
           updated: result.updated,
-          posts: posts
+          posts: result.posts
         });
       });
     });
@@ -125,6 +122,12 @@
         'Content-Type': 'application/xml'
       });
       return blog.findPostById(req.params.id, function(result) {
+        res.header({
+          'Content-Type': 'application/atom+xml'
+        });
+        if (req.headers['accept']) {
+          result.body = helper.htmlEscape(settings.format(result.body));
+        }
         return res.render('atom/entries', {
           post: result,
           host: app.host
@@ -187,7 +190,7 @@
       recent = [];
       return findMostRecent(function(result) {
         recent = result;
-        blog.findFormatted(function(result) {
+        blog.find('sanitize', function(result) {
           result.host = app.host;
           result.recent = recent;
           return res.render('index', result);

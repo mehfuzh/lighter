@@ -33,19 +33,20 @@ module.exports = (settings)->
 									, (data)->
 											callback(data)
 											return
-		findFormatted:(callback, format)->
-			@find	callback, true
-			
-		find:(callback, format)->
+
+		find:(format, callback)->
 			@blog.findOne url : @settings.url, (err, data) =>
 				if err!= null
 					throw err.message
 				blog = data
 				@post.find({id : blog._id}).sort({date: -1}).exec (err, data)=>
 					posts = []
-					for post in data
-						if (format)
-							post.body = settings.format(post.body)
+					for post in data 
+						if format is 'encode'
+							body = @settings.format(post.body)
+							post.body = @helper.htmlEscape(body)
+						else if format is 'sanitize'
+							post.body = @settings.format(post.body) 
 						posts.push post
 					callback({
 						id 		: blog._id

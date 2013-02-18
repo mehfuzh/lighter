@@ -39,12 +39,15 @@ routes = (app, settings) =>
 			res.render 'atom/categories',
 				categories:result
 				
-	processGetFeeds = (req, res)-> 
+	processGetFeeds = (req, res)->
 			if settings.feedUrl && parseInt(req.params['public']) == 1
 				res.redirect(settings.feedUrl)
 			else
-				res.header({'Content-Type': 'application/atom+xml' })  
-				blog.find (result)->
+				res.header({'Content-Type': 'application/atom+xml' })
+				content = ''
+				if req.headers['accept']
+					content = 'encode'
+				blog.find content, (result)->
 					res.render 'atom/feeds',
 						host		:	app.host
 						title		:	result.title
@@ -55,18 +58,12 @@ routes = (app, settings) =>
 	
 	app.get '/api/atom/feeds/private', (req, res) ->
 		res.header({'Content-Type': 'application/atom+xml' }) 
-		blog.findFormatted (result)-> 
-			posts = []
-			
-			for post in result.posts
-				post.body = helper.htmlEscape(post.body)
-				posts.push(post) 
-			
+		blog.find 'encode', (result) ->
 			res.render 'atom/feeds',
 					host		:	app.host
 					title		:	result.title
 					updated	:	result.updated
-					posts		:	posts
+					posts		:	result.posts
 	
 	app.get '/api/atom/feeds/:public', processGetFeeds
 						
@@ -94,6 +91,9 @@ routes = (app, settings) =>
 	app.get '/api/atom/entries/:id', (req, res) ->
 		res.header({'Content-Type': 'application/xml' })
 		blog.findPostById req.params.id, (result)->
+				res.header({'Content-Type': 'application/atom+xml' })
+				if req.headers['accept']
+					result.body = helper.htmlEscape(settings.format(result.body))
 				res.render 'atom/entries', 
 					post : result
 					host  : app.host
@@ -141,7 +141,7 @@ routes = (app, settings) =>
 		recent = []
 		findMostRecent (result)=>
 			recent = result
-			blog.findFormatted (result) -> 
+			blog.find 'sanitize', (result) -> 
 				result.host = app.host
 				result.recent = recent
 				res.render 'index', result
