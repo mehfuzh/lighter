@@ -54,7 +54,6 @@
     });
     processGetFeeds = function(req, res) {
       var content;
-      console.log(req.headers);
       if (settings.feedUrl && parseInt(req.params['public']) === 1) {
         return res.redirect(settings.feedUrl);
       } else {

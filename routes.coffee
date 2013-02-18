@@ -40,7 +40,6 @@ routes = (app, settings) =>
 				categories:result
 				
 	processGetFeeds = (req, res)->
-			console.log req.headers
 			if settings.feedUrl && parseInt(req.params['public']) == 1
 				res.redirect(settings.feedUrl)
 			else
