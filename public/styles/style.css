@@ -240,13 +240,13 @@ body section.main section.content section.comments #disqus_thread {
   background: white;
 }
 body section.main section.content section {
+  background: #fff;
   float: left;
 }
 body section.main section.content section article {
   padding-left: 55px;
   padding-right: 55px;
   padding-bottom: 10px;
-  text-align: justify;
 }
 body section.main section.content section article header {
   padding: 0px;
@@ -378,6 +378,7 @@ body aside {
   margin: 0 -100% 0 0;
 }
 body aside section {
+  background: #F2F2F2!important;
   font-size: .8em;
   line-height: 1.4em;
   margin-bottom: 1.5em;
