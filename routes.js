@@ -54,6 +54,7 @@
     });
     processGetFeeds = function(req, res) {
       var content;
+      console.log(req.headers);
       if (settings.feedUrl && parseInt(req.params['public']) === 1) {
         return res.redirect(settings.feedUrl);
       } else {
@@ -61,7 +62,7 @@
           'Content-Type': 'application/atom+xml'
         });
         content = '';
-        if (req.headers['accept']) {
+        if (req.headers['accept'] && req.headers['accept'].indexOf('text/html') >= 0) {
           content = 'encode';
         }
         return blog.find(content, function(result) {
@@ -125,7 +126,7 @@
         res.header({
           'Content-Type': 'application/atom+xml'
         });
-        if (req.headers['accept']) {
+        if (req.headers['accept'] && req.headers['accept'].indexOf('text/html') >= 0) {
           result.body = helper.htmlEscape(settings.format(result.body));
         }
         return res.render('atom/entries', {

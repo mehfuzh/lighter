@@ -40,12 +40,13 @@ routes = (app, settings) =>
 				categories:result
 				
 	processGetFeeds = (req, res)->
+			console.log req.headers
 			if settings.feedUrl && parseInt(req.params['public']) == 1
 				res.redirect(settings.feedUrl)
 			else
 				res.header({'Content-Type': 'application/atom+xml' })
 				content = ''
-				if req.headers['accept']
+				if req.headers['accept'] && req.headers['accept'].indexOf('text/html') >= 0
 					content = 'encode'
 				blog.find content, (result)->
 					res.render 'atom/feeds',
@@ -92,7 +93,7 @@ routes = (app, settings) =>
 		res.header({'Content-Type': 'application/xml' })
 		blog.findPostById req.params.id, (result)->
 				res.header({'Content-Type': 'application/atom+xml' })
-				if req.headers['accept']
+				if req.headers['accept'] && req.headers['accept'].indexOf('text/html') >=0
 					result.body = helper.htmlEscape(settings.format(result.body))
 				res.render 'atom/entries', 
 					post : result
