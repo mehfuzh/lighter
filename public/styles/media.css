@@ -26,7 +26,7 @@
     display: none;
   }
 }
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 480px) {
   body header.main nav {
     dispay: none;
   }
