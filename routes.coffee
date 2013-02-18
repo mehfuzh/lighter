@@ -56,16 +56,17 @@ routes = (app, settings) =>
 	app.get '/api/atom/feeds/private', (req, res) ->
 		res.header({'Content-Type': 'application/atom+xml' }) 
 		blog.findFormatted (result)-> 
+			posts = []
 			
-			# for post in result.posts
-			# 	post.body = helper.htmlEscape(post.body)
-			# 	posts.push(post) 
-			#                     
+			for post in result.posts
+				post.body = helper.htmlEscape(post.body)
+				posts.push(post) 
+			
 			res.render 'atom/feeds',
 					host		:	app.host
 					title		:	result.title
 					updated	:	result.updated
-					posts		:	result.posts
+					posts		:	posts
 	
 	app.get '/api/atom/feeds/:public', processGetFeeds
 						
