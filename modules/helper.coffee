@@ -16,5 +16,12 @@ module.exports = ()->
 				mm = '0' + mm
 			yy = dateNow.getFullYear()
 			util.format('%s/%s',yy, mm)
+		htmlEscape:(html)->
+			html = html.replace(/&(?!\w+;)/g, '&amp;')
+									.replace(/</g, '&lt;')
+									.replace(/>/g, '&gt;')
+									.replace(/"/g, '&quot;')
+			html    
+	
 			
 	return new Helper()

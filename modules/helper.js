@@ -28,6 +28,11 @@
         return util.format('%s/%s', yy, mm);
       };
 
+      Helper.prototype.htmlEscape = function(html) {
+        html = html.replace(/&(?!\w+;)/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        return html;
+      };
+
       return Helper;
 
     })();

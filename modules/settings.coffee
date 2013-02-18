@@ -22,13 +22,7 @@ module.exports = ()->
 		updated		:	new Date()
 		engine		:	'Lighter Blog Engine'
 		format: (content) ->
-			@marked(content)   
-		htmlEscape:(html)->
-			html = html.replace(/&(?!\w+;)/g, '&amp;')
-									.replace(/</g, '&lt;')
-									.replace(/>/g, '&gt;')
-									.replace(/"/g, '&quot;')
-			html 
-									
+		  require(__dirname + '/helper')().htmlEscape(@marked(content))
+						
 	new Settings()
 	

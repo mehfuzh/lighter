@@ -75,19 +75,11 @@
         'Content-Type': 'application/atom+xml'
       });
       return blog.findFormatted(function(result) {
-        var post, posts, _i, _len, _ref;
-        posts = [];
-        _ref = result.posts;
-        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-          post = _ref[_i];
-          post.body = settings.htmlEscape(post.body);
-          posts.push(post);
-        }
         return res.render('atom/feeds', {
           host: app.host,
           title: result.title,
           updated: result.updated,
-          posts: posts
+          posts: result.posts
         });
       });
     });
