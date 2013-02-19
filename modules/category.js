@@ -18,16 +18,7 @@
         return this.category.findOne({
           permaLink: link
         }, function(err, data) {
-          var cat, found, _i, _len, _ref;
-          found = false;
-          _ref = _this.cats;
-          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-            cat = _ref[_i];
-            if (cat === category) {
-              found = true;
-            }
-          }
-          if (data === null && !found) {
+          if (data === null) {
             category = new _this.category({
               title: category.trim(),
               permaLink: link

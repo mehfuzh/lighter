@@ -4,6 +4,9 @@
 .layout body header.main nav {
   dispay: none;
 }
+.layout body header.main nav ul.main-navigation {
+  display: none;
+}
 .layout body section.main {
   min-width: 0px;
 }
@@ -20,6 +23,9 @@
   }
   body header.main nav {
     dispay: none;
+  }
+  body header.main nav ul.main-navigation {
+    display: none;
   }
   body section.main {
     min-width: 0px;
@@ -38,6 +44,9 @@
   }
   body header.main nav {
     dispay: none;
+  }
+  body header.main nav ul.main-navigation {
+    display: none;
   }
   body section.main {
     min-width: 0px;

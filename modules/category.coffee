@@ -8,7 +8,7 @@ module.exports = (settings)->
 		refresh:(category, callback)->
 			link = @helper.linkify(category)
 			@category.findOne permaLink:link, (err, data)=>				
-		  	if data is null
+				if data is null
 					category = new @category
 						title : category.trim()
 						permaLink	: link

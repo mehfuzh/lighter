@@ -9,11 +9,17 @@ html
 		link(rel='stylesheet', href='/styles/highlight.css') 
 		link(rel='alternate', href='/api/atom/feeds/1', title='#{title}', type='application/atom+xml')
 		link(rel='EditURI', type='application/rsd+xml', title='RSD', href='/rsd.xml') 
-		script(type='text/javascript', src='/disqus.js')
+		script(src='/disqus.js')
 		body
 			header(class='main')	
 					h1
 						a(href='/') #{title}
+					nav
+						ul(class='main-navigation')
+							li
+								a(href= '/api/atom/feeds/1') RSS  
+							li
+								a(href='https://github.com/mehfuzh/lighter') Source	
 			section(class='main')
 				section(class='content')
 					section
