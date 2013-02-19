@@ -171,6 +171,7 @@ body header.main {
   height: 60px;
   padding-left: 55px;
   padding-right: 55px;
+  border-bottom: 2px solid #e0e0e0;
 }
 body header.main h1 {
   color: inherit;
