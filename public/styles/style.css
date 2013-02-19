@@ -152,26 +152,16 @@ body .linear-gradient {
 }
 body header.main {
   font-family: 'TitilliumText22LRegular';
-  /*		background: url('/images/bg-black.png');*/
-
-  background: #888;
-  background: url('/images/noise.png'), -webkit-linear-gradient(#e0e0e0, #cccccc, #b0b0b0);
-  background: url('/images/noise.png'), -moz-linear-gradient(#e0e0e0, #cccccc, #b0b0b0);
-  background: url('/images/noise.png'), -o-linear-gradient(#e0e0e0, #cccccc, #b0b0b0);
-  background: url('/images/noise.png'), -ms-linear-gradient(#e0e0e0, #cccccc, #b0b0b0);
-  background: url('/images/noise.png'), linear-gradient(#e0e0e0, #cccccc, #b0b0b0);
-  moz-border-radius-topleft: 5px;
-  -webkit-border-top-left-radius: 5px;
-  border-top-left-radius: 5px;
-  moz-border-radius-topright: 5px;
-  -webkit-border-top-right-radius: 5px;
-  border-top-right-radius: 5px;
-  color: #888;
-  text-shadow: #d9d9d9 0 1px;
+  z-index: 9999;
+  background: #1e8cbe;
+  border-bottom: 1px solid #005684;
+  color: #fff;
+  -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   height: 60px;
   padding-left: 55px;
   padding-right: 55px;
-  border-bottom: 2px solid #e0e0e0;
 }
 body header.main h1 {
   color: inherit;
@@ -186,7 +176,6 @@ body header.main h1 a {
   color: #fff;
   text-decoration: none;
   cursor: hand;
-  color: #888;
 }
 body header.main h1:visited {
   color: #fff;
