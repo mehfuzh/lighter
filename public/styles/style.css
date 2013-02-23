@@ -151,7 +151,7 @@ body {
   position: relative;
   margin: 0 auto;
   font-size: 1.15em;
-  line-height: 1.1em;
+  line-height: 1.15em;
 }
 body .content-left-right-spacing {
   padding-left: 55px;
@@ -204,6 +204,7 @@ body header.main h1:visited {
 body header.main nav {
   font-family: 'TitilliumText22LRegular';
   float: right;
+  margin-top: 4px;
 }
 body header.main nav ul.main-navigation {
   float: right;
