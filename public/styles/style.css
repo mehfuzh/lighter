@@ -1,4 +1,32 @@
 @font-face {
+  font-family: 'AsapRegular';
+  src: url('/fonts/Asap-Regular-webfont.eot');
+  src: url('/fonts/Asap-Regular-webfont.eot?#iefix') format('embedded-opentype'), url('/fonts/Asap-Regular-webfont.woff') format('woff'), url('/fonts/Asap-Regular-webfont.ttf') format('truetype'), url('/fonts/asap/Asap-Regular-webfont.svg#AsapRegular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'AsapItalic';
+  src: url('/fonts/Asap-Italic-webfont.eot');
+  src: url('/fonts/Asap-Italic-webfont.eot?#iefix') format('embedded-opentype'), url('/fonts/Asap-Italic-webfont.woff') format('woff'), url('/fonts/Asap-Italic-webfont.ttf') format('truetype'), url('/fonts/Asap-Italic-webfont.svg#AsapItalic') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'AsapBold';
+  src: url('/fonts/Asap-Bold-webfont.eot');
+  src: url('/fonts/Asap-Bold-webfont.eot?#iefix') format('embedded-opentype'), url('/fonts/Asap-Bold-webfont.woff') format('woff'), url('/fonts/Asap-Bold-webfont.ttf') format('truetype'), url('/fonts/Asap-Bold-webfont.svg#AsapBold') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'AsapBoldItalic';
+  src: url('/fonts/Asap-BoldItalic-webfont.eot');
+  src: url('/fonts/Asap-BoldItalic-webfont.eot?#iefix') format('embedded-opentype'), url('/fonts/Asap-BoldItalic-webfont.woff') format('woff'), url('/fonts/Asap-BoldItalic-webfont.ttf') format('truetype'), url('/fonts/Asap-BoldItalic-webfont.svg#AsapBoldItalic') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
   font-family: 'TitilliumText22LRegular';
   src: url('/fonts/TitilliumText22L003-webfont.eot');
   src: url('/fonts/TitilliumText22L003-webfont.eot?#iefix') format('embedded-opentype'), url('/fonts/TitilliumText22L003-webfont.woff') format('woff'), url('/fonts/TitilliumText22L003-webfont.ttf') format('truetype'), url('/fonts/TitilliumText22L003-webfont.svg#TitilliumText22LRegular') format('svg');
@@ -6,23 +34,9 @@
   font-style: normal;
 }
 @font-face {
-  font-family: 'DroidSansRegular';
-  src: url('/fonts/DroidSans-webfont.eot');
-  src: url('/fonts/DroidSans-webfont.eot?#iefix') format('embedded-opentype'), url('/fonts/DroidSans-webfont.woff') format('woff'), url('/fonts/DroidSans-webfont.ttf') format('truetype'), url('/fonts/DroidSans-webfont.svg#DroidSansRegular') format('svg');
-  font-weight: normal;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'LacunaRegular';
+  font-family: 'Lacuna';
   src: url('/fonts/lacuna-webfont.eot');
-  src: url('/fonts/lacuna-webfont.eot?#iefix') format('embedded-opentype'), url('/fonts/lacuna-webfont.woff') format('woff'), url('/fonts/lacuna-webfont.ttf') format('truetype'), url('/fonts/lacuna-webfont.svg#LacunaRegular') format('svg');
-  font-weight: normal;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'UbuntuRegular';
-  src: url('/fonts/Ubuntu-R-webfont.eot');
-  src: url('/fonts/Ubuntu-R-webfont.eot?#iefix') format('embedded-opentype'), url('/fonts/Ubuntu-R-webfont.woff') format('woff'), url('/fonts/Ubuntu-R-webfont.ttf') format('truetype'), url('/fonts/Ubuntu-R-webfont.svg#UbuntuRegular') format('svg');
+  src: url('/fonts/lacuna-webfont.eot?#iefix') format('embedded-opentype'), url('/fonts/lacuna-webfont.woff') format('woff'), url('/fonts/lacuna-webfont.ttf') format('truetype'), url('/fonts/lacuna-webfont.svg#TitilliumText22LRegular') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -133,11 +147,11 @@ video {
 body {
   max-width: 1000px;
   background: #252525 url('/images/line-tile.png') top left;
-  font-family: 'LacunaRegular';
+  font-family: 'AsapRegular';
   position: relative;
   margin: 0 auto;
   font-size: 1.15em;
-  line-height: 1.5em;
+  line-height: 1.1em;
 }
 body .content-left-right-spacing {
   padding-left: 55px;
@@ -151,7 +165,6 @@ body .linear-gradient {
   background: url('/images/noise.png'), linear-gradient(#e0e0e0, #cccccc, #b0b0b0);
 }
 body header.main {
-  font-family: 'TitilliumText22LRegular';
   z-index: 9999;
   background: #1e8cbe;
   border-bottom: 1px solid #005684;
@@ -164,6 +177,7 @@ body header.main {
   padding-right: 55px;
 }
 body header.main h1 {
+  font-family: 'TitilliumText22LRegular';
   color: inherit;
   font-size: 2.2em;
   font-weight: normal;
@@ -188,6 +202,7 @@ body header.main h1:visited {
   cursor: hand;
 }
 body header.main nav {
+  font-family: 'TitilliumText22LRegular';
   float: right;
 }
 body header.main nav ul.main-navigation {
@@ -211,6 +226,7 @@ body header.main nav ul.main-navigation li a {
   padding-right: 20px;
 }
 body section.main {
+  color: #222;
   padding: 0;
   margin: 0 auto;
   background: #F2F2F2;
@@ -273,6 +289,7 @@ body section.main section.content section article header time {
   font-size: .9em;
 }
 body section.main section.content section article header h1 {
+  font-family: 'Lacuna';
   color: #222;
   font-size: 2.0em;
   line-height: 1.2em;
@@ -310,12 +327,11 @@ body section.main section.content section article section p {
   padding-bottom: 5px;
 }
 body section.main section.content section article section p strong {
-  font-weight: bold;
-  font-size: 1.1em;
+  font-family: 'AsapBold';
   letter-spacing: 0.1em;
 }
 body section.main section.content section article section p em {
-  font-style: italic;
+  font-family: 'AsapItalic';
 }
 body section.main section.content section article section ol,
 body section.main section.content section article section ul {
@@ -331,6 +347,7 @@ body section.main section.content section article section ul li {
   text-align: -webkit-match-parent;
 }
 body section.main section.content section article section blockquote {
+  font-family: 'AsapItalic';
   border: none;
   color: gray;
   background: url('/images/blockquote.png') no-repeat;
@@ -341,6 +358,7 @@ body section.main section.content section article section div.category {
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
+  font-family: 'TitilliumText22LRegular';
   display: inline-block;
   padding: 4px 4px;
   font-size: 11.844px;
