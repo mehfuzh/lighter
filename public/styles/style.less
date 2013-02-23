@@ -68,11 +68,11 @@
 body {
   max-width:1000px;
 	background: @brown url('/images/line-tile.png') top left;
-	font-family: 'LacunaRegular';
+	font-family: 'AsapRegular';
 	position: relative;
 	margin: 0 auto;
 	font-size: 1.15em;
- 	line-height : 1.5em; 
+ 	line-height : 1.1em; 
 
 	.content-left-right-spacing{
 		padding-left: 55px;
@@ -89,7 +89,6 @@ body {
 	}
 
 	header.main{
-		font-family: 'TitilliumText22LRegular'; 
 		z-index: 9999;
 		background: #1e8cbe;
 		border-bottom: 1px solid #005684;
@@ -100,6 +99,7 @@ body {
 		height:60px;
 		.content-left-right-spacing;
 		h1{
+			font-family: 'TitilliumText22LRegular'; 
 			color: inherit;
 			font-size: 2.2em;
 			font-weight: normal;
@@ -115,8 +115,8 @@ body {
 		}
 		
 		nav{
+			font-family: 'TitilliumText22LRegular'; 
 			float:right;	
-			
 			ul.main-navigation{
 				float:right;
 				margin:0;
@@ -141,6 +141,7 @@ body {
 	}
 
 	section.main{
+		color: #222;
 		padding: 0;
 		margin: 0 auto;
 		background:#F2F2F2;
@@ -188,13 +189,13 @@ body {
 						background-color : inherit;
 						padding-top: 2em;
 						padding-bottom: 1em;
-
 						time{
 							text-transform: uppercase;
 							color : #AAA;
 							font-size: .9em;
 						}
 						h1{
+							font-family:'Lacuna';
 							color: #222;
 							font-size: 2.0em;
 							line-height: 1.2em;
@@ -228,13 +229,11 @@ body {
 							padding-bottom: 5px;
 							strong
 							{
-								font-weight:bold;
-								font-weight: bold;
-								font-size: 1.1em;
+								font-family:'AsapBold';
 								letter-spacing: 0.1em;
 							}
 							em{
-								font-style:italic;
+								font-family:'AsapItalic';
 							}
 						
 						}
@@ -252,6 +251,7 @@ body {
 						}
 						
 						blockquote{
+							font-family:'AsapItalic';
 							border: none;
 							color: gray;
 							background: url('/images/blockquote.png') no-repeat;
@@ -262,7 +262,8 @@ body {
 						/* twitter bootstrap*/
 						div.category{
 							.radius;
-					  	display: inline-block;
+							font-family: 'TitilliumText22LRegular'; 
+					  		display: inline-block;
 							padding: 4px 4px;
 							font-size: 11.844px;
 							font-weight: bold;
