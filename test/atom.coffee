@@ -15,18 +15,17 @@ blog = (require __dirname + '/init')
 (require path.join(__dirname, '../config'))(app)
 (require path.join(__dirname, '../routes'))(app, blog.settings)
 
-describe 'POST /api/atom/feeds', ()->	
-	request = request(app) 
-	describe 'Without authorizaiton header', ()->   
-		it 'should return unauthorized response', (done)->
-			post = request.post('/api/atom/feeds')
-			post.expect(401).end (err, res)->
-				if err != null
-					throw err
-				done()
-		describe 'With authorization header', ()->
-			id = ''
-			it 'should respond correct status code', (done)=>
+describe 'atom feed', ()->
+	request = request(app)
+	describe 'POST /api/atom/feeds', ()->	
+		id = ''
+		it 'should return 401 for unauthorized request', (done)->
+				post = request.post('/api/atom/feeds')
+				post.expect(401).end (err, res)->
+					if err != null
+						throw err
+					done()
+			it 'should return expceted resultset and statuscode', (done)=>
 				post = request.post('/api/atom/feeds')
 				post.set('Content-Type', 'application/atom+xml')
 				post.set('authorization', util.format('Basic %s', new Buffer('admin:admin').toString('base64')))
@@ -44,7 +43,31 @@ describe 'POST /api/atom/feeds', ()->
 								lastIndex = result.entry.id[0].lastIndexOf('/') + 1
 								id = result.entry.id[0].substr(lastIndex)
 							done()
-			afterEach (done)->
-				blog.deletePost id, ()->
-					done()
-				 
+		afterEach (done)->
+			blog.deletePost id, ()->
+				done() 
+	describe 'DELETE /api/atom/entries/:id', ()->
+		expected = 'test post'
+		id = ''
+		before (done)->     
+		  	blog.create
+				  posts			: [{
+						title		: expected
+						author 	:	'Mehfuz Hossain'
+						body		:	'Empty body'}]
+						,(result) =>
+							id = result._id
+							done()
+		it 'should return 401 for unauthorized request', (done)->
+			req = request.del(util.format('/api/atom/entries/%s', id))
+			req.expect(401).end (err, res)->   
+			 if err != null
+					throw err
+			 done()	 
+		it 'should return expected for authorized request', (done)->
+			req = request.del(util.format('/api/atom/entries/%s', id))
+			req = req.set('authorization', util.format('Basic %s', new Buffer('admin:admin').toString('base64')))
+			req.expect(200).end (err, res)->   
+			 if err != null
+					throw err
+			 done() 

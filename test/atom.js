@@ -26,10 +26,13 @@
 
   (require(path.join(__dirname, '../routes')))(app, blog.settings);
 
-  describe('POST /api/atom/feeds', function() {
+  describe('atom feed', function() {
     request = request(app);
-    return describe('Without authorizaiton header', function() {
-      it('should return unauthorized response', function(done) {
+    describe('POST /api/atom/feeds', function() {
+      var id,
+        _this = this;
+      id = '';
+      it('should return 401 for unauthorized request', function(done) {
         var post;
         post = request.post('/api/atom/feeds');
         return post.expect(401).end(function(err, res) {
@@ -39,39 +42,75 @@
           return done();
         });
       });
-      return describe('With authorization header', function() {
-        var id,
-          _this = this;
-        id = '';
-        it('should respond correct status code', function(done) {
-          var post;
-          post = request.post('/api/atom/feeds');
-          post.set('Content-Type', 'application/atom+xml');
-          post.set('authorization', util.format('Basic %s', new Buffer('admin:admin').toString('base64')));
-          return fs.readFile(__dirname + '/post.xml', 'utf8', function(err, result) {
-            post.write(result);
-            return post.expect(201).end(function(err, res) {
-              var parser;
-              if (err !== null) {
-                throw err;
-              }
-              parser = new xml2js.Parser();
-              parser.parseString(res.text, function(err, result) {
-                var lastIndex;
-                result.entry.title[0].should.be.ok;
-                result.entry.content[0].should.be.ok;
-                result.entry.id[0].should.be.ok;
-                lastIndex = result.entry.id[0].lastIndexOf('/') + 1;
-                return id = result.entry.id[0].substr(lastIndex);
-              });
-              return done();
+      it('should return expceted resultset and statuscode', function(done) {
+        var post;
+        post = request.post('/api/atom/feeds');
+        post.set('Content-Type', 'application/atom+xml');
+        post.set('authorization', util.format('Basic %s', new Buffer('admin:admin').toString('base64')));
+        return fs.readFile(__dirname + '/post.xml', 'utf8', function(err, result) {
+          post.write(result);
+          return post.expect(201).end(function(err, res) {
+            var parser;
+            if (err !== null) {
+              throw err;
+            }
+            parser = new xml2js.Parser();
+            parser.parseString(res.text, function(err, result) {
+              var lastIndex;
+              result.entry.title[0].should.be.ok;
+              result.entry.content[0].should.be.ok;
+              result.entry.id[0].should.be.ok;
+              lastIndex = result.entry.id[0].lastIndexOf('/') + 1;
+              return id = result.entry.id[0].substr(lastIndex);
             });
-          });
-        });
-        return afterEach(function(done) {
-          return blog.deletePost(id, function() {
             return done();
           });
+        });
+      });
+      return afterEach(function(done) {
+        return blog.deletePost(id, function() {
+          return done();
+        });
+      });
+    });
+    return describe('DELETE /api/atom/entries/:id', function() {
+      var expected, id;
+      expected = 'test post';
+      id = '';
+      before(function(done) {
+        var _this = this;
+        return blog.create({
+          posts: [
+            {
+              title: expected,
+              author: 'Mehfuz Hossain',
+              body: 'Empty body'
+            }
+          ]
+        }, function(result) {
+          id = result._id;
+          return done();
+        });
+      });
+      it('should return 401 for unauthorized request', function(done) {
+        var req;
+        req = request.del(util.format('/api/atom/entries/%s', id));
+        return req.expect(401).end(function(err, res) {
+          if (err !== null) {
+            throw err;
+          }
+          return done();
+        });
+      });
+      return it('should return expected for authorized request', function(done) {
+        var req;
+        req = request.del(util.format('/api/atom/entries/%s', id));
+        req = req.set('authorization', util.format('Basic %s', new Buffer('admin:admin').toString('base64')));
+        return req.expect(200).end(function(err, res) {
+          if (err !== null) {
+            throw err;
+          }
+          return done();
         });
       });
     });
