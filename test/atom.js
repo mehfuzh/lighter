@@ -73,6 +73,64 @@
         });
       });
     });
+    describe('PUT /api/atom/entries/:id', function() {
+      var expected, id,
+        _this = this;
+      id = '';
+      expected = 'test post';
+      before(function(done) {
+        var _this = this;
+        return blog.create({
+          posts: [
+            {
+              title: expected,
+              author: 'Mehfuz Hossain',
+              body: 'Empty body'
+            }
+          ]
+        }, function(result) {
+          id = result._id;
+          return done();
+        });
+      });
+      it('should return 401 for unauthorized request', function(done) {
+        var req;
+        req = request.put(util.format('/api/atom/entries/%s', id));
+        return req.expect(401).end(function(err, res) {
+          if (err !== null) {
+            throw err;
+          }
+          return done();
+        });
+      });
+      it('should update post return correct status code when authorized', function(done) {
+        var req;
+        req = request.put(util.format('/api/atom/entries/%s', id));
+        req.set('Content-Type', 'application/atom+xml');
+        req.set('authorization', util.format('Basic %s', new Buffer('admin:admin').toString('base64')));
+        return fs.readFile(__dirname + '/post.xml', 'utf8', function(err, result) {
+          req.write(result);
+          return req.expect(200).end(function(err, res) {
+            var parser;
+            if (err !== null) {
+              throw err;
+            }
+            parser = new xml2js.Parser();
+            parser.parseString(res.text, function(err, result) {
+              result.entry.title[0].should.be.ok;
+              result.entry.content[0]._.length.should.not.equal(0);
+              return result.entry.id[0].should.be.ok;
+            });
+            return done();
+          });
+        });
+      });
+      return after(function(done) {
+        return blog.deletePost(id, function() {
+          return done();
+        });
+      });
+    });
     return describe('DELETE /api/atom/entries/:id', function() {
       var expected, id;
       expected = 'test post';
