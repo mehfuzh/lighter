@@ -14,7 +14,7 @@
     "xml2js": "~0.2.2"
   },
  "engines": {
-    "node": "0.8.1",
+    "node": "0.8.2",
     "npm": "1.1.35"
   },
   "devDependencies": {
