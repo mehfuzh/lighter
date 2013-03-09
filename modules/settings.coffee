@@ -16,7 +16,7 @@ module.exports = ()->
 		mongoose	:	@mongoose
 		url				:	'/'
 		title			:	process.env.BLOG_TITLE || 'Mehfuz\'s Blog'
-		username	:	process.env.USERNAME || 'admin'
+		username	:	process.env.USER || 'admin'
 		password	:	process.env.PASSWORD || 'admin' 
 		feedUrl		:	process.env.FEED_URL || null
 		updated		:	new Date()

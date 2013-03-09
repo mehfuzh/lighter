@@ -29,7 +29,7 @@
 
       Settings.prototype.title = process.env.BLOG_TITLE || 'Mehfuz\'s Blog';
 
-      Settings.prototype.username = process.env.USERNAME || 'admin';
+      Settings.prototype.username = process.env.USER || 'admin';
 
       Settings.prototype.password = process.env.PASSWORD || 'admin';
 
