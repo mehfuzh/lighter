@@ -6,6 +6,7 @@ var express = require('express')
 var app = express();
 
 require('./config')(app)
+require('newrelic')
 
 var settings = require( __dirname + '/modules/settings')()
 
