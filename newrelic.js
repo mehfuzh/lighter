@@ -8,7 +8,7 @@ exports.config = {
   /**
    * Array of application names.
    */
-  app_name : ['Lighter Blog Engine'],
+  app_name : [process.env.NEW_RELIC_LICENSE_KEY],
   /**
    * Your New Relic license key.
    */
