@@ -11,9 +11,10 @@
     "mongodb": "*",
     "highlight.js": ">=7.3.0",
     "marked": ">=0.2.6",
-    "xml2js": "~0.2.2"
+    "xml2js": "~0.2.2",
+    "newrelic": "~0.9.19"
   },
- "engines": {
+  "engines": {
     "node": "0.8.2",
     "npm": "1.1.35"
   },
