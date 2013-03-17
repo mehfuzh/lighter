@@ -27,7 +27,7 @@
 
       Settings.prototype.url = '/';
 
-      Settings.prototype.title = process.env.BLOG_TITLE || 'Mehfuz\'s Blog';
+      Settings.prototype.title = process.env.BLOG_TITLE || 'Lighter Blog';
 
       Settings.prototype.username = process.env.USER || 'admin';
 
