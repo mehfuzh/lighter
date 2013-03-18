@@ -5,17 +5,17 @@ var express = require('express')
 // Configuration
 var app = express();
 
-require('./config')(app)
-require('newrelic')
+require('./config')(app);
 
-var settings = require( __dirname + '/modules/settings')()
+var settings = require( __dirname + '/modules/settings')();
 
 require(__dirname + '/modules/schema')(settings.mongoose);
 
-//  create user 
-if (process.env.NODE_ENV != 'production'){
-	require (__dirname +'/modules/builder')(settings);
+if (process.env.NODE_ENV == 'production'){
+	require('newrelic');	
 }
+
+require (__dirname +'/modules/builder')(settings);
 
 var user = require('./modules/user')(settings);
 
