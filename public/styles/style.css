@@ -181,9 +181,9 @@ video {
   clear: both;
 }
 body {
+  font-family: 'SourceSansProRegular', serif;
   max-width: 1000px;
   background: #252525 url('/images/line-tile.png') top left;
-  font-family: 'SourceSansProRegular';
   position: relative;
   margin: 0 auto;
   font-size: 1.15em;
