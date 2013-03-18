@@ -392,18 +392,21 @@ body section.main section.content section article section blockquote {
   padding: 25px 5px 5px 70px;
 }
 body section.main section.content section article section div.category {
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
   font-family: 'SourceSansProRegular';
   display: inline-block;
   padding: 4px 4px;
-  font-size: 13px;
-  line-height: 13px;
+  font-size: 12px;
+  line-height: 12px;
   color: #ffffff;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
   white-space: nowrap;
   vertical-align: baseline;
   background-color: #333333;
   margin-right: 5px;
-  margin-top: 20px;
+  margin-top: 10px;
   margin-bottom: 10px;
 }
 body section.main section.content section article section code {
