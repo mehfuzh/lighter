@@ -1,4 +1,4 @@
-#lighter - fast, simple nodejs blog engine for geeks.
+#lighter - fast, simple blog engine for geeks.
      
 The blog is built using node and mongo. There is no admin view and exposes AtomPub to create, view and delete posts.
 
