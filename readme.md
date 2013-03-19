@@ -1,4 +1,4 @@
-#Lighter - lightweight nodejs blog engine.
+#lighter - fast, simple nodejs blog engine for geeks.
      
 The blog is built using node and mongo. There is no admin view and exposes AtomPub to create, view and delete posts.
 
@@ -23,7 +23,7 @@ You would also need mongodb. Please refer to the following online document for i
 
 Optionally, use the following command to install the MongoDB package into your system:
 
- brew install mongodb
+	brew install mongodb
 
 ## Configuration
 
@@ -33,7 +33,7 @@ The project structure is similar to the default express web template. Stylesheet
 
 Tests are written with mocha. It is required that mocha is installed globally:
 
-npm install -g mocha
+	npm install -g mocha
 
 
 Once installed, type the following command to run tests.
@@ -42,6 +42,8 @@ Once installed, type the following command to run tests.
 
 ##Further reading
 
-My personal blog is hosted with _lighter_. Please check this post out for further reading:            
+My personal blog is hosted with _lighter_ @www.meonbinary.com. 
+
+Please check this post out for further reading:            
 [Introducing Lighter Blog Engine](http://www.meonbinary.com/2013/02/introducing-lighter-blog-engine)
                       
