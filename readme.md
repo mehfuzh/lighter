@@ -1,29 +1,46 @@
 #Lighter - lightweight nodejs blogging engine.
+     
+The blog is built using node and mongo. There is no admin view and exposes AtomPub to create, view and delete posts.
 
-The blog fully implements REST based AtomPub API. There is no traditional admin view to do your post. Getting started with the project is simple.
 
-Once you have forked or downloaded the code. First just need to type the following from shell
+## installation
+
+The quickest way to get started  with lighter to run the following command once you downloaded the source:
 
 	npm install
 
-This will install the necessary dependencies for running the project. Once done, type the following command
+This will install the necessary dependencies for running the project. Next start the server:
 
 	./bin/devserver
-
-This initializes the blog with default settings using the _node-dev_ server. The blog engine is written with coffee script therefore if you want to makes changes to any of the coffee files, please also keep coffee watch script running in a different terminal or tab. The command is:
+                      
+Blog modules are written with coffee script therefore keep coffee watch command in a separate terminal or execute the following script:
 
 	./bin/compile 
 	
-You also need to globally install mocha:
-
-	npm install -g mocha
-
-Typing _mocha_ in your terminal will run the tests. You also need to have mongodb installed and running. You can find more on this topic here:                                      
+Typing _mocha_ in your terminal to run the tests. You would also need mongodb. Please refer to the following online document for installing mongo locally:                                      
 
 [Installing MongoDB] (http://docs.mongodb.org/manual/installation/)
 
-The project comes with a heroku Procfile this is for specifying dynos and heroku related settings but not needed for running the project.
-                       
-The project structure is based on express web framework and uses less for stylesheets. The main route file is routes.coffee and settings are defined in modules/settings.cofffee
 
-TBD.
+## Configuration
+
+The project structure is similar to the default express web template. Stylesheets are written with less and project settings are defined in _settings.coffee_ under modules folder.
+
+
+## Running tests
+
+Tests are written with mocha. It is required that mocha is installed globally:
+
+npm install -g mocha
+  
+Type the following command to run tests.
+
+	mocha
+
+#Further reading:
+
+My personal blog is hosted with lighter. Please check this post out for further reading:            
+[Introducing Lighter Blog Engine](http://www.meonbinary.com/2013/02/introducing-lighter-blog-engine)
+                      
+Regards
+Mehfuz

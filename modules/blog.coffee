@@ -103,7 +103,7 @@ module.exports = (settings)->
 				_id : id, ()->
 					callback()
 		
-		delete: (callback) ->     
+		delete: (callback) ->  
 			@blog.find url : @settings.url, (err, data) =>
 				for blog in data
 					@post.remove id : blog._id, ()=>
