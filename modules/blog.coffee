@@ -74,6 +74,9 @@ module.exports = (settings)->
 				@post.findOne 
 					id : blog._id 
 					permaLink: permaLink,(err, data)=>
+						if err != null or data == null
+							callback(null)
+							return
 						data.body = @settings.format(data.body)
 						callback({
 							title	:	blog.title

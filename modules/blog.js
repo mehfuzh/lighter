@@ -123,6 +123,10 @@
             id: blog._id,
             permaLink: permaLink
           }, function(err, data) {
+            if (err !== null || data === null) {
+              callback(null);
+              return;
+            }
             data.body = _this.settings.format(data.body);
             return callback({
               title: blog.title,

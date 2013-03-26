@@ -122,9 +122,12 @@ routes = (app, settings) =>
 		findMostRecent (result)=>
 			recent = result
 			blog.findPost link, (result)->  
-				result.host = app.host
-				result.recent = recent
-				res.render 'post', result
+				if result != null
+					result.host = app.host
+					result.recent = recent
+					res.render 'post', result
+				else
+					res.end("Invalid url or could not find the post")
 			return
 								
 	app.get '/', (req, res) ->

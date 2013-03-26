@@ -165,9 +165,13 @@
       return findMostRecent(function(result) {
         recent = result;
         blog.findPost(link, function(result) {
-          result.host = app.host;
-          result.recent = recent;
-          return res.render('post', result);
+          if (result !== null) {
+            result.host = app.host;
+            result.recent = recent;
+            return res.render('post', result);
+          } else {
+            return res.end("Invalid url or could not find the post");
+          }
         });
       });
     });
