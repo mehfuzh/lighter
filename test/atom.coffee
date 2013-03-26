@@ -1,15 +1,17 @@
 require 'should'      
 helper = (require '../modules/helper')()     
 
-express = require('express')
-request = require 'supertest'
 xml2js = require 'xml2js'      
 util = require('util')                               
 
 path = require 'path'
 fs = require('fs')  
 
+express = require('express')
+request = require 'supertest'
+
 app = express()         
+
 blog = (require __dirname + '/init')
 
 (require path.join(__dirname, '../config'))(app)

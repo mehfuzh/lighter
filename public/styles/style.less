@@ -68,7 +68,7 @@
 body {
 	color: #222;  
 	font-family: 'SourceSansProRegular';
-  max-width:1000px;
+  	max-width:1000px;
 	background: @brown url('/images/line-tile.png') top left;
 	position: relative;
 	margin: 0 auto;
@@ -226,7 +226,7 @@ body {
 						p:first-child{
 							padding-top : 0;
 						}
-				  	p{
+						p{
 							padding-top:5px;
 							padding-bottom: 5px;
 							strong
@@ -237,7 +237,14 @@ body {
 							em{
 								font-family:'SourceSansProItalic';
 							}
-						
+
+							a{
+								color:#268bd2;
+								text-decoration:none;
+								&:hover{
+									color:  #de3f1c;
+								}
+							}
 						}
 						
 						ol, ul{
@@ -251,7 +258,8 @@ body {
 								text-align: -webkit-match-parent;
 							}
 						}
-						
+
+
 						blockquote{
 							font-family:'SourceSansProItalic';
 							border: none;
@@ -285,6 +293,7 @@ body {
 							padding-top : 40px;
 							margin-top:20px;
 							margin-bottom:20px;
+							word-wrap:break-word;
 						  }
 						
 						background:url('/images/header-bottom.png') repeat-x 100% 100%;

@@ -371,6 +371,12 @@ body section.main section.content section article section p strong {
 body section.main section.content section article section p em {
   font-family: 'SourceSansProItalic';
 }
+body section.main section.content section article section p a {
+  text-decoration: none;
+}
+body section.main section.content section article section p a:hover {
+  color: #de3f1c;
+}
 body section.main section.content section article section ol,
 body section.main section.content section article section ul {
   list-style-type: none;
@@ -421,6 +427,7 @@ body section.main section.content section article section code {
   padding-top: 40px;
   margin-top: 20px;
   margin-bottom: 20px;
+  word-wrap: break-word;
 }
 body section.main section.content section article:first-child {
   background: none;
