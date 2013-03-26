@@ -3,7 +3,7 @@
 The blog is built using node and mongo. There is no admin view and exposes AtomPub to create, view and delete posts.
 
 
-## installation
+##Installation
 
 The quickest way to get started  with _lighter_ is to run the following command once you downloaded the source:
 
@@ -25,11 +25,11 @@ Optionally, use the following command to install the MongoDB package into your s
 
 	brew install mongodb
 
-## Configuration
+##Configuration
 
 The project structure is similar to the default express web template. Stylesheets are written with less and project settings are defined in _settings.coffee_ under modules folder.
 
-## Running tests
+##Running tests
 
 Tests are written with mocha. It is required that mocha is installed globally:
 
@@ -42,8 +42,11 @@ Once installed, type the following command to run tests.
 
 ##Further reading
 
-My personal blog is hosted with _lighter_ @www.meonbinary.com. 
+My personal blog is hosted with *lighter* @www.meonbinary.com. 
 
 Please check this post out for further reading:            
 [Introducing Lighter Blog Engine](http://www.meonbinary.com/2013/02/introducing-lighter-blog-engine)
                       
+##License 
+
+MIT
