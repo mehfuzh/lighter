@@ -6,7 +6,7 @@ module.exports = ()->
 			source = source.replace(/^\s*|\s*$/g, '')
 			source = source.replace(/:+/g, '')
 			source = source.replace(/\s+/g, '-')
-			source.replace(/[?#&]+/g, '') 
+			source.replace(/[?#&!]+/g, '') 
 			util.format("%s/%s", @.dateNow(), source)
 			
 		dateNow: ()->

@@ -13,7 +13,7 @@
         source = source.replace(/^\s*|\s*$/g, '');
         source = source.replace(/:+/g, '');
         source = source.replace(/\s+/g, '-');
-        source.replace(/[?#&]+/g, '');
+        source.replace(/[?#&!]+/g, '');
         return util.format("%s/%s", this.dateNow(), source);
       };
 
