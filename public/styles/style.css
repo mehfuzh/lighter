@@ -313,6 +313,7 @@ body section.main section.content section article {
   padding-left: 55px;
   padding-right: 55px;
   padding-bottom: 10px;
+  position: relative;
 }
 body section.main section.content section article header {
   padding: 0px;
@@ -334,6 +335,7 @@ body section.main section.content section article header h1 {
   line-height: 1.2em;
 }
 body section.main section.content section article header h1 a {
+  cursor: hand;
   color: #000;
   text-decoration: none;
 }
@@ -341,6 +343,7 @@ body section.main section.content section article header h1 a:hover {
   color: #de3f1c;
 }
 body section.main section.content section article section {
+  float: none;
   /* twitter bootstrap*/
 
   background: url('/images/header-bottom.png') repeat-x 100% 100%;
@@ -372,6 +375,7 @@ body section.main section.content section article section p em {
   font-family: 'SourceSansProItalic';
 }
 body section.main section.content section article section p a {
+  color: #268bd2;
   text-decoration: none;
 }
 body section.main section.content section article section p a:hover {
