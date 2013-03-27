@@ -29,7 +29,7 @@
         });
       });
       it('should return expected for permaLink', function(done) {
-        return blog.findPost(helper.linkify(expected), function(data) {
+        return blog.findPost(helper.linkify('test post'), function(data) {
           data.post.title.should.equal(expected);
           console.log(data);
           return done();

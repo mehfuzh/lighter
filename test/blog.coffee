@@ -16,11 +16,11 @@ describe 'Blog', ->
 							_id = result._id
 							done()
   	
-	 	it 'should return expected for permaLink', (done)->    
-				blog.findPost helper.linkify(expected), (data) ->
-				 	data.post.title.should.equal expected
-				 	console.log data
-				 	done()
+	 	it 'should return expected for permaLink', (done)->
+	 		blog.findPost helper.linkify('test post'), (data) ->
+				 data.post.title.should.equal expected
+				 console.log data
+				 done()
 	  
 	  afterEach (done)->        
 				blog.deletePost _id, ()->
