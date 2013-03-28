@@ -22,10 +22,17 @@ config = (app)->
 		app.use(express.methodOverride())
 		app.use(app.router)
 		app.use(require('less-middleware')({ src: __dirname + '/public' }))
-		app.use(express.static(__dirname + '/public'))
+		app.use(express.compress())
+
+		if process.env.NODE_ENV is 'production'
+			# 1000*60*60*24 = 1 day
+			app.use(express.static(__dirname + '/public', { maxAge : 86400000}))
+		else
+			app.use(express.static(__dirname + '/public'))
+		
 		app.locals.pretty = true
 
-	app.configure	'production', ()->
-		app.use(express.errorHandler())  
+		app.configure	'production', ()->
+			app.use(express.errorHandler())  
 	
 module.exports = config

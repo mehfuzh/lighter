@@ -7,7 +7,7 @@
   util = require('util');
 
   config = function(app) {
-    app.configure(function() {
+    return app.configure(function() {
       app.set('port', process.env.PORT || 3000);
       app.set('views', __dirname + '/views');
       app.set('view engine', 'jade');
@@ -32,11 +32,18 @@
       app.use(require('less-middleware')({
         src: __dirname + '/public'
       }));
-      app.use(express["static"](__dirname + '/public'));
-      return app.locals.pretty = true;
-    });
-    return app.configure('production', function() {
-      return app.use(express.errorHandler());
+      app.use(express.compress());
+      if (process.env.NODE_ENV === 'production') {
+        app.use(express["static"](__dirname + '/public', {
+          maxAge: 86400000
+        }));
+      } else {
+        app.use(express["static"](__dirname + '/public'));
+      }
+      app.locals.pretty = true;
+      return app.configure('production', function() {
+        return app.use(express.errorHandler());
+      });
     });
   };
 
