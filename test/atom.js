@@ -6,10 +6,6 @@
 
   helper = (require('../modules/helper'))();
 
-  express = require('express');
-
-  request = require('supertest');
-
   xml2js = require('xml2js');
 
   util = require('util');
@@ -17,6 +13,10 @@
   path = require('path');
 
   fs = require('fs');
+
+  express = require('express');
+
+  request = require('supertest');
 
   app = express();
 
@@ -79,16 +79,14 @@
       id = '';
       expected = 'test post';
       before(function(done) {
-        var _this = this;
-        return blog.create({
-          posts: [
-            {
-              title: expected,
-              author: 'Mehfuz Hossain',
-              body: 'Empty body'
-            }
-          ]
-        }, function(result) {
+        var promise,
+          _this = this;
+        promise = blog.create({
+          title: expected,
+          author: 'Mehfuz Hossain',
+          body: 'Empty body'
+        });
+        return promise.then(function(result) {
           id = result._id;
           return done();
         });
@@ -136,16 +134,14 @@
       expected = 'test post';
       id = '';
       before(function(done) {
-        var _this = this;
-        return blog.create({
-          posts: [
-            {
-              title: expected,
-              author: 'Mehfuz Hossain',
-              body: 'Empty body'
-            }
-          ]
-        }, function(result) {
+        var promise,
+          _this = this;
+        promise = blog.create({
+          title: expected,
+          author: 'Mehfuz Hossain',
+          body: 'Empty body'
+        });
+        return promise.then(function(result) {
           id = result._id;
           return done();
         });

@@ -4,7 +4,7 @@
     _this = this;
 
   routes = function(app, settings) {
-    var authorize, blog, category, findMostRecent, helper, parseCategory, processGetFeeds, request, util, xml2js;
+    var authorize, blog, category, helper, parseCategory, processGetFeeds, request, util, xml2js;
     util = require('util');
     blog = (require(__dirname + '/modules/blog'))(settings);
     helper = (require(__dirname + '/modules/helper'))();
@@ -53,7 +53,7 @@
       });
     });
     processGetFeeds = function(req, res) {
-      var content;
+      var content, promise;
       if (settings.feedUrl && parseInt(req.params['public']) === 1) {
         return res.redirect(settings.feedUrl);
       } else {
@@ -64,7 +64,8 @@
         if (req.headers['accept'] && req.headers['accept'].indexOf('text/html') >= 0) {
           content = 'encode';
         }
-        return blog.find(content, function(result) {
+        promise = blog.find(content);
+        return promise.then(function(res) {
           return res.render('atom/feeds', {
             host: app.host,
             title: result.title,
@@ -80,16 +81,14 @@
       var parser;
       parser = new xml2js.Parser();
       return parser.parseString(req.rawBody, function(err, result) {
-        return blog.create({
-          posts: [
-            {
-              title: result.entry.title[0]._,
-              body: result.entry.content[0]._,
-              author: 'Mehfuz Hossain',
-              categories: parseCategory(result.entry)
-            }
-          ]
-        }, function(result) {
+        var promise;
+        promise = blog.create({
+          title: result.entry.title[0]._,
+          body: result.entry.content[0]._,
+          author: 'Mehfuz Hossain',
+          categories: parseCategory(result.entry)
+        });
+        return promise.then(function(result) {
           var location;
           location = app.host + 'api/atom/entries/' + result._id;
           res.header({
@@ -152,19 +151,16 @@
         engine: settings.engine
       });
     });
-    findMostRecent = function(callback) {
-      return blog.findMostRecent(function(result) {
-        callback(result);
-      });
-    };
     app.get('/:year/:month/:title', function(req, res) {
-      var link, recent,
+      var link, promise, recent,
         _this = this;
       link = util.format("%s/%s/%s", req.params.year, req.params.month, req.params.title);
       recent = [];
-      return findMostRecent(function(result) {
+      promise = blog.findMostRecent();
+      return promise.then(function(result) {
         recent = result;
-        blog.findPost(link, function(result) {
+        promise = blog.findPost(link);
+        return promise.then(function(result) {
           if (result !== null) {
             result.host = app.host;
             result.recent = recent;
@@ -176,12 +172,14 @@
       });
     });
     return app.get('/', function(req, res) {
-      var recent,
+      var promise, recent,
         _this = this;
       recent = [];
-      return findMostRecent(function(result) {
+      promise = blog.findMostRecent();
+      return promise.then(function(result) {
         recent = result;
-        blog.find('sanitize', function(result) {
+        promise = blog.find('sanitize');
+        promise.then(function(result) {
           result.host = app.host;
           result.recent = recent;
           return res.render('index', result);

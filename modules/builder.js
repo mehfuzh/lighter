@@ -8,10 +8,11 @@
       blog = require(__dirname + '/blog')(settings);
       user = require(__dirname + '/user')(settings);
       return fs.readFile(__dirname + '/../bin/post.md', 'utf8', function(err, result) {
-        var categories, category, content, post, posts, _i, _j, _len, _len1, _ref, _ref1;
+        var categories, category, content, post, posts, promise, _i, _j, _len, _len1, _ref, _ref1, _results;
         blog["delete"](function() {});
         posts = [];
         _ref = result.split('#post');
+        _results = [];
         for (_i = 0, _len = _ref.length; _i < _len; _i++) {
           post = _ref[_i];
           if (post !== '') {
@@ -23,21 +24,22 @@
               category = category.replace(/^\n*|\n*$/g, '');
               categories.push(category);
             }
-            posts.push({
+            promise = blog.create({
               title: content[0],
               body: content[1],
               author: content[2],
               categories: categories
             });
+            _results.push(promise.then(function(result) {
+              if (result.id !== null) {
+                return console.log(result.permaLink);
+              }
+            }));
+          } else {
+            _results.push(void 0);
           }
         }
-        return blog.create({
-          posts: posts
-        }, function(result) {
-          if (result.id !== null) {
-            return console.log(result.permaLink);
-          }
-        });
+        return _results;
       });
     }
   };

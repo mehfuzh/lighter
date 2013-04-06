@@ -7,34 +7,33 @@ module.exports = (settings)->
 			@helper = (require __dirname + '/helper')()
 			@category = (require __dirname + '/category')(settings)
 
-		create: (obj, callback) ->
+		create: (obj) ->
+			promise = new @settings.Promise()
 			@blog.findOne url : @settings.url, (err, data)=>
 				# format
-				for post in obj.posts
-					post.title = post.title.trim()
-			
+				obj.title = obj.title.trim()
 				if data isnt null
 					@_post
-						id 		: data._id
-						posts	: obj.posts
+						id 	: data._id
+						post: obj
 						, (data)->
-								callback(data)
-								return
+							promise.resolve data
 				else
 					blog = new @blog
 						url		: @settings.url
 						title	: @settings.title
 						updated : @settings.updated
 					blog.save (err, data) =>
-							if err == null
-								@_post
-									id : data._id
-									posts: obj.posts
-									, (data)->
-											callback(data)
-											return
+						if err == null
+							@_post
+								id : data._id
+								posts: obj
+								, (data)->
+									promise.resolve data
+			return promise
 
-		find:(format, callback)->
+		find:(format)->
+			promise = new @settings.Promise()
 			@blog.findOne url : @settings.url, (err, data) =>
 				if err!= null
 					throw err.message
@@ -48,15 +47,16 @@ module.exports = (settings)->
 						else if format is 'sanitize'
 							post.body = @settings.format(post.body) 
 						posts.push post
-					callback({
+					promise.resolve({
 						id 		: blog._id
 						title : blog.title
 						updated : blog.updated
 						posts :	posts
 					})
-				return
+			return promise
 				
-		findMostRecent: (callback) ->
+		findMostRecent: () ->
+			promise = new @settings.Promise()
 			@blog.findOne url: @settings.url, (err, data) =>
 				@post.find({id : data._id}).sort({date: -1}).limit(5).exec (err, data)=>
 						recent = []
@@ -65,10 +65,11 @@ module.exports = (settings)->
 									title 		: post.title
 									permaLink :	post.permaLink
 								})
-						callback(recent)
-				return
+						promise.resolve(recent)
+			return promise
 				
-		findPost: (permaLink, callback)->
+		findPost: (permaLink)->
+			promise = new @settings.Promise
 			@blog.findOne url: @settings.url, (err, data) =>
 				blog = data
 				@post.findOne 
@@ -78,11 +79,11 @@ module.exports = (settings)->
 							callback(null)
 							return
 						data.body = @settings.format(data.body)
-						callback({
+						promise.resolve({
 							title	:	blog.title
 							post	:	data
 						})
-			return 
+			return promise
 			
 		findPostById: (id, callback)->
 			@post.findOne 
@@ -115,23 +116,23 @@ module.exports = (settings)->
 						callback()
 
 		_post: (obj, callback) ->
-			for post in obj.posts
-				postSchema = new @post
-						id 				: obj.id
-						title 		: post.title
-						permaLink	:	 @helper.linkify(post.title)
-						author 		:	post.author
-						body 			: post.body
-						publish : 1
-						date			:	new Date()		
-						categories : post.categories
-				postSchema.save (err, data) =>
-						if err != null
-							callback(err.message)
-						if (data.categories)
-							for category in data.categories
-								@category.refresh category, (id)->
-						callback(data)
-						return
+			post = obj.post
+			postSchema = new @post
+					id 			: obj.id
+					title 		: post.title
+					permaLink	:	 @helper.linkify(post.title)
+					author 		:	post.author
+					body 		: post.body
+					publish 	: 1
+					date		:	new Date()		
+					categories : post.categories
+			postSchema.save (err, data) =>
+					if err != null
+						callback(err.message)
+					if (data.categories)
+						for category in data.categories
+							@category.refresh category, (id)->
+					callback(data)
+					return
 																	
 	new Blog settings

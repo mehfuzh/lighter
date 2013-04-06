@@ -13,12 +13,11 @@ module.exports = (settings) ->
 						for category in content[3].split(' ')
 							category = category.replace(/^\n*|\n*$/g, '')
 							categories.push(category)
-						posts.push
+						promise = blog.create 
 							title 	: content[0]
 							body 	: content[1]
 							author	: content[2]
-							categories : categories		
-				blog.create
-					posts : posts, (result)->
-						if result.id isnt null
-							console.log result.permaLink
+							categories : categories	
+						promise.then (result)->
+							if result.id isnt null
+								console.log result.permaLink

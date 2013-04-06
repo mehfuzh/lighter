@@ -8,6 +8,7 @@
       function Settings(app) {
         var url;
         this.mongoose = require('mongoose');
+        this.Promise = require('node-promise').Promise;
         url = process.env.MONGODB_URI || process.env.MONGOLAB_URI || 'mongodb://localhost/lighter';
         this.mongoose.connect(url);
         this.marked = require('marked');

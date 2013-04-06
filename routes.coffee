@@ -47,7 +47,9 @@ routes = (app, settings) =>
 				content = ''
 				if req.headers['accept'] && req.headers['accept'].indexOf('text/html') >= 0
 					content = 'encode'
-				blog.find content, (result)->
+				
+				promise = blog.find content
+				promise.then (res)->		
 					res.render 'atom/feeds',
 						host		:	app.host
 						title		:	result.title
@@ -60,23 +62,22 @@ routes = (app, settings) =>
 	app.post '/api/atom/feeds', authorize, (req, res) -> 
 		parser = new xml2js.Parser()  
 		parser.parseString req.rawBody, (err, result) -> 
-			blog.create
-				posts : [{
-					title   		: result.entry.title[0]._
-					body    		: result.entry.content[0]._
-					author 			: 'Mehfuz Hossain'
-					categories 	: parseCategory result.entry
-				}], (result)->
-					location = app.host + 'api/atom/entries/' + result._id
-					res.header({
-						'Content-Type'	: req.headers['content-type'] 
-						'Location'			: location
-						})
-					# post is created.
-					res.statusCode = 201
-					res.render 'atom/entries', 
-						post : result
-						host  : app.host 
+			promise = blog.create
+				title   	: result.entry.title[0]._
+				body    	: result.entry.content[0]._
+				author 		: 'Mehfuz Hossain'
+				categories 	: parseCategory result.entry
+			promise.then (result)->
+				location = app.host + 'api/atom/entries/' + result._id
+				res.header({
+					'Content-Type'	: req.headers['content-type'] 
+					'Location'			: location
+					})
+				# post is created.
+				res.statusCode = 201
+				res.render 'atom/entries', 
+					post : result
+					host  : app.host 
 			
 	app.get '/api/atom/entries/:id', (req, res) ->
 		res.header({'Content-Type': 'application/xml' })
@@ -110,31 +111,30 @@ routes = (app, settings) =>
 						host : app.host
 						engine : settings.engine
 			 
-	findMostRecent = (callback)->
-		blog.findMostRecent (result)->
-			callback(result)
-			return
 
 	app.get '/:year/:month/:title', (req, res) ->
 		link = util.format("%s/%s/%s", req.params.year, req.params.month, req.params.title)
 		# get the most recent posts, to be displayed on the right
 		recent = [] 
-		findMostRecent (result)=>
+		promise = blog.findMostRecent() 
+		promise.then (result)=>
 			recent = result
-			blog.findPost link, (result)->  
+			promise = blog.findPost link
+			promise.then (result)->  
 				if result != null
 					result.host = app.host
 					result.recent = recent
 					res.render 'post', result
 				else
 					res.end("Invalid url or could not find the post")
-			return
 								
 	app.get '/', (req, res) ->
 		recent = []
-		findMostRecent (result)=>
+		promise = blog.findMostRecent() 
+		promise.then (result)=>
 			recent = result
-			blog.find 'sanitize', (result) -> 
+			promise = blog.find 'sanitize'
+			promise.then (result)->
 				result.host = app.host
 				result.recent = recent
 				res.render 'index', result

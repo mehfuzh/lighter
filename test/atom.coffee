@@ -52,15 +52,14 @@ describe 'atom feed', ()->
 	describe 'PUT /api/atom/entries/:id', ()->	
 		id = '' 
 		expected = 'test post' 
-		before (done)->     
-			blog.create
-				posts			: [{
-						title		: expected
-						author 	:	'Mehfuz Hossain'
-						body		:	'Empty body'}]
-						,(result) =>
-							id = result._id
-							done()
+		before (done)->
+			promise = blog.create
+					title	: 	expected
+					author 	:	'Mehfuz Hossain'
+					body	:	'Empty body'
+			promise.then (result) =>
+				id = result._id
+				done()
 		it 'should return 401 for unauthorized request', (done)->
 				req = request.put(util.format('/api/atom/entries/%s', id))
 				req.expect(401).end (err, res)->
@@ -89,15 +88,14 @@ describe 'atom feed', ()->
 	describe 'DELETE /api/atom/entries/:id', ()->
 		expected = 'test post'
 		id = ''
-		before (done)->     
-		  	blog.create
-				  posts			: [{
-						title		: expected
-						author 	:	'Mehfuz Hossain'
-						body		:	'Empty body'}]
-						,(result) =>
-							id = result._id
-							done()
+		before (done)->
+			promise = blog.create
+					title	: expected
+					author 	:	'Mehfuz Hossain'
+					body	:	'Empty body'
+			promise.then (result) =>
+				id = result._id
+				done()
 		it 'should return 401 for unauthorized request', (done)->
 			req = request.del(util.format('/api/atom/entries/%s', id))
 			req.expect(401).end (err, res)->   

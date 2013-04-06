@@ -14,22 +14,22 @@
       expected = 'test post';
       _id = '';
       beforeEach(function(done) {
-        var _this = this;
-        return blog.create({
-          posts: [
-            {
-              title: expected,
-              author: 'Mehfuz Hossain',
-              body: 'Empty body'
-            }
-          ]
-        }, function(result) {
+        var promise,
+          _this = this;
+        promise = blog.create({
+          title: expected,
+          author: 'Mehfuz Hossain',
+          body: 'Empty body'
+        });
+        return promise.then(function(result) {
           _id = result._id;
           return done();
         });
       });
       it('should return expected for permaLink', function(done) {
-        return blog.findPost(helper.linkify('test post'), function(data) {
+        var promise;
+        promise = blog.findPost(helper.linkify('test post'));
+        return promise.then(function(data) {
           data.post.title.should.equal(expected);
           console.log(data);
           return done();

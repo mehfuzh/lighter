@@ -1,7 +1,8 @@
 module.exports = ()->
 	class Settings
 		constructor:(app) ->
-			@mongoose = require('mongoose')  
+			@mongoose = require('mongoose')
+			@Promise = require('node-promise').Promise  
 			# init mongo        
 			url = process.env.MONGODB_URI || process.env.MONGOLAB_URI || 'mongodb://localhost/lighter'
 			@mongoose.connect url

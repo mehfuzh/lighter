@@ -13,23 +13,21 @@
         this.category = (require(__dirname + '/category'))(settings);
       }
 
-      Blog.prototype.create = function(obj, callback) {
-        var _this = this;
-        return this.blog.findOne({
+      Blog.prototype.create = function(obj) {
+        var promise,
+          _this = this;
+        promise = new this.settings.Promise();
+        this.blog.findOne({
           url: this.settings.url
         }, function(err, data) {
-          var blog, post, _i, _len, _ref;
-          _ref = obj.posts;
-          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-            post = _ref[_i];
-            post.title = post.title.trim();
-          }
+          var blog;
+          obj.title = obj.title.trim();
           if (data !== null) {
             return _this._post({
               id: data._id,
-              posts: obj.posts
+              post: obj
             }, function(data) {
-              callback(data);
+              return promise.resolve(data);
             });
           } else {
             blog = new _this.blog({
@@ -41,19 +39,22 @@
               if (err === null) {
                 return _this._post({
                   id: data._id,
-                  posts: obj.posts
+                  posts: obj
                 }, function(data) {
-                  callback(data);
+                  return promise.resolve(data);
                 });
               }
             });
           }
         });
+        return promise;
       };
 
-      Blog.prototype.find = function(format, callback) {
-        var _this = this;
-        return this.blog.findOne({
+      Blog.prototype.find = function(format) {
+        var promise,
+          _this = this;
+        promise = new this.settings.Promise();
+        this.blog.findOne({
           url: this.settings.url
         }, function(err, data) {
           var blog;
@@ -61,7 +62,7 @@
             throw err.message;
           }
           blog = data;
-          _this.post.find({
+          return _this.post.find({
             id: blog._id
           }).sort({
             date: -1
@@ -78,7 +79,7 @@
               }
               posts.push(post);
             }
-            return callback({
+            return promise.resolve({
               id: blog._id,
               title: blog.title,
               updated: blog.updated,
@@ -86,14 +87,17 @@
             });
           });
         });
+        return promise;
       };
 
-      Blog.prototype.findMostRecent = function(callback) {
-        var _this = this;
-        return this.blog.findOne({
+      Blog.prototype.findMostRecent = function() {
+        var promise,
+          _this = this;
+        promise = new this.settings.Promise();
+        this.blog.findOne({
           url: this.settings.url
         }, function(err, data) {
-          _this.post.find({
+          return _this.post.find({
             id: data._id
           }).sort({
             date: -1
@@ -107,13 +111,16 @@
                 permaLink: post.permaLink
               });
             }
-            return callback(recent);
+            return promise.resolve(recent);
           });
         });
+        return promise;
       };
 
-      Blog.prototype.findPost = function(permaLink, callback) {
-        var _this = this;
+      Blog.prototype.findPost = function(permaLink) {
+        var promise,
+          _this = this;
+        promise = new this.settings.Promise;
         this.blog.findOne({
           url: this.settings.url
         }, function(err, data) {
@@ -128,12 +135,13 @@
               return;
             }
             data.body = _this.settings.format(data.body);
-            return callback({
+            return promise.resolve({
               title: blog.title,
               post: data
             });
           });
         });
+        return promise;
       };
 
       Blog.prototype.findPostById = function(id, callback) {
@@ -198,38 +206,33 @@
       };
 
       Blog.prototype._post = function(obj, callback) {
-        var post, postSchema, _i, _len, _ref, _results,
+        var post, postSchema,
           _this = this;
-        _ref = obj.posts;
-        _results = [];
-        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-          post = _ref[_i];
-          postSchema = new this.post({
-            id: obj.id,
-            title: post.title,
-            permaLink: this.helper.linkify(post.title),
-            author: post.author,
-            body: post.body,
-            publish: 1,
-            date: new Date(),
-            categories: post.categories
-          });
-          _results.push(postSchema.save(function(err, data) {
-            var category, _j, _len1, _ref1;
-            if (err !== null) {
-              callback(err.message);
+        post = obj.post;
+        postSchema = new this.post({
+          id: obj.id,
+          title: post.title,
+          permaLink: this.helper.linkify(post.title),
+          author: post.author,
+          body: post.body,
+          publish: 1,
+          date: new Date(),
+          categories: post.categories
+        });
+        return postSchema.save(function(err, data) {
+          var category, _i, _len, _ref;
+          if (err !== null) {
+            callback(err.message);
+          }
+          if (data.categories) {
+            _ref = data.categories;
+            for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+              category = _ref[_i];
+              _this.category.refresh(category, function(id) {});
             }
-            if (data.categories) {
-              _ref1 = data.categories;
-              for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
-                category = _ref1[_j];
-                _this.category.refresh(category, function(id) {});
-              }
-            }
-            callback(data);
-          }));
-        }
-        return _results;
+          }
+          callback(data);
+        });
       };
 
       return Blog;
