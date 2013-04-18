@@ -153,14 +153,17 @@
         });
       };
 
-      Blog.prototype.updatePost = function(post, callback) {
-        var _this = this;
-        return this.post.findOne({
+      Blog.prototype.updatePost = function(post) {
+        var promise,
+          _this = this;
+        promise = new this.settings.Promise;
+        this.post.findOne({
           _id: post.id
         }, function(err, data) {
           var category, _i, _len, _ref;
           data.body = post.body;
           data.title = post.title;
+          data.permaLink = _this.helper.linkify(data.title);
           data.categories = post.categories;
           if (data.categories) {
             _ref = data.categories;
@@ -170,9 +173,10 @@
             }
           }
           return data.save(function(err, data) {
-            return callback(data);
+            return promise.resolve(data);
           });
         });
+        return promise;
       };
 
       Blog.prototype.deletePost = function(id, callback) {

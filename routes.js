@@ -124,12 +124,14 @@
       var parser;
       parser = new xml2js.Parser();
       return parser.parseString(req.rawBody, function(err, result) {
-        return blog.updatePost({
+        var promise;
+        promise = blog.updatePost({
           id: req.params.id,
           title: result.entry.title[0]._,
           body: result.entry.content[0]._,
           categories: parseCategory(result.entry)
-        }, function(result) {
+        });
+        return promise.then(function(result) {
           return res.render('atom/entries', {
             post: result,
             host: app.host

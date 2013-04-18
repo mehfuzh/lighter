@@ -9,7 +9,7 @@
   blog = require(__dirname + '/init');
 
   describe('Blog', function() {
-    return describe('findPost', function() {
+    describe('findPost', function() {
       var expected, _id;
       expected = 'test post';
       _id = '';
@@ -37,6 +37,43 @@
       });
       return afterEach(function(done) {
         return blog.deletePost(_id, function() {
+          return done();
+        });
+      });
+    });
+    return describe('update post', function() {
+      var expected, id;
+      id = '';
+      expected = 'test post';
+      beforeEach(function(done) {
+        var promise,
+          _this = this;
+        promise = blog.create({
+          title: expected,
+          author: 'Mehfuz Hossain',
+          body: 'Empty body'
+        });
+        return promise.then(function(result) {
+          id = result._id;
+          return done();
+        });
+      });
+      it('should update the permalink', function(done) {
+        var promise,
+          _this = this;
+        promise = blog.updatePost({
+          id: id,
+          title: 'updated post',
+          body: 'nothing'
+        });
+        return promise.then(function(result) {
+          console.log(result);
+          result.permaLink.should.equal(helper.linkify('updated post'));
+          return done();
+        });
+      });
+      return afterEach(function(done) {
+        return blog.deletePost(id, function() {
           return done();
         });
       });

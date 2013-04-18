@@ -90,17 +90,20 @@ module.exports = (settings)->
 				_id : id, (err, data)=>
 					callback(data)
 		
-		updatePost: (post, callback)->
+		updatePost: (post)->
+			promise = new @settings.Promise
 			@post.findOne
 				_id : post.id, (err, data)=>
 					data.body = post.body
 					data.title = post.title
+					data.permaLink = @helper.linkify data.title
 					data.categories = post.categories
 					if (data.categories)
 						for category in data.categories
 							@category.refresh category, (id)->
 					data.save (err, data)->
-						callback(data)
+						promise.resolve(data)
+			return promise
 		
 		deletePost: (id, callback)->
 			@post.remove

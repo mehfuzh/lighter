@@ -92,12 +92,13 @@ routes = (app, settings) =>
 	app.put '/api/atom/entries/:id',authorize, (req, res)->
 			parser = new xml2js.Parser()
 			parser.parseString req.rawBody, (err, result) ->
-				blog.updatePost 
+				promise = blog.updatePost 
 					id		:	req.params.id
 					title	:	result.entry.title[0]._ 
 					body	:	result.entry.content[0]._
-					categories	: parseCategory result.entry, (result)->
-				  res.render 'atom/entries', 
+					categories	: parseCategory result.entry
+				promise.then (result)->
+					res.render 'atom/entries', 
 						post : result
 						host  : app.host
 
