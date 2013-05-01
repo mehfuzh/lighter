@@ -65,7 +65,7 @@
           content = 'encode';
         }
         promise = blog.find(content);
-        return promise.then(function(res) {
+        return promise.then(function(result) {
           return res.render('atom/feeds', {
             host: app.host,
             title: result.title,
@@ -168,7 +168,14 @@
             result.recent = recent;
             return res.render('post', result);
           } else {
-            return res.end("Invalid url or could not find the post");
+            promise = blog.hasPostMoved(link);
+            return promise.then(function(result) {
+              if (result !== null) {
+                return res.redirect(301, "/" + JSON.parse(result.content).permaLink);
+              } else {
+                return res.end("Invalid url or could not find the post");
+              }
+            });
           }
         });
       });

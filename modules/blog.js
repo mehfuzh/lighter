@@ -11,6 +11,7 @@
         this.post = settings.mongoose.model('post');
         this.helper = (require(__dirname + '/helper'))();
         this.category = (require(__dirname + '/category'))(settings);
+        this.map = settings.mongoose.model('map');
       }
 
       Blog.prototype.create = function(obj) {
@@ -131,7 +132,7 @@
             permaLink: permaLink
           }, function(err, data) {
             if (err !== null || data === null) {
-              callback(null);
+              promise.resolve(null);
               return;
             }
             data.body = _this.settings.format(data.body);
@@ -140,6 +141,17 @@
               post: data
             });
           });
+        });
+        return promise;
+      };
+
+      Blog.prototype.hasPostMoved = function(permaLink) {
+        var promise;
+        promise = new this.settings.Promise;
+        this.map.findOne({
+          permaLink: permaLink
+        }, function(err, data) {
+          return promise.resolve(data);
         });
         return promise;
       };
@@ -160,10 +172,16 @@
         this.post.findOne({
           _id: post.id
         }, function(err, data) {
-          var category, _i, _len, _ref;
+          var category, previous, _i, _len, _ref;
+          previous = {
+            id: data._id,
+            title: data.title,
+            permaLink: data.permaLink,
+            body: data.body
+          };
           data.body = post.body;
           data.title = post.title;
-          data.permaLink = _this.helper.linkify(data.title);
+          data.permaLink = _this.helper.linkify(post.title);
           data.categories = post.categories;
           if (data.categories) {
             _ref = data.categories;
@@ -173,39 +191,70 @@
             }
           }
           return data.save(function(err, data) {
-            return promise.resolve(data);
+            var permaLink;
+            post = data;
+            permaLink = previous.permaLink;
+            return _this.map.findOne({
+              permaLink: permaLink
+            }, function(err, data) {
+              var map;
+              if (data === null) {
+                map = new _this.map;
+                map.permaLink = permaLink;
+              } else {
+                map = data;
+              }
+              map.content = JSON.stringify({
+                id: post.id,
+                title: post.title,
+                permaLink: post.permaLink,
+                body: post.body
+              });
+              return map.save(function(err, data) {
+                if (err === null) {
+                  return promise.resolve(post);
+                } else {
+                  throw err;
+                }
+              });
+            });
           });
         });
         return promise;
       };
 
       Blog.prototype.deletePost = function(id, callback) {
+        var _this = this;
         return this.post.remove({
           _id: id
         }, function() {
+          _this.map.remove(function() {});
           return callback();
         });
       };
 
       Blog.prototype["delete"] = function(callback) {
         var _this = this;
-        return this.blog.find({
+        this.blog.find({
           url: this.settings.url
         }, function(err, data) {
-          var blog, _i, _len;
+          var blog, _i, _len, _results;
+          _results = [];
           for (_i = 0, _len = data.length; _i < _len; _i++) {
             blog = data[_i];
-            _this.post.remove({
+            _results.push(_this.post.remove({
               id: blog._id
             }, function() {
               return _this.blog.remove({
                 url: _this.settings.url
               });
-            });
+            }));
           }
-          return _this.category.clear(function() {
-            return callback();
-          });
+          return _results;
+        });
+        this.category.clear(function() {});
+        return this.map.remove(function() {
+          return callback();
         });
       };
 

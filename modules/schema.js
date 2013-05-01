@@ -6,7 +6,7 @@
     Schema = (function() {
 
       function Schema(mongoose) {
-        var BlogSchema, CategorySchema, CommentSchema, ObjectId, PostSchema, UserSchema;
+        var BlogSchema, CategorySchema, CommentSchema, MapSchema, ObjectId, PostSchema, UserSchema;
         Schema = mongoose.Schema;
         ObjectId = Schema.ObjectId;
         UserSchema = new Schema({
@@ -40,10 +40,16 @@
           title: String,
           updated: Date
         });
+        MapSchema = new Schema({
+          id: ObjectId,
+          permaLink: String,
+          content: String
+        });
         mongoose.model('user', UserSchema);
         mongoose.model('blog', BlogSchema);
         mongoose.model('category', CategorySchema);
         mongoose.model('post', PostSchema);
+        mongoose.model('map', MapSchema);
       }
 
       return Schema;

@@ -40,13 +40,13 @@ describe 'Blog', ->
 
 		it 'should update the permalink', (done)->
 			promise = blog.updatePost
-				id : id
-				title : 'updated post'
-				body : 'nothing'
+				id 		: id
+				title 	: 'updated post'
+				body 	: 'nothing'
 			promise.then (result)=>
-				console.log result
 				result.permaLink.should.equal helper.linkify('updated post')
 				done()
+				
 		afterEach (done)->
 			blog.deletePost id, ()->
 				done()

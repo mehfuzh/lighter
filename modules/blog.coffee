@@ -6,6 +6,7 @@ module.exports = (settings)->
 			@post = settings.mongoose.model 'post'
 			@helper = (require __dirname + '/helper')()
 			@category = (require __dirname + '/category')(settings)
+			@map = settings.mongoose.model 'map'
 
 		create: (obj) ->
 			promise = new @settings.Promise()
@@ -76,7 +77,7 @@ module.exports = (settings)->
 					id : blog._id 
 					permaLink: permaLink,(err, data)=>
 						if err != null or data == null
-							callback(null)
+							promise.resolve(null)
 							return
 						data.body = @settings.format(data.body)
 						promise.resolve({
@@ -84,7 +85,14 @@ module.exports = (settings)->
 							post	:	data
 						})
 			return promise
-			
+		
+		hasPostMoved: (permaLink)->
+			promise = new @settings.Promise
+			@map.findOne
+				permaLink : permaLink, (err, data)->
+					promise.resolve(data)
+			return promise
+
 		findPostById: (id, callback)->
 			@post.findOne 
 				_id : id, (err, data)=>
@@ -94,20 +102,50 @@ module.exports = (settings)->
 			promise = new @settings.Promise
 			@post.findOne
 				_id : post.id, (err, data)=>
+					previous =
+						id 			: data._id
+						title 		: data.title
+						permaLink 	: data.permaLink
+						body  		: data.body
+ 
 					data.body = post.body
 					data.title = post.title
-					data.permaLink = @helper.linkify data.title
+					data.permaLink = @helper.linkify post.title
 					data.categories = post.categories
+
 					if (data.categories)
 						for category in data.categories
-							@category.refresh category, (id)->
-					data.save (err, data)->
-						promise.resolve(data)
+							@category.refresh category, (id)=>
+
+					data.save (err, data)=>
+						post = data
+						permaLink = previous.permaLink
+						@map.findOne
+							permaLink : permaLink, (err, data)=>
+								if data is null
+									map = new @map
+									map.permaLink = permaLink
+								else
+									map = data
+
+								map.content = JSON.stringify({
+										id : post.id,
+										title : post.title,
+										permaLink : post.permaLink,
+										body : post.body	
+									})
+
+								map.save (err, data)->
+									if err is null
+										promise.resolve(post)
+									else
+										throw err
 			return promise
 		
 		deletePost: (id, callback)->
 			@post.remove
-				_id : id, ()->
+				_id : id, ()=>
+					@map.remove ()->
 					callback()
 		
 		delete: (callback) ->  
@@ -115,8 +153,9 @@ module.exports = (settings)->
 				for blog in data
 					@post.remove id : blog._id, ()=>
 						@blog.remove url : @settings.url
-				@category.clear () ->
-						callback()
+			@category.clear () ->
+			@map.remove ()->
+				callback()
 
 		_post: (obj, callback) ->
 			post = obj.post

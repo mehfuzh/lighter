@@ -21,7 +21,6 @@ module.exports = ()->
 									.replace(/</g, '&lt;')
 									.replace(/>/g, '&gt;')
 									.replace(/"/g, '&quot;')
-			html    
-	
-			
+			html
+
 	return new Helper()

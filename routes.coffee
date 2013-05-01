@@ -49,11 +49,11 @@ routes = (app, settings) =>
 					content = 'encode'
 				
 				promise = blog.find content
-				promise.then (res)->		
+				promise.then (result)->		
 					res.render 'atom/feeds',
 						host		:	app.host
 						title		:	result.title
-						updated	:	result.updated
+						updated		:	result.updated
 						posts		:	result.posts
 
 	app.get '/api/atom/feeds', processGetFeeds
@@ -112,7 +112,6 @@ routes = (app, settings) =>
 						host : app.host
 						engine : settings.engine
 			 
-
 	app.get '/:year/:month/:title', (req, res) ->
 		link = util.format("%s/%s/%s", req.params.year, req.params.month, req.params.title)
 		# get the most recent posts, to be displayed on the right
@@ -122,13 +121,18 @@ routes = (app, settings) =>
 			recent = result
 			promise = blog.findPost link
 			promise.then (result)->  
-				if result != null
+				if result isnt null
 					result.host = app.host
 					result.recent = recent
 					res.render 'post', result
 				else
-					res.end("Invalid url or could not find the post")
-								
+					promise = blog.hasPostMoved link
+					promise.then (result)->
+						if result isnt null
+							res.redirect(301, "/" + JSON.parse(result.content).permaLink)
+						else		
+							res.end("Invalid url or could not find the post")
+
 	app.get '/', (req, res) ->
 		recent = []
 		promise = blog.findMostRecent() 

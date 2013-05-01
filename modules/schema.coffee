@@ -7,37 +7,43 @@ module.exports = (mongoose)->
 				UserSchema = new Schema
 					username	: String
 					password	:	String
-					acive		  : Boolean 
+					acive		: Boolean 
 					created		:	Date
 
 				CategorySchema = new Schema
 						permaLink	: String
-						title	: String
+						title		: String
 
 				CommentSchema = new Schema
-						title : String
+						title : 	String
 						text	:	String
 						date	:	Date
 
 				PostSchema = new Schema
-						id				:	ObjectId
+						id			: ObjectId
 						author 		: String
-						title			: String
+						title		: String
 						permaLink	: String
-						body			: String
-						date			: Date
-						categories:	[String]
-						comments	:	[CommentSchema]
+						body		: String
+						date		: Date
+						categories	: [String]
+						comments	: [CommentSchema]
 						publish		: Boolean
 
 				 BlogSchema = new Schema
 						url			: String
 						title		: String
-						updated : Date                
+						updated 	: Date
+
+				MapSchema = new Schema
+					id 			: ObjectId
+					permaLink	: String
+					content 	: String 	                 
 						
 				mongoose.model 'user', UserSchema
 				mongoose.model 'blog', BlogSchema
 				mongoose.model 'category', CategorySchema
 				mongoose.model 'post', PostSchema
+				mongoose.model 'map', MapSchema
 
 	new Schema(mongoose)

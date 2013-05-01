@@ -67,7 +67,6 @@
           body: 'nothing'
         });
         return promise.then(function(result) {
-          console.log(result);
           result.permaLink.should.equal(helper.linkify('updated post'));
           return done();
         });
