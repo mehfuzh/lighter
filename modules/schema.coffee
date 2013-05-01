@@ -35,7 +35,7 @@ module.exports = (mongoose)->
 						title		: String
 						updated 	: Date
 
-				MapSchema = new Schema
+				MapgitSchema = new Schema
 					id 			: ObjectId
 					permaLink	: String
 					content 	: String 	                 
