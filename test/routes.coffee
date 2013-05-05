@@ -12,7 +12,7 @@ request = require 'supertest'
 
 app = express()       
 
-blog = (require __dirname + '/init')
+blog = (require __dirname + '/init').blog
 
 (require path.join(__dirname, '../config'))(app)
 (require path.join(__dirname, '../routes'))(app, blog.settings)

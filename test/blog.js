@@ -6,7 +6,7 @@
 
   helper = (require('../modules/helper'))();
 
-  blog = require(__dirname + '/init');
+  blog = (require(__dirname + '/init')).blog;
 
   describe('Blog', function() {
     describe('findPost', function() {

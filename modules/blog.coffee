@@ -115,7 +115,7 @@ module.exports = (settings)->
 
 					if (data.categories)
 						for category in data.categories
-							@category.refresh category, (id)=>
+							@category.refresh category
 
 					data.save (err, data)=>
 						post = data
@@ -160,12 +160,12 @@ module.exports = (settings)->
 		_post: (obj, callback) ->
 			post = obj.post
 			postSchema = new @post
-					id 			: obj.id
-					title 		: post.title
-					permaLink	:	 @helper.linkify(post.title)
+					id 			: 	obj.id
+					title 		: 	post.title
+					permaLink	:	@helper.linkify(post.title)
 					author 		:	post.author
-					body 		: post.body
-					publish 	: 1
+					body 		: 	post.body
+					publish 	: 	1
 					date		:	new Date()		
 					categories : post.categories
 			postSchema.save (err, data) =>

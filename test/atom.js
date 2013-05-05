@@ -20,7 +20,7 @@
 
   app = express();
 
-  blog = require(__dirname + '/init');
+  blog = (require(__dirname + '/init')).blog;
 
   (require(path.join(__dirname, '../config')))(app);
 

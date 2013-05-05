@@ -8,28 +8,32 @@
       function Category(settings) {
         this.category = settings.mongoose.model('category');
         this.helper = (require(__dirname + '/helper'))();
+        this.settings = settings;
         this.cats = [];
       }
 
-      Category.prototype.refresh = function(category, callback) {
-        var link,
+      Category.prototype.refresh = function(category) {
+        var link, promise, title,
           _this = this;
-        link = this.helper.linkify(category);
-        return this.category.findOne({
-          permaLink: link
+        promise = new this.settings.Promise;
+        title = category.trim();
+        link = this.helper.linkify(title);
+        this.category.findOne({
+          title: title
         }, function(err, data) {
           if (data === null) {
             category = new _this.category({
-              title: category.trim(),
+              title: title,
               permaLink: link
             });
             return category.save(function(err, data) {
-              return callback(data._id);
+              return promise.resolve(data);
             });
           } else {
-            return callback(data._id);
+            return promise.resolve(data);
           }
         });
+        return promise;
       };
 
       Category.prototype.all = function(callback) {

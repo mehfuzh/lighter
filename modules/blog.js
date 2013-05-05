@@ -187,7 +187,7 @@
             _ref = data.categories;
             for (_i = 0, _len = _ref.length; _i < _len; _i++) {
               category = _ref[_i];
-              _this.category.refresh(category, function(id) {});
+              _this.category.refresh(category);
             }
           }
           return data.save(function(err, data) {
