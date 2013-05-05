@@ -14,7 +14,6 @@
     authorize = function(req, res, next) {
       request.validate(req, function(result) {
         if (result !== null) {
-          console.log(result);
           next();
         } else {
           res.send(401);

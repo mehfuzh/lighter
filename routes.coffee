@@ -10,7 +10,6 @@ routes = (app, settings) =>
 	authorize = (req, res, next)->
 		request.validate req, (result)->
 				if result != null
-					console.log result
 					next()
 					return
 				else
