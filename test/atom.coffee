@@ -17,6 +17,8 @@ blog = (require __dirname + '/init').blog
 (require path.join(__dirname, '../config'))(app)
 (require path.join(__dirname, '../routes'))(app, blog.settings)
 
+credentials = util.format('%s:%s', blog.settings.username, blog.settings.password)
+
 describe 'atom feed', ()->
 	request = request(app)
 	describe 'POST /api/atom/feeds', ()->	
@@ -30,7 +32,7 @@ describe 'atom feed', ()->
 			it 'should return expceted resultset and statuscode', (done)=>
 				post = request.post('/api/atom/feeds')
 				post.set('Content-Type', 'application/atom+xml')
-				post.set('authorization', util.format('Basic %s', new Buffer('admin:admin').toString('base64')))
+				post.set('authorization', util.format('Basic %s', new Buffer(credentials).toString('base64')))
 
 				fs.readFile __dirname + '/post.xml','utf8', (err, result)=>   
 						post.write(result)
@@ -69,7 +71,7 @@ describe 'atom feed', ()->
 			it 'should update post return correct status code when authorized', (done)=>
 				req = request.put(util.format('/api/atom/entries/%s', id)) 
 				req.set('Content-Type', 'application/atom+xml')
-				req.set('authorization', util.format('Basic %s', new Buffer('admin:admin').toString('base64')))
+				req.set('authorization', util.format('Basic %s', new Buffer(credentials).toString('base64')))
 				fs.readFile __dirname + '/post.xml','utf8', (err, result)=>   
 						req.write(result)
 						req.expect(200).end (err, res)->
@@ -104,7 +106,7 @@ describe 'atom feed', ()->
 			 done()	 
 		it 'should return expected for authorized request', (done)->
 			req = request.del(util.format('/api/atom/entries/%s', id))
-			req = req.set('authorization', util.format('Basic %s', new Buffer('admin:admin').toString('base64')))
+			req = req.set('authorization', util.format('Basic %s', new Buffer(credentials).toString('base64')))
 			req.expect(200).end (err, res)->   
 			 if err != null
 					throw err

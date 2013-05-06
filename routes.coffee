@@ -9,12 +9,12 @@ routes = (app, settings) =>
 
 	authorize = (req, res, next)->
 		request.validate req, (result)->
-				if result != null
-					next()
-					return
-				else
-					res.send(401) 
-					return
+			if result isnt null
+				next()
+				return
+			else
+				res.send(401) 
+				return
 		return
 		
 	parseCategory = (entry)->

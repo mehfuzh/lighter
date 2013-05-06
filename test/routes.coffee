@@ -52,7 +52,6 @@ describe 'routes', ()->
 				post.expect(301).end (err, res)->
 					if err != null
 						throw err
-					console.log res.text
 					(res.text.indexOf(helper.linkify(updatedTitle)) >= 0).should.be.true
 					done()
 

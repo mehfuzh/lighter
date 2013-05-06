@@ -15,8 +15,8 @@ module.exports = ()->
 					
 		marked		:	@marked
 		mongoose	:	@mongoose
-		url				:	'/'
-		title			:	process.env.BLOG_TITLE || 'Lighter Blog'
+		url			:	'/'
+		title		:	process.env.BLOG_TITLE || 'Lighter Blog'
 		username	:	process.env.USER || 'admin'
 		password	:	process.env.PASSWORD || 'admin' 
 		feedUrl		:	process.env.FEED_URL || null

@@ -5,7 +5,7 @@ module.exports = (settings)->
 			@user = require(__dirname + '/user')(settings)
 
 		validate:(req, callback)->  
-			authValue = req.headers['authorization']     
+			authValue = req.headers['authorization'] 
 			if typeof(authValue) != 'undefined' and authValue.indexOf('Basic') >= 0
 				buff = new Buffer(authValue.split(' ')[1] ,'base64')
 				content = buff.toString('utf8')
