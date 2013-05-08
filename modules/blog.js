@@ -180,8 +180,10 @@
             body: data.body
           };
           data.body = post.body;
-          data.title = post.title;
-          data.permaLink = _this.helper.linkify(post.title);
+          if (data.title !== post.title) {
+            data.title = post.title;
+            data.permaLink = _this.helper.linkify(post.title);
+          }
           data.categories = post.categories;
           if (data.categories) {
             _ref = data.categories;

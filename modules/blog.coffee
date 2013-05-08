@@ -109,8 +109,11 @@ module.exports = (settings)->
 						body  		: data.body
  
 					data.body = post.body
-					data.title = post.title
-					data.permaLink = @helper.linkify post.title
+					
+					if data.title isnt post.title 
+						data.title = post.title
+						data.permaLink = @helper.linkify post.title
+					
 					data.categories = post.categories
 
 					if (data.categories)
