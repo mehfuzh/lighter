@@ -19,7 +19,6 @@ describe 'Blog', ->
 	 		promise = blog.findPost helper.linkify('test post')
 	 		promise.then (data) ->
 				 data.post.title.should.equal expected
-				 console.log data
 				 done() 
 		afterEach (done)->
 			blog.deletePost _id, ()->
@@ -28,7 +27,7 @@ describe 'Blog', ->
 	describe 'update post', ->
 		id = '' 
 		expected = 'test post'
-		beforeEach (done)->git 
+		beforeEach (done)-> 
 			promise = blog.create
 				title		: 	expected
 				author 		:	'Mehfuz Hossain'

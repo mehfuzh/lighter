@@ -31,7 +31,6 @@
         promise = blog.findPost(helper.linkify('test post'));
         return promise.then(function(data) {
           data.post.title.should.equal(expected);
-          console.log(data);
           return done();
         });
       });
