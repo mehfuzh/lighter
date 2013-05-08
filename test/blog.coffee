@@ -28,17 +28,28 @@ describe 'Blog', ->
 	describe 'update post', ->
 		id = '' 
 		expected = 'test post'
-
-		beforeEach (done)->
+		beforeEach (done)->git 
 			promise = blog.create
-				title	: 	expected,
-				author 	:	'Mehfuz Hossain'
-				body	:	'Empty body'
+				title		: 	expected
+				author 		:	'Mehfuz Hossain'
+				body		:	'Empty body'
+				permaLink 	: 	'1900/01/test'
 			promise.then (result) =>
 				id = result._id
 				done()
 
-		it 'should update the permalink', (done)->
+		it 'should not update permaLink when title is same', (done)->
+			body = 'updated'
+			promise = blog.updatePost
+				id 		: id
+				title 	: expected
+				body 	: body
+			promise.then (result)=>
+				result.permaLink.should.equal '1900/01/test'
+				result.body.should.equal body
+				done()
+
+		it 'should update the permalink when title is different', (done)->
 			promise = blog.updatePost
 				id 		: id
 				title 	: 'updated post'
@@ -50,5 +61,3 @@ describe 'Blog', ->
 		afterEach (done)->
 			blog.deletePost id, ()->
 				done()
-
- 

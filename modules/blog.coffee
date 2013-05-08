@@ -25,10 +25,10 @@ module.exports = (settings)->
 						title	: @settings.title
 						updated : @settings.updated
 					blog.save (err, data) =>
-						if err == null
+						if data isnt null
 							@_post
 								id : data._id
-								posts: obj
+								post :  obj
 								, (data)->
 									promise.resolve data
 			return promise
@@ -159,10 +159,15 @@ module.exports = (settings)->
 
 		_post: (obj, callback) ->
 			post = obj.post
+			permaLink = @helper.linkify(post.title)
+
+			if typeof post.permaLink != 'undefined'
+				permaLink = post.permaLink
+
 			postSchema = new @post
 					id 			: 	obj.id
 					title 		: 	post.title
-					permaLink	:	@helper.linkify(post.title)
+					permaLink	:	permaLink
 					author 		:	post.author
 					body 		: 	post.body
 					publish 	: 	1

@@ -37,10 +37,10 @@
               updated: _this.settings.updated
             });
             return blog.save(function(err, data) {
-              if (err === null) {
+              if (data !== null) {
                 return _this._post({
                   id: data._id,
-                  posts: obj
+                  post: obj
                 }, function(data) {
                   return promise.resolve(data);
                 });
@@ -259,13 +259,17 @@
       };
 
       Blog.prototype._post = function(obj, callback) {
-        var post, postSchema,
+        var permaLink, post, postSchema,
           _this = this;
         post = obj.post;
+        permaLink = this.helper.linkify(post.title);
+        if (typeof post.permaLink !== 'undefined') {
+          permaLink = post.permaLink;
+        }
         postSchema = new this.post({
           id: obj.id,
           title: post.title,
-          permaLink: this.helper.linkify(post.title),
+          permaLink: permaLink,
           author: post.author,
           body: post.body,
           publish: 1,

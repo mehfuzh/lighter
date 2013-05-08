@@ -51,14 +51,30 @@
         promise = blog.create({
           title: expected,
           author: 'Mehfuz Hossain',
-          body: 'Empty body'
+          body: 'Empty body',
+          permaLink: '1900/01/test'
         });
         return promise.then(function(result) {
           id = result._id;
           return done();
         });
       });
-      it('should update the permalink', function(done) {
+      it('should not update permaLink when title is same', function(done) {
+        var body, promise,
+          _this = this;
+        body = 'updated';
+        promise = blog.updatePost({
+          id: id,
+          title: expected,
+          body: body
+        });
+        return promise.then(function(result) {
+          result.permaLink.should.equal('1900/01/test');
+          result.body.should.equal(body);
+          return done();
+        });
+      });
+      it('should update the permalink when title is different', function(done) {
         var promise,
           _this = this;
         promise = blog.updatePost({
