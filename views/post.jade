@@ -3,6 +3,7 @@ extends layout
 block header
 	meta(name='author', content='#{post.author.trim()}') 
 	meta(name='keywords', content='#{post.categories.join()}')
+	script(src='/disqus.js')
 
 block content
 	article	
