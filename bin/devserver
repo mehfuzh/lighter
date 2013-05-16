@@ -1,2 +1,2 @@
 #! /usr/bin/env sh
-USER='kosev' PASSWORD='xxx' NODE_ENV='production' node-dev server.js
+node-dev server.js
