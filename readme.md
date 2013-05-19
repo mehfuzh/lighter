@@ -44,6 +44,8 @@ List of config variables that you can use to modify the default settings:
 
 You don't have to set the __MONGOLAB_URI / MONGO_URI__ manually since this is set automatically by cloud services. If you have mongo installed locally then you dont have to change it either unless you changed the default port.
 
+In addition, please set __NODE_ENV=production__ as you deploy your blog. By default the blog is refreshed with dummy posts each time the blog is deployed unless you set this varaible. 
+
 ##Running tests
 
 Tests are written with mocha. It is required that mocha is installed globally:
