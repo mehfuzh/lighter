@@ -38,7 +38,7 @@ If you are using other cloud services then please check their documentation for 
 List of config variables that you can use to modify the default settings:
 
 +	BLOG_TITLE: Title of the blog (default:Lighter Blog)
-+	USER: Admin username
++	USER: Admin username (default: your process username)
 +	PASSWORD: Admin password (default: admin)
 +	FEED_URL: Feedbunder url mapped with your blog feed. The private url that you will be setting in feedburner is <yourdomain>/atom/feeds
 
