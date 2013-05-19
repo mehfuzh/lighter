@@ -28,7 +28,7 @@
 
       Settings.prototype.url = '/';
 
-      Settings.prototype.title = process.env.BLOG_TITLE || 'Telerik Blog';
+      Settings.prototype.title = process.env.BLOG_TITLE || 'Lighter Blog';
 
       Settings.prototype.username = process.env.USER || 'admin';
 
