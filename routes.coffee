@@ -13,11 +13,33 @@ routes = (app, settings) =>
 				next()
 				return
 			else
+				res.header({'WWW-Authenticate': 'Basic realm="' + app.host + '"'})
 				res.send(401) 
 				return
 		return
+
+	parseBody = (body)->
+		parser = new xml2js.Parser()
+		rawBody = body.replace(/atom:/ig, '')
+
+		promise = new settings.Promise()
 		
-	parseCategory = (entry)->
+		parser.parseString rawBody, (err, result) => 
+			entry = result.entry
+			title = entry.title[0]
+			content = entry.content[0]
+
+			if typeof title._ isnt 'undefined'
+				title = title._
+		
+			promise.resolve 
+				title 		: title
+				content 	: content._	
+				categories 	: parseCategories(entry)
+
+		return promise			
+		
+	parseCategories = (entry)->
 		categories = []
 		# process category.
 		if typeof(entry.category) != 'undefined'
@@ -38,7 +60,7 @@ routes = (app, settings) =>
 			res.render 'atom/categories',
 				categories:result
 				
-	processGetFeeds = (req, res)->
+	processFeeds = (req, res)->
 			if settings.feedUrl && parseInt(req.params['public']) == 1
 				res.redirect(settings.feedUrl)
 			else
@@ -55,18 +77,19 @@ routes = (app, settings) =>
 						updated		:	result.updated
 						posts		:	result.posts
 
-	app.get '/api/atom/feeds', processGetFeeds
-	app.get '/api/atom/feeds/:public', processGetFeeds
+	app.get '/api/atom/feeds', processFeeds
+	app.get '/api/atom/feeds/:public', processFeeds
 						
 	app.post '/api/atom/feeds', authorize, (req, res) -> 
-		parser = new xml2js.Parser()  
-		parser.parseString req.rawBody, (err, result) -> 
-			promise = blog.create
-				title   	: result.entry.title[0]._
-				body    	: result.entry.content[0]._
+		promise = parseBody(req.rawBody)
+		promise.then (result) ->
+			blogPromise = blog.createPost
+				title   	: result.title
+				body    	: result.content
 				author 		: 'Mehfuz Hossain'
-				categories 	: parseCategory result.entry
-			promise.then (result)->
+				categories 	: result.categories
+			blogPromise.then (result)->
+				console.log result
 				location = app.host + 'api/atom/entries/' + result._id
 				res.header({
 					'Content-Type'	: req.headers['content-type'] 
@@ -79,7 +102,6 @@ routes = (app, settings) =>
 					host  : app.host 
 			
 	app.get '/api/atom/entries/:id', (req, res) ->
-		res.header({'Content-Type': 'application/xml' })
 		blog.findPostById req.params.id, (result)->
 				res.header({'Content-Type': 'application/atom+xml' })
 				if req.headers['accept'] && req.headers['accept'].indexOf('text/html') >=0
@@ -89,13 +111,13 @@ routes = (app, settings) =>
 					host  : app.host
 
 	app.put '/api/atom/entries/:id',authorize, (req, res)->
-			parser = new xml2js.Parser()
-			parser.parseString req.rawBody, (err, result) ->
+			promise = parseBody(req.rawBody)
+			promise.then (result) ->
 				promise = blog.updatePost 
-					id		:	req.params.id
-					title	:	result.entry.title[0]._ 
-					body	:	result.entry.content[0]._
-					categories	: parseCategory result.entry
+					id			:	req.params.id
+					title		:	result.title
+					body		:	result.content
+					categories	: 	result.categories
 				promise.then (result)->
 					res.render 'atom/entries', 
 						post : result

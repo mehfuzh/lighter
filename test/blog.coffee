@@ -7,7 +7,7 @@ describe 'Blog', ->
 		expected = 'test post'
 		_id = ''
 		beforeEach (done)->
-			promise = blog.create
+			promise = blog.createPost
 				title	: 	expected,
 				author 	:	'Mehfuz Hossain'
 				body	:	'Empty body'
@@ -28,7 +28,7 @@ describe 'Blog', ->
 		id = '' 
 		expected = 'test post'
 		beforeEach (done)-> 
-			promise = blog.create
+			promise = blog.createPost
 				title		: 	expected
 				author 		:	'Mehfuz Hossain'
 				body		:	'Empty body'

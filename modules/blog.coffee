@@ -8,29 +8,35 @@ module.exports = (settings)->
 			@category = (require __dirname + '/category')(settings)
 			@map = settings.mongoose.model 'map'
 
-		create: (obj) ->
+		create: ()->
 			promise = new @settings.Promise()
 			@blog.findOne url : @settings.url, (err, data)=>
-				# format
-				obj.title = obj.title.trim()
 				if data isnt null
-					@_post
-						id 	: data._id
-						post: obj
-						, (data)->
-							promise.resolve data
+					if data.title isnt @settings.title
+						data.title = @settings.title
+						data.save (err, data)->
+							promise.resolve(data)
+					else
+						promise.resolve(data)					
 				else
 					blog = new @blog
 						url		: @settings.url
 						title	: @settings.title
 						updated : @settings.updated
-					blog.save (err, data) =>
-						if data isnt null
-							@_post
-								id : data._id
-								post :  obj
-								, (data)->
-									promise.resolve data
+					blog.save (err, data) ->
+						promise.resolve(data)
+
+			return promise
+
+		createPost: (obj)->
+			promise = new @settings.Promise()
+			@.create().then (result)=>
+				if result isnt null
+					@_post
+						id 	: result._id
+						post: obj
+						, (data)->
+							promise.resolve data
 			return promise
 
 		find:(format)->
@@ -50,9 +56,9 @@ module.exports = (settings)->
 						posts.push post
 					promise.resolve({
 						id 		: blog._id
-						title : blog.title
+						title 	: blog.title
 						updated : blog.updated
-						posts :	posts
+						posts 	:	posts
 					})
 			return promise
 				
@@ -168,14 +174,14 @@ module.exports = (settings)->
 				permaLink = post.permaLink
 
 			postSchema = new @post
-					id 			: 	obj.id
-					title 		: 	post.title
-					permaLink	:	permaLink
-					author 		:	post.author
-					body 		: 	post.body
-					publish 	: 	1
-					date		:	new Date()		
-					categories : post.categories
+					id 			: obj.id
+					title 		: post.title
+					permaLink	: permaLink
+					author 		: post.author
+					body 		: post.body
+					publish 	: 1
+					date		: new Date()		
+					categories 	: post.categories
 			postSchema.save (err, data) =>
 					if err != null
 						callback(err.message)

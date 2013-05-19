@@ -25,7 +25,7 @@ describe 'routes', ()->
 		expected = 'test post'
 
 		beforeEach (done)->
-			promise = blog.create
+			promise = blog.createPost
 				title	: 	expected,
 				author 	:	'Mehfuz Hossain'
 				body	:	'Empty body'

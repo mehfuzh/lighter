@@ -14,7 +14,7 @@
         this.map = settings.mongoose.model('map');
       }
 
-      Blog.prototype.create = function(obj) {
+      Blog.prototype.create = function() {
         var promise,
           _this = this;
         promise = new this.settings.Promise();
@@ -22,14 +22,15 @@
           url: this.settings.url
         }, function(err, data) {
           var blog;
-          obj.title = obj.title.trim();
           if (data !== null) {
-            return _this._post({
-              id: data._id,
-              post: obj
-            }, function(data) {
+            if (data.title !== _this.settings.title) {
+              data.title = _this.settings.title;
+              return data.save(function(err, data) {
+                return promise.resolve(data);
+              });
+            } else {
               return promise.resolve(data);
-            });
+            }
           } else {
             blog = new _this.blog({
               url: _this.settings.url,
@@ -37,14 +38,24 @@
               updated: _this.settings.updated
             });
             return blog.save(function(err, data) {
-              if (data !== null) {
-                return _this._post({
-                  id: data._id,
-                  post: obj
-                }, function(data) {
-                  return promise.resolve(data);
-                });
-              }
+              return promise.resolve(data);
+            });
+          }
+        });
+        return promise;
+      };
+
+      Blog.prototype.createPost = function(obj) {
+        var promise,
+          _this = this;
+        promise = new this.settings.Promise();
+        this.create().then(function(result) {
+          if (result !== null) {
+            return _this._post({
+              id: result._id,
+              post: obj
+            }, function(data) {
+              return promise.resolve(data);
             });
           }
         });

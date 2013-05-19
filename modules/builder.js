@@ -3,9 +3,9 @@
 
   module.exports = function(settings) {
     var blog, fs, user;
+    blog = require(__dirname + '/blog')(settings);
     if (process.env.NODE_ENV !== 'production') {
       fs = require('fs');
-      blog = require(__dirname + '/blog')(settings);
       user = require(__dirname + '/user')(settings);
       return fs.readFile(__dirname + '/../bin/post.md', 'utf8', function(err, result) {
         var categories, category, content, post, posts, promise, _i, _j, _len, _len1, _ref, _ref1, _results;
@@ -24,7 +24,7 @@
               category = category.replace(/^\n*|\n*$/g, '');
               categories.push(category);
             }
-            promise = blog.create({
+            promise = blog.createPost({
               title: content[0],
               body: content[1],
               author: content[2],
@@ -41,6 +41,8 @@
         }
         return _results;
       });
+    } else {
+
     }
   };
 

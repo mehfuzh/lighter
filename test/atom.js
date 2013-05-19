@@ -44,6 +44,20 @@
           return done();
         });
       });
+      it('should return www authentication header for unauthorized request', function(done) {
+        var post;
+        post = request.post('/api/atom/feeds');
+        return post.expect(401).end(function(err, res) {
+          var wwwAuthHeader;
+          if (err !== null) {
+            throw err;
+          }
+          wwwAuthHeader = res.headers['WWW-Authenticate'.toLowerCase()];
+          wwwAuthHeader.should.be.ok;
+          wwwAuthHeader.indexOf('Basic').should.equal(0);
+          return done();
+        });
+      });
       it('should return expceted resultset and statuscode', function(done) {
         var post;
         post = request.post('/api/atom/feeds');
@@ -83,7 +97,7 @@
       before(function(done) {
         var promise,
           _this = this;
-        promise = blog.create({
+        promise = blog.createPost({
           title: expected,
           author: 'Mehfuz Hossain',
           body: 'Empty body'
@@ -138,7 +152,7 @@
       before(function(done) {
         var promise,
           _this = this;
-        promise = blog.create({
+        promise = blog.createPost({
           title: expected,
           author: 'Mehfuz Hossain',
           body: 'Empty body'

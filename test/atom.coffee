@@ -29,24 +29,33 @@ describe 'atom feed', ()->
 					if err != null
 						throw err
 					done()
-			it 'should return expceted resultset and statuscode', (done)=>
+		it 'should return www authentication header for unauthorized request', (done)->
 				post = request.post('/api/atom/feeds')
-				post.set('Content-Type', 'application/atom+xml')
-				post.set('authorization', util.format('Basic %s', new Buffer(credentials).toString('base64')))
+				post.expect(401).end (err, res)->
+					if err != null
+						throw err
+					wwwAuthHeader = res.headers['WWW-Authenticate'.toLowerCase()]
+					wwwAuthHeader.should.be.ok
+					wwwAuthHeader.indexOf('Basic').should.equal 0
+					done()					
+		it 'should return expceted resultset and statuscode', (done)=>
+			post = request.post('/api/atom/feeds')
+			post.set('Content-Type', 'application/atom+xml')
+			post.set('authorization', util.format('Basic %s', new Buffer(credentials).toString('base64')))
 
-				fs.readFile __dirname + '/post.xml','utf8', (err, result)=>   
-						post.write(result)
-						post.expect(201).end (err, res)->
-							if err != null
-								 throw err
-							parser = new xml2js.Parser();
-							parser.parseString res.text, (err, result)->
-								result.entry.title[0].should.be.ok
-								result.entry.content[0].should.be.ok 
-								result.entry.id[0].should.be.ok   
-								lastIndex = result.entry.id[0].lastIndexOf('/') + 1
-								id = result.entry.id[0].substr(lastIndex)
-							done()
+			fs.readFile __dirname + '/post.xml','utf8', (err, result)=>   
+					post.write(result)
+					post.expect(201).end (err, res)->
+						if err != null
+							 throw err
+						parser = new xml2js.Parser();
+						parser.parseString res.text, (err, result)->
+							result.entry.title[0].should.be.ok
+							result.entry.content[0].should.be.ok 
+							result.entry.id[0].should.be.ok   
+							lastIndex = result.entry.id[0].lastIndexOf('/') + 1
+							id = result.entry.id[0].substr(lastIndex)
+						done()
 		afterEach (done)->
 			blog.deletePost id, ()->
 				done() 
@@ -55,7 +64,7 @@ describe 'atom feed', ()->
 		id = '' 
 		expected = 'test post' 
 		before (done)->
-			promise = blog.create
+			promise = blog.createPost
 					title	: 	expected
 					author 	:	'Mehfuz Hossain'
 					body	:	'Empty body'
@@ -91,7 +100,7 @@ describe 'atom feed', ()->
 		expected = 'test post'
 		id = ''
 		before (done)->
-			promise = blog.create
+			promise = blog.createPost
 					title	: expected
 					author 	:	'Mehfuz Hossain'
 					body	:	'Empty body'

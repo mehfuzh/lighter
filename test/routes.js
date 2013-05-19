@@ -35,7 +35,7 @@
       beforeEach(function(done) {
         var promise,
           _this = this;
-        promise = blog.create({
+        promise = blog.createPost({
           title: expected,
           author: 'Mehfuz Hossain',
           body: 'Empty body'
