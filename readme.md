@@ -37,9 +37,10 @@ If you are using other cloud services then please check their documentation for 
 
 List of config variables that you can use to modify the default settings:
 
-+	BLOG_TITLE: Title of the blog (default:Lighter Blog)
-+	USER: Admin username (default: your process username)
-+	PASSWORD: Admin password (default: admin)
++	BLOG_TITLE: Title of the blog. (default: Lighter Blog)
++	AUTHOR: Main author of the blog. (default: Editor).
++	USER: Admin username. (default: your process username)
++	PASSWORD: Admin password. (default: admin)
 +	FEED_URL: Feedbunder url mapped with your blog feed. The private url that you will be setting in feedburner is <yourdomain>/atom/feeds
 
 You don't have to set the __MONGOLAB_URI / MONGO_URI__ manually since this is set automatically by cloud services. If you have mongo installed locally then you dont have to change it either unless you changed the default port.
@@ -65,6 +66,9 @@ My personal blog is hosted with *lighter* @www.meonbinary.com.
 
 Please check this post out for further reading:            
 [Introducing Lighter Blog Engine](http://www.meonbinary.com/2013/02/introducing-lighter-blog-engine)
+
+#Key facts
+The blog does not have an admin panel. It exposes ATOM Pub and I use __MarsEdit__ to view/edit/delete post(s).
                       
 ##License 
 

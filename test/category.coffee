@@ -41,5 +41,4 @@ describe 'category', ()->
 	after (done)->
 		catModel.remove
 			title : date , ()=>
-				console.log 'test category removed'
 				done()

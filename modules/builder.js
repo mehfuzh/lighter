@@ -8,11 +8,10 @@
       fs = require('fs');
       user = require(__dirname + '/user')(settings);
       return fs.readFile(__dirname + '/../bin/post.md', 'utf8', function(err, result) {
-        var categories, category, content, post, posts, promise, _i, _j, _len, _len1, _ref, _ref1, _results;
+        var categories, category, content, post, posts, promise, _i, _j, _len, _len1, _ref, _ref1;
         blog["delete"](function() {});
         posts = [];
         _ref = result.split('#post');
-        _results = [];
         for (_i = 0, _len = _ref.length; _i < _len; _i++) {
           post = _ref[_i];
           if (post !== '') {
@@ -27,22 +26,19 @@
             promise = blog.createPost({
               title: content[0],
               body: content[1],
-              author: content[2],
+              author: settings.author,
+              publish: true,
               categories: categories
             });
-            _results.push(promise.then(function(result) {
+            promise.then(function(result) {
               if (result.id !== null) {
-                return console.log(result.permaLink);
+                return console.log('[%s]', result.permaLink);
               }
-            }));
-          } else {
-            _results.push(void 0);
+            });
           }
         }
-        return _results;
+        return console.log('BootStrapping with data');
       });
-    } else {
-
     }
   };
 

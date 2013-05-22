@@ -75,7 +75,8 @@
           }
           blog = data;
           return _this.post.find({
-            id: blog._id
+            id: blog._id,
+            publish: true
           }).sort({
             date: -1
           }).exec(function(err, data) {
@@ -89,6 +90,7 @@
               } else if (format === 'sanitize') {
                 post.body = _this.settings.format(post.body);
               }
+              post.title = post.title.trim();
               posts.push(post);
             }
             return promise.resolve({
@@ -110,7 +112,8 @@
           url: this.settings.url
         }, function(err, data) {
           return _this.post.find({
-            id: data._id
+            id: data._id,
+            publish: true
           }).sort({
             date: -1
           }).limit(5).exec(function(err, data) {
@@ -196,6 +199,7 @@
             data.permaLink = _this.helper.linkify(post.title);
           }
           data.categories = post.categories;
+          data.publish = post.publish;
           if (data.categories) {
             _ref = data.categories;
             for (_i = 0, _len = _ref.length; _i < _len; _i++) {
@@ -285,7 +289,7 @@
           permaLink: permaLink,
           author: post.author,
           body: post.body,
-          publish: 1,
+          publish: post.publish,
           date: new Date(),
           categories: post.categories
         });

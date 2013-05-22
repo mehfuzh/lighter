@@ -3,7 +3,7 @@ helper = (require '../modules/helper')()
 blog = (require __dirname + '/init').blog
 
 describe 'Blog', ->    
-	describe 'findPost', ->
+	describe 'find post', ->
 		expected = 'test post'
 		_id = ''
 		beforeEach (done)->
@@ -22,6 +22,30 @@ describe 'Blog', ->
 				 done() 
 		afterEach (done)->
 			blog.deletePost _id, ()->
+				done() 
+
+	describe 'list post', ->
+		expected = 'test post'
+		id = ''
+		beforeEach (done)->
+			promise = blog.createPost
+				title	: 	expected,
+				author 	:	'Mehfuz Hossain'
+				body	:	'Empty body'
+				publish :	false
+			promise.then (result) =>
+				id = result._id
+				done()
+					
+		it 'should skip draft posts', (done)->
+	 		promise= blog.find ''
+	 		promise.then (data) ->
+	 			for post in data.posts
+	 				post._id.should.not.equal id
+				done() 
+
+		afterEach (done)->
+			blog.deletePost id, ()->
 				done() 
 
 	describe 'update post', ->

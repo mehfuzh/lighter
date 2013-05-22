@@ -28,10 +28,15 @@
         _this = this;
       parser = new xml2js.Parser();
       rawBody = body.replace(/atom:/ig, '');
+      rawBody = rawBody.replace(/app:/ig, '');
       promise = new settings.Promise();
       parser.parseString(rawBody, function(err, result) {
-        var content, entry, title;
+        var content, entry, publish, title;
         entry = result.entry;
+        publish = true;
+        if (typeof entry.control !== 'undefined' && entry.control[0].draft[0] === 'yes') {
+          publish = false;
+        }
         title = entry.title[0];
         content = entry.content[0];
         if (typeof title._ !== 'undefined') {
@@ -40,6 +45,7 @@
         return promise.resolve({
           title: title,
           content: content._,
+          publish: publish,
           categories: parseCategories(entry)
         });
       });
@@ -109,7 +115,8 @@
         blogPromise = blog.createPost({
           title: result.title,
           body: result.content,
-          author: 'Mehfuz Hossain',
+          publish: result.publish,
+          author: settings.author,
           categories: result.categories
         });
         return blogPromise.then(function(result) {
@@ -136,6 +143,7 @@
         if (req.headers['accept'] && req.headers['accept'].indexOf('text/html') >= 0) {
           result.body = helper.htmlEscape(settings.format(result.body));
         }
+        result.title = result.title.trim();
         return res.render('atom/entries', {
           post: result,
           host: app.host
@@ -150,6 +158,7 @@
           id: req.params.id,
           title: result.title,
           body: result.content,
+          publish: result.publish,
           categories: result.categories
         });
         return promise.then(function(result) {

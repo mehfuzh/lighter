@@ -28,6 +28,8 @@
 
       Settings.prototype.url = '/';
 
+      Settings.prototype.author = process.env.AUTHOR || 'Editor';
+
       Settings.prototype.title = process.env.BLOG_TITLE || 'Lighter Blog';
 
       Settings.prototype.username = process.env.USER || 'admin';

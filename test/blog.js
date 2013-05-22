@@ -9,7 +9,7 @@
   blog = (require(__dirname + '/init')).blog;
 
   describe('Blog', function() {
-    describe('findPost', function() {
+    describe('find post', function() {
       var expected, _id;
       expected = 'test post';
       _id = '';
@@ -36,6 +36,45 @@
       });
       return afterEach(function(done) {
         return blog.deletePost(_id, function() {
+          return done();
+        });
+      });
+    });
+    describe('list post', function() {
+      var expected, id;
+      expected = 'test post';
+      id = '';
+      beforeEach(function(done) {
+        var promise,
+          _this = this;
+        promise = blog.createPost({
+          title: expected,
+          author: 'Mehfuz Hossain',
+          body: 'Empty body',
+          publish: false
+        });
+        return promise.then(function(result) {
+          id = result._id;
+          return done();
+        });
+      });
+      it('should skip draft posts', function(done) {
+        var promise;
+        promise = blog.find('');
+        promise.then(function(data) {
+          var post, _i, _len, _ref, _results;
+          _ref = data.posts;
+          _results = [];
+          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+            post = _ref[_i];
+            _results.push(post._id.should.not.equal(id));
+          }
+          return _results;
+        });
+        return done();
+      });
+      return afterEach(function(done) {
+        return blog.deletePost(id, function() {
           return done();
         });
       });

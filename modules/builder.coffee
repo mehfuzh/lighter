@@ -14,13 +14,14 @@ module.exports = (settings) ->
 							category = category.replace(/^\n*|\n*$/g, '')
 							categories.push(category)
 						promise = blog.createPost
-							title 	: content[0]
-							body 	: content[1]
-							author	: content[2]
+							title 	:	content[0]
+							body 	:	content[1]
+							author	:	settings.author
+							publish	: 	true
 							categories : categories	
 							
 						promise.then (result)->
 							if result.id isnt null
-								console.log result.permaLink
-	else
+								console.log '[%s]', result.permaLink
+				console.log 'BootStrapping with data'
 

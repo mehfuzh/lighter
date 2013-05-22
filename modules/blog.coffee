@@ -45,7 +45,7 @@ module.exports = (settings)->
 				if err!= null
 					throw err.message
 				blog = data
-				@post.find({id : blog._id}).sort({date: -1}).exec (err, data)=>
+				@post.find({id : blog._id, publish : true}).sort({date: -1}).exec (err, data)=>
 					posts = []
 					for post in data 
 						if format is 'encode'
@@ -53,6 +53,7 @@ module.exports = (settings)->
 							post.body = @helper.htmlEscape(body)
 						else if format is 'sanitize'
 							post.body = @settings.format(post.body) 
+						post.title = post.title.trim()
 						posts.push post
 					promise.resolve({
 						id 		: blog._id
@@ -65,7 +66,7 @@ module.exports = (settings)->
 		findMostRecent: () ->
 			promise = new @settings.Promise()
 			@blog.findOne url: @settings.url, (err, data) =>
-				@post.find({id : data._id}).sort({date: -1}).limit(5).exec (err, data)=>
+				@post.find({id : data._id, publish : true}).sort({date: -1}).limit(5).exec (err, data)=>
 						recent = []
 						for post in data
 								recent.push({
@@ -121,6 +122,7 @@ module.exports = (settings)->
 						data.permaLink = @helper.linkify post.title
 					
 					data.categories = post.categories
+					data.publish = post.publish
 
 					if (data.categories)
 						for category in data.categories
@@ -179,7 +181,7 @@ module.exports = (settings)->
 					permaLink	: permaLink
 					author 		: post.author
 					body 		: post.body
-					publish 	: 1
+					publish 	: post.publish
 					date		: new Date()		
 					categories 	: post.categories
 			postSchema.save (err, data) =>

@@ -21,20 +21,27 @@ routes = (app, settings) =>
 	parseBody = (body)->
 		parser = new xml2js.Parser()
 		rawBody = body.replace(/atom:/ig, '')
-
+		rawBody = rawBody.replace(/app:/ig, '')
+	
 		promise = new settings.Promise()
-		
 		parser.parseString rawBody, (err, result) => 
-			entry = result.entry
+			entry = result.entry			
+
+			publish = true
+
+			if typeof entry.control isnt 'undefined' && entry.control[0].draft[0] == 'yes'
+				publish = false
+
 			title = entry.title[0]
 			content = entry.content[0]
 
 			if typeof title._ isnt 'undefined'
 				title = title._
-		
+	
 			promise.resolve 
 				title 		: title
 				content 	: content._	
+				publish	: publish
 				categories 	: parseCategories(entry)
 
 		return promise			
@@ -84,10 +91,11 @@ routes = (app, settings) =>
 		promise = parseBody(req.rawBody)
 		promise.then (result) ->
 			blogPromise = blog.createPost
-				title   	: result.title
-				body    	: result.content
-				author 		: 'Mehfuz Hossain'
-				categories 	: result.categories
+				title   	: 	result.title
+				body    	: 	result.content
+				publish	: 	result.publish
+				author 		: 	settings.author
+				categories 	: 	result.categories
 			blogPromise.then (result)->
 				console.log result
 				location = app.host + 'api/atom/entries/' + result._id
@@ -106,6 +114,7 @@ routes = (app, settings) =>
 				res.header({'Content-Type': 'application/atom+xml' })
 				if req.headers['accept'] && req.headers['accept'].indexOf('text/html') >=0
 					result.body = helper.htmlEscape(settings.format(result.body))
+				result.title = result.title.trim()
 				res.render 'atom/entries', 
 					post : result
 					host  : app.host
@@ -117,6 +126,7 @@ routes = (app, settings) =>
 					id			:	req.params.id
 					title		:	result.title
 					body		:	result.content
+					publish		: 	result.publish
 					categories	: 	result.categories
 				promise.then (result)->
 					res.render 'atom/entries', 

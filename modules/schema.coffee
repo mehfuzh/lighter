@@ -11,29 +11,29 @@ module.exports = (mongoose)->
 					created		:	Date
 
 				CategorySchema = new Schema
-						permaLink	: String
-						title		: String
+					permaLink	: String
+					title		: String
 
 				CommentSchema = new Schema
-						title : 	String
-						text	:	String
-						date	:	Date
+					title 	: 	String
+					text	:	String
+					date	:	Date
 
 				PostSchema = new Schema
-						id			: ObjectId
-						author 		: String
-						title		: String
-						permaLink	: String
-						body		: String
-						date		: Date
-						categories	: [String]
-						comments	: [CommentSchema]
-						publish		: Boolean
+					id			: ObjectId
+					author 		: String
+					title		: String
+					permaLink	: String
+					body		: String
+					date		: Date
+					categories	: [String]
+					comments	: [CommentSchema]
+					publish		: Boolean
 
-				 BlogSchema = new Schema
-						url			: String
-						title		: String
-						updated 	: Date
+				BlogSchema = new Schema
+					url			: String
+					title		: String
+					updated 	: Date
 
 				MapSchema = new Schema
 					id 		: ObjectId

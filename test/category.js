@@ -60,7 +60,6 @@
       return catModel.remove({
         title: date
       }, function() {
-        console.log('test category removed');
         return done();
       });
     });
