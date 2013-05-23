@@ -72,11 +72,19 @@ routes = (app, settings) =>
 				res.redirect(settings.feedUrl)
 			else
 				res.header({'Content-Type': 'application/atom+xml' })
-				content = ''
-				if req.headers['accept'] && req.headers['accept'].indexOf('text/html') >= 0
-					content = 'encode'
 				
-				promise = blog.find content
+				format
+				promise
+
+				if req.headers['accept'] && req.headers['accept'].indexOf('text/html') >= 0
+					format = 'encode'
+
+				# MarsEdit hack.
+				if req.headers['user-agent'].toLowerCase() is 'marsedit'
+					promise = blog.findAll format
+				else
+					promise = blog.find format
+
 				promise.then (result)->		
 					res.render 'atom/feeds',
 						host		:	app.host

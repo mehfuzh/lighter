@@ -83,18 +83,25 @@
       });
     });
     processFeeds = function(req, res) {
-      var content, promise;
+      var format, promise;
       if (settings.feedUrl && parseInt(req.params['public']) === 1) {
         return res.redirect(settings.feedUrl);
       } else {
         res.header({
           'Content-Type': 'application/atom+xml'
         });
-        content = '';
+        format;
+
+        promise;
+
         if (req.headers['accept'] && req.headers['accept'].indexOf('text/html') >= 0) {
-          content = 'encode';
+          format = 'encode';
         }
-        promise = blog.find(content);
+        if (req.headers['user-agent'].toLowerCase() === 'marsedit') {
+          promise = blog.findAll(format);
+        } else {
+          promise = blog.find(format);
+        }
         return promise.then(function(result) {
           return res.render('atom/feeds', {
             host: app.host,

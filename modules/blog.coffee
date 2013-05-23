@@ -39,13 +39,21 @@ module.exports = (settings)->
 							promise.resolve data
 			return promise
 
-		find:(format)->
+		find:(format, filter)->
 			promise = new @settings.Promise()
 			@blog.findOne url : @settings.url, (err, data) =>
 				if err!= null
 					throw err.message
 				blog = data
-				@post.find({id : blog._id, publish : true}).sort({date: -1}).exec (err, data)=>
+
+				if typeof filter is 'undefined'
+					filter =
+						id		:	blog._id
+						publish	:	true
+				else 
+					filter.id = blog._id
+
+				@post.find(filter).sort({date: -1}).exec (err, data)=>
 					posts = []
 					for post in data 
 						if format is 'encode'
@@ -62,6 +70,9 @@ module.exports = (settings)->
 						posts 	:	posts
 					})
 			return promise
+
+		findAll:(format)->
+			return @find format, {}
 				
 		findMostRecent: () ->
 			promise = new @settings.Promise()

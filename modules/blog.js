@@ -62,7 +62,7 @@
         return promise;
       };
 
-      Blog.prototype.find = function(format) {
+      Blog.prototype.find = function(format, filter) {
         var promise,
           _this = this;
         promise = new this.settings.Promise();
@@ -74,10 +74,15 @@
             throw err.message;
           }
           blog = data;
-          return _this.post.find({
-            id: blog._id,
-            publish: true
-          }).sort({
+          if (typeof filter === 'undefined') {
+            filter = {
+              id: blog._id,
+              publish: true
+            };
+          } else {
+            filter.id = blog._id;
+          }
+          return _this.post.find(filter).sort({
             date: -1
           }).exec(function(err, data) {
             var body, post, posts, _i, _len;
@@ -102,6 +107,10 @@
           });
         });
         return promise;
+      };
+
+      Blog.prototype.findAll = function(format) {
+        return this.find(format, {});
       };
 
       Blog.prototype.findMostRecent = function() {
