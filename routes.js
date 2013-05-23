@@ -83,7 +83,8 @@
       });
     });
     processFeeds = function(req, res) {
-      var format, promise;
+      var format,
+        _this = this;
       if (settings.feedUrl && parseInt(req.params['public']) === 1) {
         return res.redirect(settings.feedUrl);
       } else {
@@ -92,22 +93,25 @@
         });
         format;
 
-        promise;
-
         if (req.headers['accept'] && req.headers['accept'].indexOf('text/html') >= 0) {
           format = 'encode';
         }
-        if (req.headers['user-agent'].toLowerCase() === 'marsedit') {
-          promise = blog.findAll(format);
-        } else {
-          promise = blog.find(format);
-        }
-        return promise.then(function(result) {
-          return res.render('atom/feeds', {
-            host: app.host,
-            title: result.title,
-            updated: result.updated,
-            posts: result.posts
+        return request.validate(req, function(result) {
+          promise;
+
+          var promise;
+          if (result !== null) {
+            promise = blog.findAll(format);
+          } else {
+            promise = blog.find(format);
+          }
+          return promise.then(function(result) {
+            return res.render('atom/feeds', {
+              host: app.host,
+              title: result.title,
+              updated: result.updated,
+              posts: result.posts
+            });
           });
         });
       }

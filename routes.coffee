@@ -74,23 +74,24 @@ routes = (app, settings) =>
 				res.header({'Content-Type': 'application/atom+xml' })
 				
 				format
-				promise
-
+			
 				if req.headers['accept'] && req.headers['accept'].indexOf('text/html') >= 0
 					format = 'encode'
 
-				# MarsEdit hack.
-				if req.headers['user-agent'].toLowerCase() is 'marsedit'
-					promise = blog.findAll format
-				else
-					promise = blog.find format
+				# list all posts when logged in, e.g. MarsEdit
+				request.validate req, (result)=>
+					promise
+					if result isnt null
+						promise = blog.findAll format
+					else
+						promise = blog.find format
 
-				promise.then (result)->		
-					res.render 'atom/feeds',
-						host		:	app.host
-						title		:	result.title
-						updated		:	result.updated
-						posts		:	result.posts
+					promise.then (result)->		
+						res.render 'atom/feeds',
+							host		:	app.host
+							title		:	result.title
+							updated		:	result.updated
+							posts		:	result.posts
 
 	app.get '/api/atom/feeds', processFeeds
 	app.get '/api/atom/feeds/:public', processFeeds
