@@ -19,8 +19,50 @@ blog = (require __dirname + '/init').blog
 
 credentials = util.format('%s:%s', blog.settings.username, blog.settings.password)
 
-describe 'atom feed', ()->
+describe 'Atom', ()->
 	request = request(app)
+	describe 'list posts', ()->
+		id = '' 
+		expected = 'test post' 
+		before (done)->
+			promise = blog.createPost
+					title	: 	expected
+					author 	:	'Mehfuz Hossain'
+					body	:	'Empty body'
+					publish	:	false
+			promise.then (result) =>
+				id = result._id
+				done()
+		it 'should return drafts when authorized', (done)=>
+			get = request.get('/api/atom/feeds')
+			get.set('authorization', util.format('Basic %s', new Buffer(credentials).toString('base64')))
+			get.expect(200).end (err, res)=>
+				if err isnt null
+					throw err
+				parser = new xml2js.Parser();
+				parser.parseString res.text, (err, result)=>
+					match = false
+					for entry in result.feed.entry
+						if entry.title[0] is expected
+							match = true
+					match.should.be.true
+					done()
+		it 'should return only the published when not authorized', (done)=>
+			get = request.get('/api/atom/feeds')
+			get.expect(200).end (err, res)=>
+				if err isnt null
+					throw err
+				parser = new xml2js.Parser();
+				parser.parseString res.text, (err, result)=>
+					match = false
+					for entry in result.feed.entry
+						entry.title[0].should.not.equal expected
+					done()
+
+		after (done)->
+			blog.deletePost id, ()->
+				done() 
+
 	describe 'POST /api/atom/feeds', ()->	
 		id = ''
 		it 'should return 401 for unauthorized request', (done)->

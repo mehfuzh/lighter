@@ -28,8 +28,79 @@
 
   credentials = util.format('%s:%s', blog.settings.username, blog.settings.password);
 
-  describe('atom feed', function() {
+  describe('Atom', function() {
     request = request(app);
+    describe('list posts', function() {
+      var expected, id,
+        _this = this;
+      id = '';
+      expected = 'test post';
+      before(function(done) {
+        var promise,
+          _this = this;
+        promise = blog.createPost({
+          title: expected,
+          author: 'Mehfuz Hossain',
+          body: 'Empty body',
+          publish: false
+        });
+        return promise.then(function(result) {
+          id = result._id;
+          return done();
+        });
+      });
+      it('should return drafts when authorized', function(done) {
+        var get;
+        get = request.get('/api/atom/feeds');
+        get.set('authorization', util.format('Basic %s', new Buffer(credentials).toString('base64')));
+        return get.expect(200).end(function(err, res) {
+          var parser;
+          if (err !== null) {
+            throw err;
+          }
+          parser = new xml2js.Parser();
+          return parser.parseString(res.text, function(err, result) {
+            var entry, match, _i, _len, _ref;
+            match = false;
+            _ref = result.feed.entry;
+            for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+              entry = _ref[_i];
+              if (entry.title[0] === expected) {
+                match = true;
+              }
+            }
+            match.should.be["true"];
+            return done();
+          });
+        });
+      });
+      it('should return only the published when not authorized', function(done) {
+        var get;
+        get = request.get('/api/atom/feeds');
+        return get.expect(200).end(function(err, res) {
+          var parser;
+          if (err !== null) {
+            throw err;
+          }
+          parser = new xml2js.Parser();
+          return parser.parseString(res.text, function(err, result) {
+            var entry, match, _i, _len, _ref;
+            match = false;
+            _ref = result.feed.entry;
+            for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+              entry = _ref[_i];
+              entry.title[0].should.not.equal(expected);
+            }
+            return done();
+          });
+        });
+      });
+      return after(function(done) {
+        return blog.deletePost(id, function() {
+          return done();
+        });
+      });
+    });
     describe('POST /api/atom/feeds', function() {
       var id,
         _this = this;
