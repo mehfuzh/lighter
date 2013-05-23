@@ -49,7 +49,7 @@ In addition, please set _NODE_ENV=production_ as you deploy your blog. By defaul
 
 The blog uses _newrelic_ for monitoring. All the variables are set automtically uneless otherwise mentioned by your provider.
 
-##Running tests
+##Running Tests
 
 Tests are written with mocha. It is required that mocha is installed globally:
 
@@ -60,14 +60,14 @@ Once installed, type the following command to run tests.
 
 	mocha
 
-##Further reading
+##Further Reading
 
 My personal blog is hosted with *lighter* @www.meonbinary.com. 
 
 Please check this post out for further reading:            
 [Introducing Lighter Blog Engine](http://www.meonbinary.com/2013/02/introducing-lighter-blog-engine)
 
-#Key facts
+##Key Facts
 The blog does not have an admin panel. It exposes ATOM Pub and I use __MarsEdit__ to view/edit/delete post(s).
                       
 ##License 
