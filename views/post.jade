@@ -1,6 +1,7 @@
 extends layout
 
 block header
+	title #{post.title}
 	meta(name='author', content='#{post.author}') 
 	meta(name='keywords', content='#{post.categories.join()}')
 	script(src='/disqus.js')
