@@ -2,7 +2,11 @@ extends layout
 
 block header	
 	meta(name='author', content='#{post.author}') 
-	meta(name='keywords', content='#{post.categories.join()}')
+	meta(name='keywords', content='#{post.categories.join()}')	
+	meta(property='og:title', content='#{post.title.trim()}')
+	meta(property='og:url', content='#{host}#{post.permaLink}')
+	meta(property='og:type', content='website')
+	meta(property='og:image', content='#{host}logo.png')
 	title #{post.title.trim()} - #{title.trim()}
 	script(src='/disqus.js')
 
