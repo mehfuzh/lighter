@@ -7,6 +7,7 @@ block header
 	meta(property='og:url', content='#{host}#{post.permaLink}')
 	meta(property='og:type', content='website')
 	meta(property='og:image', content='#{host}logo.png')
+	meta(property='og:description', content='#{post.summary}')
 	title #{post.title.trim()} - #{title.trim()}
 	script(src='/disqus.js')
 

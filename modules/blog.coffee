@@ -67,7 +67,7 @@ module.exports = (settings)->
 						id 		: blog._id
 						title 	: blog.title
 						updated : blog.updated
-						posts 	:	posts
+						posts 	: posts
 					})
 			return promise
 
@@ -97,6 +97,8 @@ module.exports = (settings)->
 						if err != null or data == null
 							promise.resolve(null)
 							return
+						summary = data.body.trim()	
+						data.summary = summary.substring(0, summary.indexOf('\n'))
 						data.body = @settings.format(data.body)
 						promise.resolve({
 							title	:	blog.title

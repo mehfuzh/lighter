@@ -154,10 +154,13 @@
             id: blog._id,
             permaLink: permaLink
           }, function(err, data) {
+            var summary;
             if (err !== null || data === null) {
               promise.resolve(null);
               return;
             }
+            summary = data.body.trim();
+            data.summary = summary.substring(0, summary.indexOf('\n'));
             data.body = _this.settings.format(data.body);
             return promise.resolve({
               title: blog.title,
