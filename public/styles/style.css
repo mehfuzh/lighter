@@ -364,6 +364,7 @@ body section.main section.content section article section p:first-child {
 body section.main section.content section article section p {
   padding-top: 5px;
   padding-bottom: 5px;
+  text-align: justify;
 }
 body section.main section.content section article section p strong {
   font-family: 'SourceSansProBold';
@@ -492,7 +493,7 @@ body aside section li {
 }
 body aside section li a {
   color: inherit;
-  text-decoration: none;
+  text-decoration: underline;
 }
 body aside section li a:hover {
   color: #de3f1c;
