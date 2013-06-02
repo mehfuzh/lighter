@@ -11,7 +11,7 @@
       require(path.join(__dirname, '../modules/schema'))(settings.mongoose);
       this.blog = (require('../modules/blog'))(settings);
       this.category = (require('../modules/category'))(settings);
-      user = require('./modules/user')(settings);
+      user = require('../modules/user')(settings);
       user.init(function(data) {
         return console.log('Initializing user %s is completed', data.username);
       });
