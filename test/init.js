@@ -5,12 +5,16 @@
   TestBase = (function() {
 
     function TestBase() {
-      var path, settings;
+      var path, settings, user;
       path = require('path');
       settings = (require(path.join(__dirname, '../modules/settings')))();
       require(path.join(__dirname, '../modules/schema'))(settings.mongoose);
       this.blog = (require('../modules/blog'))(settings);
       this.category = (require('../modules/category'))(settings);
+      user = require('./modules/user')(settings);
+      user.init(function(data) {
+        return console.log('Initializing user %s is completed', data.username);
+      });
     }
 
     TestBase.prototype.blog = TestBase.blog;
