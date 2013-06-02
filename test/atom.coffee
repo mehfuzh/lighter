@@ -22,8 +22,8 @@ credentials = util.format('%s:%s', blog.settings.username, blog.settings.passwor
 describe 'Atom', ()->
 	request = request(app)
 	describe 'list posts', ()->
-		id = '' 
-		expected = 'test post' 
+		id = ''
+		expected = 'test post'
 		before (done)->
 			promise = blog.createPost
 					title	: 	expected
