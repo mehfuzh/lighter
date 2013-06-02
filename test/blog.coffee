@@ -8,13 +8,13 @@ describe 'Blog', ->
 		_id = ''
 		beforeEach (done)->
 			promise = blog.createPost
-				title	: 	expected,
+				title	: 	expected
 				author 	:	'Mehfuz Hossain'
 				body	:	'Empty body'
 			promise.then (result) =>
 				_id = result._id
 				done()
-					
+							
 		it 'should return expected for permaLink', (done)->
 	 		promise = blog.findPost helper.linkify('test post')
 	 		promise.then (data) ->
