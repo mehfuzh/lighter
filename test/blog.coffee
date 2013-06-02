@@ -29,21 +29,19 @@ describe 'Blog', ->
 		id = ''
 		beforeEach (done)->
 			promise = blog.createPost
-				title	: 	expected,
+				title	: 	expected
 				author 	:	'Mehfuz Hossain'
 				body	:	'Empty body'
 				publish :	false
 			promise.then (result) =>
 				id = result._id
-				done()
-					
+				done()					
 		it 'should skip draft posts', (done)->
 	 		promise= blog.find ''
 	 		promise.then (data) ->
 	 			for post in data.posts
 	 				post._id.should.not.equal id
 				done() 
-
 		afterEach (done)->
 			blog.deletePost id, ()->
 				done() 
