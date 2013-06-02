@@ -23,7 +23,7 @@
     "npm": "1.1.35"
   },
   "devDependencies": {
-    "mocha":  "*"
+    "mocha":  "*",
     "should": "*",
     "supertest": "~0.5.1"
   }
