@@ -1,6 +1,8 @@
-#lighter - fast, responsive blog engine. [![Build Status](https://travis-ci.org/mehfuzh/lighter.png)](https://travis-ci.org/mehfuzh/lighter)
+#lighter - fast, responsive blog engine. 
      
 The blog is built using node and mongo. There is no admin view and exposes AtomPub to create, view and delete posts.
+
+[![Build Status](https://travis-ci.org/mehfuzh/lighter.png)](https://travis-ci.org/mehfuzh/lighter)
 
 ##Installation
 
