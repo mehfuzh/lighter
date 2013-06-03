@@ -106,7 +106,6 @@ routes = (app, settings) =>
 				author 		: 	settings.author
 				categories 	: 	result.categories
 			blogPromise.then (result)->
-				console.log result
 				location = app.host + 'api/atom/entries/' + result._id
 				res.header({
 					'Content-Type'	: req.headers['content-type'] 
