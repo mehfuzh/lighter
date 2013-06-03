@@ -13,7 +13,7 @@
       this.category = (require('../modules/category'))(settings);
       user = require('../modules/user')(settings);
       user.init(function(data) {
-        return console.log('Initializing user %s is completed', data.username);
+        return console.log('Initializing of user %s is completed', data.username);
       });
     }
 

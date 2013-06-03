@@ -8,7 +8,7 @@ class TestBase
 		@category = (require '../modules/category')(settings)
 		user = require('../modules/user')(settings)
 		user.init (data)->
-			console.log 'Initializing user %s is completed',  data.username
+			console.log 'Initializing of user %s is completed',  data.username
 	blog : @blog
 	category : @category
 

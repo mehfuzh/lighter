@@ -55,8 +55,10 @@ describe 'Atom', ()->
 				parser = new xml2js.Parser();
 				parser.parseString res.text, (err, result)=>
 					match = false
-					for entry in result.feed.entry
-						entry.title[0].should.not.equal expected
+					# there are post already
+					if typeof result.feed.entry isnt 'undefined'
+						for entry in result.feed.entry
+							entry.title[0].should.not.equal expected
 					done()
 
 		after (done)->

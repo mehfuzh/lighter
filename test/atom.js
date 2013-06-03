@@ -86,10 +86,12 @@
           return parser.parseString(res.text, function(err, result) {
             var entry, match, _i, _len, _ref;
             match = false;
-            _ref = result.feed.entry;
-            for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-              entry = _ref[_i];
-              entry.title[0].should.not.equal(expected);
+            if (typeof result.feed.entry !== 'undefined') {
+              _ref = result.feed.entry;
+              for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+                entry = _ref[_i];
+                entry.title[0].should.not.equal(expected);
+              }
             }
             return done();
           });

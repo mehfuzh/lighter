@@ -20,7 +20,7 @@ var user = require('./modules/user')(settings);
 
 user.init(function(data){ 
   if (data._id){
-		console.log('Initializing user %s is completed',  data.username);
+		console.log('Initializing of user %s is completed',  data.username);
 	}
 });
 
