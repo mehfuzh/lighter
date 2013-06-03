@@ -1,4 +1,4 @@
-#lighter - fast, simple blog engine for geeks. [![Build Status](https://travis-ci.org/mehfuzh/lighter.png)](https://travis-ci.org/mehfuzh/lighter)
+#lighter - fast, simple blog engine. [![Build Status](https://travis-ci.org/mehfuzh/lighter.png)](https://travis-ci.org/mehfuzh/lighter)
      
 The blog is built using node and mongo. There is no admin view and exposes AtomPub to create, view and delete posts.
 
