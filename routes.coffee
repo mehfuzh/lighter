@@ -97,6 +97,7 @@ routes = (app, settings) =>
 	app.get '/api/atom/feeds/:public', processFeeds
 						
 	app.post '/api/atom/feeds', authorize, (req, res) -> 
+		console.log req
 		promise = parseBody(req.rawBody)
 		promise.then (result) ->
 			blogPromise = blog.createPost

@@ -203,7 +203,7 @@ body .linear-gradient {
 }
 body header.main {
   z-index: 9999;
-  background: #1e8cbe;
+  background: #0c75bb;
   /*border-bottom: 1px solid #fff;*/
 
   color: #fff;
@@ -485,7 +485,7 @@ body aside section ul {
 }
 body aside section li {
   padding: .5em 0;
-  border-bottom: 1px solid #e0e0e0;
+  background: url('/images/header-bottom.png') repeat-x 0 100%;
   -moz-box-shadow: #ffffff 0 1px;
   -webkit-box-shadow: #ffffff 0 1px;
   -o-box-shadow: #ffffff 0 1px;
@@ -493,7 +493,7 @@ body aside section li {
 }
 body aside section li a {
   color: inherit;
-  text-decoration: underline;
+  text-decoration: none;
 }
 body aside section li a:hover {
   color: #de3f1c;
