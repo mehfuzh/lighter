@@ -120,7 +120,6 @@
     app.get('/api/atom/feeds/:public', processFeeds);
     app.post('/api/atom/feeds', authorize, function(req, res) {
       var promise;
-      console.log(req);
       promise = parseBody(req.rawBody);
       return promise.then(function(result) {
         var blogPromise;
