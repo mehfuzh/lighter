@@ -154,14 +154,14 @@ routes = (app, settings) =>
 						host : app.host
 						engine : settings.engine
 	
-	app.post '/api/atom/images', (req, res)->
+	app.post '/api/atom/images', authorize, (req, res)->
 		slug = req.headers['slug']		
 		promise = media.create	
 			id:new ObjectId()
 			slug:slug
 			type:req.headers['content-type']
 		promise.then (result)->
-			gridStore = new settings.GridStore(settings.mongoose.connection.db, result._id.toString(), 'w')
+			gridStore = new settings.GridStore(settings.mongoose.connection.db, result.url, 'w')
 			gridStore.open (err, gs)->
 				gs.write req.rawBody, (err, gs)->
 					gs.close (err)->
@@ -177,7 +177,7 @@ routes = (app, settings) =>
 		promise = media.get url 
 		promise.then (result)->
 			if result isnt null
-				gridStore = new settings.GridStore(settings.mongoose.connection.db, result._id.toString(), 'r')
+				gridStore = new settings.GridStore(settings.mongoose.connection.db, result.url, 'r')
 				gridStore.open (err, gs)->
 					if typeof gs isnt 'undefined'
 						gs.seek 0, ()->

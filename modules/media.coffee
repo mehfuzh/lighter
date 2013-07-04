@@ -7,14 +7,14 @@ module.exports = (settings)->
 	
 		create:(res)->
 			promise = new @settings.Promise
-			link = @helper.linkify(res.slug)
+			url = @helper.linkify(res.slug)
 			
-			@media.findOne link, (err, data)=>				
+			@media.findOne url:url, (err, data)=>				
 				if data is null
 					media = new @media
 						title:res.slug
 						id:res.id
-						url:link
+						url:url
 						type:res.type
 						date:new Date()
 					media.save (err, data) ->   
@@ -26,7 +26,7 @@ module.exports = (settings)->
 		
 		get:(url)->
 			promise = new @settings.Promise
-			@media.findOne url: url, (err, data)=>
+			@media.findOne url:url, (err, data)=>
 				if data isnt null
 					promise.resolve data
 				else

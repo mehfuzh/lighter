@@ -12,17 +12,19 @@
       }
 
       Media.prototype.create = function(res) {
-        var link, promise,
+        var promise, url,
           _this = this;
         promise = new this.settings.Promise;
-        link = this.helper.linkify(res.slug);
-        this.media.findOne(link, function(err, data) {
+        url = this.helper.linkify(res.slug);
+        this.media.findOne({
+          url: url
+        }, function(err, data) {
           var media;
           if (data === null) {
             media = new _this.media({
               title: res.slug,
               id: res.id,
-              url: link,
+              url: url,
               type: res.type,
               date: new Date()
             });

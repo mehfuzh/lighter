@@ -195,7 +195,7 @@
         engine: settings.engine
       });
     });
-    app.post('/api/atom/images', function(req, res) {
+    app.post('/api/atom/images', authorize, function(req, res) {
       var promise, slug;
       slug = req.headers['slug'];
       promise = media.create({
@@ -205,7 +205,7 @@
       });
       return promise.then(function(result) {
         var gridStore;
-        gridStore = new settings.GridStore(settings.mongoose.connection.db, result._id.toString(), 'w');
+        gridStore = new settings.GridStore(settings.mongoose.connection.db, result.url, 'w');
         return gridStore.open(function(err, gs) {
           return gs.write(req.rawBody, function(err, gs) {
             return gs.close(function(err) {
@@ -228,7 +228,7 @@
       return promise.then(function(result) {
         var gridStore;
         if (result !== null) {
-          gridStore = new settings.GridStore(settings.mongoose.connection.db, result._id.toString(), 'r');
+          gridStore = new settings.GridStore(settings.mongoose.connection.db, result.url, 'r');
           return gridStore.open(function(err, gs) {
             if (typeof gs !== 'undefined') {
               return gs.seek(0, function() {
