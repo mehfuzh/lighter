@@ -6,7 +6,7 @@
     Schema = (function() {
 
       function Schema(mongoose) {
-        var BlogSchema, CategorySchema, CommentSchema, MapSchema, ObjectId, PostSchema, ResourceSchema, UserSchema;
+        var BlogSchema, CategorySchema, CommentSchema, MapSchema, MediaSchema, ObjectId, PostSchema, UserSchema;
         Schema = mongoose.Schema;
         ObjectId = Schema.ObjectId;
         UserSchema = new Schema({
@@ -45,18 +45,18 @@
           permaLink: String,
           content: String
         });
-        ResourceSchema = new Schema({
+        MediaSchema = new Schema({
           id: ObjectId,
           url: String,
           type: String,
-          content: String
+          date: Date
         });
         mongoose.model('user', UserSchema);
         mongoose.model('blog', BlogSchema);
         mongoose.model('category', CategorySchema);
         mongoose.model('post', PostSchema);
         mongoose.model('map', MapSchema);
-        mongoose.model('resource', ResourceSchema);
+        mongoose.model('media', MediaSchema);
       }
 
       return Schema;

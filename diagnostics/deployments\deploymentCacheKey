@@ -1,0 +1,2 @@
+1.21.20412.16
+site deploymentscript -y --no-dot-deployment -r "C:\DWASFiles\Sites\lighter\VirtualDirectory0\site\repository" --node --sitePath "C:\DWASFiles\Sites\lighter\VirtualDirectory0\site\repository"

@@ -1,0 +1,3 @@
+Express server listening on port \\.\pipe\a524b31b-19a1-420b-8484-4f0dc2e44c61
+user mehfuz is initialized!
+[90mGET / [36m304 [90m6594ms[0m

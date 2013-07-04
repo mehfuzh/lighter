@@ -1,0 +1,7 @@
+Express server listening on port \\.\pipe\066392d4-6c4f-49b7-9345-b6bb60b8bdb4
+user mehfuz is initialized!
+[90mGET / [32m200 [90m1282ms - 6.96kb[0m
+[90mGET / [32m200 [90m47ms - 6.96kb[0m
+[90mGET / [32m200 [90m31ms - 6.96kb[0m
+[90mGET /2013/02/introducing-lighter-blog-engine [32m200 [90m94ms - 7.02kb[0m
+[90mGET / [32m200 [90m31ms - 6.96kb[0m

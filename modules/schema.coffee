@@ -39,17 +39,17 @@ module.exports = (mongoose)->
 					id 			: ObjectId
 					permaLink	: String
 					content 	: String 
-				ResourceSchema = new Schema
+				MediaSchema = new Schema
 					id 		: 	ObjectId
 					url		:	String
 					type	:	String
-					content	:	String
+					date	:	Date
 						
 				mongoose.model 'user', UserSchema
 				mongoose.model 'blog', BlogSchema
 				mongoose.model 'category', CategorySchema
 				mongoose.model 'post', PostSchema
 				mongoose.model 'map', MapSchema
-				mongoose.model 'resource', ResourceSchema
+				mongoose.model 'media', MediaSchema
 
 	new Schema(mongoose)

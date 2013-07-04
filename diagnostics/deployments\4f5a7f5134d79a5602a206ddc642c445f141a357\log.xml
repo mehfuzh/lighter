@@ -1,0 +1,165 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<entries>
+  <entry time="2013-03-09T20:02:12.6561914+00:00" id="2e64f52e-b5c3-4fd9-90ca-01ff48d8d6d9" type="0">
+    <message>New deployment received.</message>
+  </entry>
+  <entry time="2013-03-09T20:02:12.671804+00:00" id="1ecd930e-df3f-4935-860e-2195ca60e501" type="0">
+    <message>Updating branch 'master'.</message>
+  </entry>
+  <entry time="2013-03-09T20:02:13.1714072+00:00" id="13063c24-0f3d-4083-b908-e540fdcc1b2b" type="0">
+    <message>Updating submodules.</message>
+  </entry>
+  <entry time="2013-03-09T20:02:13.6710104+00:00" id="a0242aba-d128-4369-af68-2ac40ab7cea8" type="0">
+    <message>Preparing deployment for commit id '4f5a7f5134'.</message>
+  </entry>
+  <entry time="2013-03-09T20:02:13.920812+00:00" id="ddb9a4df-07ca-49da-90a9-70e8e966d4fc" type="0">
+    <message>Preparing files for deployment.</message>
+    <entry time="2013-03-09T20:02:14.5140908+00:00" id="be5463d6-f877-4f89-a405-a9a419b1683f" type="0">
+      <message>Copied 'bin'.
+Copied 'config.coffee'.
+Copied 'config.js'.
+Copied 'license.md'.
+Copied 'modules'.
+Copied 'package.json'.
+Copied 'Procfile'.
+Copied 'public'.
+Copied 'readme.md'.
+Copied 'routes.coffee'.
+Copied 'routes.js'.
+Copied 'server.js'.
+Copied 'test'.
+Copied 'views'.
+Copied 'bin\compile'.
+Copied 'bin\devserver'.
+Copied 'bin\post.md'.
+Copied 'modules\blog.coffee'.
+Copied 'modules\blog.js'.
+Copied 'modules\builder.coffee'.
+Copied 'modules\builder.js'.
+Copied 'modules\category.coffee'.
+Copied 'modules\category.js'.
+Copied 'modules\helper.coffee'.
+Copied 'modules\helper.js'.
+Copied 'modules\request.coffee'.
+Copied 'modules\request.js'.
+Copied 'modules\schema.coffee'.
+Copied 'modules\schema.js'.
+Copied 'modules\settings.coffee'.
+Copied 'modules\settings.js'.
+Copied 'modules\user.coffee'.
+Copied 'modules\user.js'.
+Copied 'modules\utility.js'.
+Copied 'public\disqus.js'.
+Copied 'public\favicon.ico'.
+Copied 'public\fonts'.
+Copied 'public\images'.
+Copied 'public\service.xml'.
+Copied 'public\styles'.
+Copied 'public\fonts\asap'.
+Copied 'public\fonts\Asap SIL OFL Font License 1.1.txt'.
+Copied 'public\fonts\Asap-Bold-webfont.eot'.
+Copied 'public\fonts\Asap-Bold-webfont.svg'.
+Copied 'public\fonts\Asap-Bold-webfont.ttf'.
+Copied 'public\fonts\Asap-Bold-webfont.woff'.
+Copied 'public\fonts\Asap-BoldItalic-webfont.eot'.
+Copied 'public\fonts\Asap-BoldItalic-webfont.svg'.
+Copied 'public\fonts\Asap-BoldItalic-webfont.ttf'.
+Copied 'public\fonts\Asap-BoldItalic-webfont.woff'.
+Copied 'public\fonts\Asap-Italic-webfont.eot'.
+Copied 'public\fonts\Asap-Italic-webfont.svg'.
+Copied 'public\fonts\Asap-Italic-webfont.ttf'.
+Copied 'public\fonts\Asap-Italic-webfont.woff'.
+Copied 'public\fonts\Asap-Regular-webfont.eot'.
+Copied 'public\fonts\Asap-Regular-webfont.svg'.
+Copied 'public\fonts\Asap-Regular-webfont.ttf'.
+Copied 'public\fonts\Asap-Regular-webfont.woff'.
+Copied 'public\fonts\DroidSans-webfont.eot'.
+Copied 'public\fonts\DroidSans-webfont.svg'.
+Copied 'public\fonts\DroidSans-webfont.ttf'.
+Copied 'public\fonts\DroidSans-webfont.woff'.
+Copied 'public\fonts\lacuna-webfont.eot'.
+Copied 'public\fonts\lacuna-webfont.svg'.
+Copied 'public\fonts\lacuna-webfont.ttf'.
+Copied 'public\fonts\lacuna-webfont.woff'.
+Copied 'public\fonts\TitilliumText22L003-webfont.eot'.
+Copied 'public\fonts\TitilliumText22L003-webfont.svg'.
+Copied 'public\fonts\TitilliumText22L003-webfont.ttf'.
+Copied 'public\fonts\TitilliumText22L003-webfont.woff'.
+Copied 'public\fonts\Ubuntu-R-webfont.eot'.
+Copied 'public\fonts\Ubuntu-R-webfont.svg'.
+Copied 'public\fonts\Ubuntu-R-webfont.ttf'.
+Copied 'public\fonts\Ubuntu-R-webfont.woff'.
+Copied 'public\fonts\Ubuntu-RI-webfont.woff'.
+Copied 'public\fonts\asap\Asap SIL OFL Font License 1.1.txt'.
+Copied 'public\fonts\asap\Asap-Bold-webfont.eot'.
+Copied 'public\fonts\asap\Asap-Bold-webfont.svg'.
+Copied 'public\fonts\asap\Asap-Bold-webfont.ttf'.
+Copied 'public\fonts\asap\Asap-Bold-webfont.woff'.
+Copied 'public\fonts\asap\Asap-BoldItalic-webfont.eot'.
+Copied 'public\fonts\asap\Asap-BoldItalic-webfont.svg'.
+Copied 'public\fonts\asap\Asap-BoldItalic-webfont.ttf'.
+Copied 'public\fonts\asap\Asap-BoldItalic-webfont.woff'.
+Copied 'public\fonts\asap\Asap-Italic-webfont.eot'.
+Copied 'public\fonts\asap\Asap-Italic-webfont.svg'.
+Copied 'public\fonts\asap\Asap-Italic-webfont.ttf'.
+Copied 'public\fonts\asap\Asap-Italic-webfont.woff'.
+Copied 'public\fonts\asap\Asap-Regular-webfont.eot'.
+Copied 'public\fonts\asap\Asap-Regular-webfont.svg'.
+Copied 'public\fonts\asap\Asap-Regular-webfont.ttf'.
+Copied 'public\fonts\asap\Asap-Regular-webfont.woff'.
+Copied 'public\images\bg.png'.
+Copied 'public\images\blockquote.png'.
+Copied 'public\images\code_bg.png'.
+Copied 'public\images\footer-widgets.png'.
+Copied 'public\images\header-bottom.png'.
+Copied 'public\images\line-tile.png'.
+Copied 'public\images\list.png'.
+Copied 'public\images\noise.png'.
+Copied 'public\images\rss.png'.
+Copied 'public\images\rss_feed.gif'.
+Copied 'public\styles\font.less'.
+Copied 'public\styles\highlight.css'.
+Copied 'public\styles\media.css'.
+Copied 'public\styles\media.less'.
+Copied 'public\styles\reset.less'.
+Copied 'public\styles\style.css'.
+Copied 'public\styles\style.less'.
+Copied 'test\atom.coffee'.
+Copied 'test\atom.js'.
+Copied 'test\blog.coffee'.
+Copied 'test\blog.js'.
+Copied 'test\init.coffee'.
+Copied 'test\init.js'.
+Copied 'test\post.xml'.
+Copied 'views\atom'.
+Copied 'views\index.jade'.
+Copied 'views\layout.jade'.
+Copied 'views\post.jade'.
+Copied 'views\recent.jade'.
+Copied 'views\rsd.jade'.
+Copied 'views\atom\atom.jade'.
+Copied 'views\atom\categories.jade'.
+Copied 'views\atom\entries.jade'.
+Copied 'views\atom\feeds.jade'.</message>
+    </entry>
+  </entry>
+  <entry time="2013-03-09T20:02:14.5297034+00:00" id="73914906-3819-4f35-944a-947f1e1dbf63" type="0">
+    <message>Running NPM.</message>
+    <entry time="2013-03-09T20:02:16.0597382+00:00" id="6f4e1e1b-6ac4-46b2-ad10-dda01860b6ec" type="0">
+      <message>Packages already installed.</message>
+    </entry>
+  </entry>
+  <entry time="2013-03-09T20:02:16.0597382+00:00" id="07445164-0245-485e-afca-5a47a7066c99" type="0">
+    <message>Deploying Web.config to enable Node.js activation.</message>
+  </entry>
+  <entry time="2013-03-09T20:02:16.0753508+00:00" id="d9a74d6f-ab69-4811-96f4-eb3e0216d253" type="0">
+    <message>Selecting nodejs version.</message>
+    <entry time="2013-03-09T20:02:16.2158642+00:00" id="6cd927e6-2d27-46d3-83d1-6692fc8b45f9" type="0">
+      <message>Node.js versions available on the platform are: 0.6.17, 0.6.20, 0.8.2.
+Selected node.js version 0.8.2. Use package.json file to choose a different version.</message>
+    </entry>
+  </entry>
+  <entry time="2013-03-09T20:02:16.2314768+00:00" id="a9477b9b-6380-4ff1-bbd1-9696e4511184" type="0">
+    <message>Deployment successful.</message>
+  </entry>
+</entries>

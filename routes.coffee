@@ -4,10 +4,11 @@ routes = (app, settings) =>
 	helper = (require __dirname+'/modules/helper')()
 	
 	category = (require __dirname + '/modules/category')(settings) 
-	resource = (require __dirname + '/modules/resource')(settings) 
+	media = (require __dirname + '/modules/media')(settings) 
 	
 	request = (require __dirname + '/modules/request')(settings)
 	xml2js = require 'xml2js'
+	ObjectId = require('mongodb').ObjectID
 
 	authorize = (req, res, next)->
 		request.validate req, (result)->
@@ -104,7 +105,7 @@ routes = (app, settings) =>
 			blogPromise = blog.createPost
 				title   	: 	result.title
 				body    	: 	result.content
-				publish	: 	result.publish
+				publish		: 	result.publish
 				author 		: 	settings.author
 				categories 	: 	result.categories
 			blogPromise.then (result)->
@@ -154,39 +155,43 @@ routes = (app, settings) =>
 						engine : settings.engine
 	
 	app.post '/api/atom/images', (req, res)->
-		slug = req.headers['slug']
-		console.log settings.mongoose.connection
-
-		promise = resource.create	
-			slug	:	req.headers['slug']
-			type 	:	req.headers['content-type']
-
+		slug = req.headers['slug']		
+		promise = media.create	
+			id:new ObjectId()
+			slug:slug
+			type:req.headers['content-type']
 		promise.then (result)->
-			gridStore = new settings.GridStore(settings.mongoose.connection.db, result.url, 'w')
+			gridStore = new settings.GridStore(settings.mongoose.connection.db, result._id.toString(), 'w')
 			gridStore.open (err, gs)->
 				gs.write req.rawBody, (err, gs)->
 					gs.close (err)->
-						console.log 'done'
-
-		res.statusCode = 201
-		res.end()
+						console.log 'image uploaded'
+						res.statusCode = 201
+						res.render 'atom/media',
+							media : result
+							host  : app.host
+							author:	settings.author
 
 	app.get '/images/:year/:month/:slug', (req, res)->
 		url = util.format("%s/%s/%s", req.params.year, req.params.month, req.params.slug)
-		promise = resource.get url 
+		promise = media.get url 
 		promise.then (result)->
 			if result isnt null
-				res.statusCode = 200
-				res.header({ 'Content-Type' : result.type})
-				gridStore = new settings.GridStore(settings.mongoose.connection.db, result.url, 'r')
+				gridStore = new settings.GridStore(settings.mongoose.connection.db, result._id.toString(), 'r')
 				gridStore.open (err, gs)->
-					gs.seek 0, ()->
-						gs.read (err, data)->
-							gs.close (err)=>
-								res.end(data)
+					if typeof gs isnt 'undefined'
+						gs.seek 0, ()->
+							gs.read (err, data)->
+								gs.close (err)=>
+									res.statusCode = 200
+									res.header({ 'Content-Type' : result.type})
+									res.end(data)
+					else
+						res.statusCode = 404
+						res.end("Not found")
 			else
 				res.statusCode = 404
-				res.end()
+				res.end("Not found")
 			 
 	app.get '/:year/:month/:title', (req, res) ->
 		link = util.format("%s/%s/%s", req.params.year, req.params.month, req.params.title)

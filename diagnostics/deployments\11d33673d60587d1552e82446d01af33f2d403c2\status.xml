@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<deployment>
+  <id>11d33673d60587d1552e82446d01af33f2d403c2</id>
+  <author>Mehfuz Hossain</author>
+  <deployer>mehfuzh</deployer>
+  <authorEmail>mehfuz@gmail.com</authorEmail>
+  <message>    Merge branch 'master' of https://github.com/mehfuzh/lighter
+</message>
+  <progress></progress>
+  <status>Success</status>
+  <statusText></statusText>
+  <lastSuccessEndTime>2013-05-06T03:34:27.3245869Z</lastSuccessEndTime>
+  <receivedTime>2013-05-06T03:34:14.7309534Z</receivedTime>
+  <startTime>2013-05-06T03:34:17.9340813Z</startTime>
+  <endTime>2013-05-06T03:34:27.3245869Z</endTime>
+  <complete>True</complete>
+  <is_temp>False</is_temp>
+</deployment>

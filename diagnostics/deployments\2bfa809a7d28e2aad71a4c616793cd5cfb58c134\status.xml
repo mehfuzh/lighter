@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<deployment>
+  <id>2bfa809a7d28e2aad71a4c616793cd5cfb58c134</id>
+  <author>Mehfuz Hossain</author>
+  <deployer>mehfuzh</deployer>
+  <authorEmail>mehfuz@gmail.com</authorEmail>
+  <message>    included test for 301(Moved) operation
+</message>
+  <status>Success</status>
+  <statusText></statusText>
+  <lastSuccessEndTime>2013-05-02T02:26:37.5147136+00:00</lastSuccessEndTime>
+  <receivedTime>2013-05-02T02:26:03.031119+00:00</receivedTime>
+  <startTime>2013-05-02T02:26:06.0935406+00:00</startTime>
+  <endTime>2013-05-02T02:26:37.5147136+00:00</endTime>
+  <complete>True</complete>
+</deployment>

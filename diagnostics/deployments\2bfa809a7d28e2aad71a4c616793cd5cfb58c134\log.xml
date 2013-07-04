@@ -1,0 +1,261 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<entries>
+  <entry time="2013-05-02T02:26:03.0467436+00:00" id="b220166f-a58f-4871-99b1-7b5cf9167103" type="0">
+    <message>New deployment received.</message>
+  </entry>
+  <entry time="2013-05-02T02:26:03.0779928+00:00" id="c0c32125-f4a2-4873-8c59-536adafb66eb" type="0">
+    <message>Updating branch 'master'.</message>
+  </entry>
+  <entry time="2013-05-02T02:26:05.5779288+00:00" id="70bae7aa-3b54-4068-846c-d28c299c94dc" type="0">
+    <message>Updating submodules.</message>
+  </entry>
+  <entry time="2013-05-02T02:26:06.077916+00:00" id="40e64535-dfda-49b8-93af-d59360b64037" type="0">
+    <message>Preparing deployment for commit id '2bfa809a7d'.</message>
+  </entry>
+  <entry time="2013-05-02T02:26:06.3591588+00:00" id="d003da9d-4069-42be-8525-db22aedeccbd" type="0">
+    <message>Generating deployment script.</message>
+    <entry time="2013-05-02T02:26:06.3747834+00:00" id="7e7976fe-f6f6-4fdd-8430-25c7dc2c827b" type="0">
+      <message>Using the following command to generate deployment script: 'azure site deploymentscript -y --no-dot-deployment -r "C:\DWASFiles\Sites\lighter\VirtualDirectory0\site\repository" --node --sitePath "C:\DWASFiles\Sites\lighter\VirtualDirectory0\site\repository"'.</message>
+    </entry>
+    <entry time="2013-05-02T02:26:11.6402736+00:00" id="a42abdee-7c02-48f5-a83f-851c264e4a8a" type="0">
+      <message>info:    Executing command site deploymentscript</message>
+    </entry>
+    <entry time="2013-05-02T02:26:11.6558982+00:00" id="43ddc442-faab-448d-b69e-cd6793750210" type="0">
+      <message>info:    Generating deployment script for node.js Web Site</message>
+    </entry>
+    <entry time="2013-05-02T02:26:11.6715228+00:00" id="2fa1e944-514c-4061-8a62-6517eb202f67" type="0">
+      <message>info:    Creating Web.config to enable Node.js activation.</message>
+    </entry>
+    <entry time="2013-05-02T02:26:11.6871474+00:00" id="36849e87-632c-4a45-acfd-88899794d9d2" type="0">
+      <message>info:    Creating default iisnode.yml file</message>
+    </entry>
+    <entry time="2013-05-02T02:26:11.8277688+00:00" id="a97658c3-e08d-4f53-8a98-a3e140045ec3" type="0">
+      <message>info:    Generated deployment script files</message>
+    </entry>
+    <entry time="2013-05-02T02:26:11.8433934+00:00" id="b7ee7894-cd30-4a62-9505-8a9bdc0bdb19" type="0">
+      <message>info:    site deploymentscript command OK</message>
+    </entry>
+  </entry>
+  <entry time="2013-05-02T02:26:11.8902672+00:00" id="8b1cdcb7-b0f4-4850-8ee1-f14b9d38140c" type="2">
+    <message>Running deployment command...</message>
+    <entry time="2013-05-02T02:26:11.8902672+00:00" id="17945738-76b4-431b-a18a-a27c812fda87" type="0">
+      <message>Command: deploy.cmd</message>
+    </entry>
+    <entry time="2013-05-02T02:26:12.2965068+00:00" id="6e1da445-b45f-47dc-ab47-40b4e87a45d4" type="0">
+      <message>Handling node.js deployment.</message>
+    </entry>
+    <entry time="2013-05-02T02:26:12.7652448+00:00" id="0441bbd9-bdb9-4695-a7d9-9499cf1b81b4" type="0">
+      <message>KuduSync.NET from: 'C:\DWASFiles\Sites\lighter\VirtualDirectory0\site\repository' to: 'C:\DWASFiles\Sites\lighter\VirtualDirectory0\site\wwwroot'</message>
+    </entry>
+    <entry time="2013-05-02T02:26:12.7808694+00:00" id="f2767040-e958-4886-a17f-7f7c027879b7" type="0">
+      <message>Copying file: '.gitignore'</message>
+    </entry>
+    <entry time="2013-05-02T02:26:12.7808694+00:00" id="d16c06ba-1d3b-4a73-8d63-09e8a333e5a3" type="0">
+      <message>Copying file: 'config.coffee'</message>
+    </entry>
+    <entry time="2013-05-02T02:26:12.796494+00:00" id="151f17df-c10f-4321-8582-deaed4472787" type="0">
+      <message>Copying file: 'config.js'</message>
+    </entry>
+    <entry time="2013-05-02T02:26:12.8277432+00:00" id="cb73860f-b49f-457c-ab37-1dd4f634f823" type="0">
+      <message>Copying file: 'iisnode.yml'</message>
+    </entry>
+    <entry time="2013-05-02T02:26:12.8277432+00:00" id="18e3efe1-f44f-4698-b79e-28ecd68cb324" type="0">
+      <message>Copying file: 'newrelic.js'</message>
+    </entry>
+    <entry time="2013-05-02T02:26:12.8277432+00:00" id="44bb30f7-5051-4f69-9cdb-317690620c48" type="0">
+      <message>Copying file: 'package.json'</message>
+    </entry>
+    <entry time="2013-05-02T02:26:12.8589924+00:00" id="92199848-63c4-4ebd-8d01-dcf1d9594ef3" type="0">
+      <message>Copying file: 'readme.md'</message>
+    </entry>
+    <entry time="2013-05-02T02:26:12.8589924+00:00" id="17e03531-5c8a-452a-b543-94f9440632a3" type="0">
+      <message>Copying file: 'routes.coffee'</message>
+    </entry>
+    <entry time="2013-05-02T02:26:12.8589924+00:00" id="5238b220-3bf4-40d2-b895-9aa0a1eb6dc5" type="0">
+      <message>Copying file: 'routes.js'</message>
+    </entry>
+    <entry time="2013-05-02T02:26:12.874617+00:00" id="8e4e07f3-a276-4519-8d0e-89358b19ca09" type="0">
+      <message>Copying file: 'server.js'</message>
+    </entry>
+    <entry time="2013-05-02T02:26:12.9058662+00:00" id="6a4a94b7-870f-432a-8660-c07e1cea900b" type="0">
+      <message>Copying file: 'web.config'</message>
+    </entry>
+    <entry time="2013-05-02T02:26:12.9214908+00:00" id="196ec86d-448a-4974-932f-83841ab94ee4" type="0">
+      <message>Copying file: 'diagnostics\deployments\active'</message>
+    </entry>
+    <entry time="2013-05-02T02:26:12.9214908+00:00" id="90640722-b2f8-4017-b2ac-cd8eb42a02e9" type="0">
+      <message>Copying file: 'diagnostics\deployments\1f814ba06fac689c312c56b7f4509b5f7c3b27ea\log.xml'</message>
+    </entry>
+    <entry time="2013-05-02T02:26:12.9371154+00:00" id="298a0b75-6f91-4cc5-873b-bd2afee0e2a0" type="0">
+      <message>Copying file: 'diagnostics\deployments\1f814ba06fac689c312c56b7f4509b5f7c3b27ea\manifest'</message>
+    </entry>
+    <entry time="2013-05-02T02:26:12.9371154+00:00" id="4b63a1c5-a05b-4a9d-a3de-12de47682e63" type="0">
+      <message>Copying file: 'diagnostics\deployments\1f814ba06fac689c312c56b7f4509b5f7c3b27ea\status.xml'</message>
+    </entry>
+    <entry time="2013-05-02T02:26:12.95274+00:00" id="01c5e03c-ebf7-4b56-9735-bfc60d83dd11" type="0">
+      <message>Copying file: 'diagnostics\deployments\ef093fb12bbb4e463edea73ae6eaf9b65367931b\log.xml'</message>
+    </entry>
+    <entry time="2013-05-02T02:26:12.9683646+00:00" id="3f1fac31-7329-4a8d-a50e-2f398bb47f22" type="0">
+      <message>Copying file: 'diagnostics\deployments\ef093fb12bbb4e463edea73ae6eaf9b65367931b\manifest'</message>
+    </entry>
+    <entry time="2013-05-02T02:26:12.9683646+00:00" id="27388823-d2ce-4ce4-85c1-9fbd8e20b8d2" type="0">
+      <message>Copying file: 'diagnostics\deployments\ef093fb12bbb4e463edea73ae6eaf9b65367931b\status.xml'</message>
+    </entry>
+    <entry time="2013-05-02T02:26:12.9839892+00:00" id="fde3041b-1ca9-464b-a2db-8452e8ecb251" type="0">
+      <message>Copying file: 'diagnostics\LogFiles\Git\trace\trace.xml'</message>
+    </entry>
+    <entry time="2013-05-02T02:26:12.9996138+00:00" id="3ea73ce4-20b2-4833-b698-48930bb212bd" type="0">
+      <message>Copying file: 'diagnostics\LogFiles\nodejs\index.html'</message>
+    </entry>
+    <entry time="2013-05-02T02:26:12.9996138+00:00" id="d23fdbad-1d9d-4913-b2fa-3e7d66ef1bb5" type="0">
+      <message>Copying file: 'diagnostics\LogFiles\nodejs\RD00155D430B19-14928-stderr-1362701906951.txt'</message>
+    </entry>
+    <entry time="2013-05-02T02:26:13.030863+00:00" id="ac0a4e31-2324-4732-bcfd-263aece514d6" type="0">
+      <message>Copying file: 'diagnostics\LogFiles\nodejs\RD00155D430B19-14928-stdout-1362701906873.txt'</message>
+    </entry>
+    <entry time="2013-05-02T02:26:13.030863+00:00" id="dc9531ab-d9b9-4d11-82a9-562aaa165cc0" type="0">
+      <message>Copying file: 'diagnostics\LogFiles\nodejs\RD00155D430B19-21992-stderr-1362701924694.txt'</message>
+    </entry>
+    <entry time="2013-05-02T02:26:13.030863+00:00" id="e1ee6271-8823-4215-b603-4f7e15c4d303" type="0">
+      <message>Copying file: 'diagnostics\LogFiles\nodejs\RD00155D430B19-21992-stdout-1362701924663.txt'</message>
+    </entry>
+    <entry time="2013-05-02T02:26:13.0464876+00:00" id="eb6bc392-4890-4e69-8a40-d711eda7a451" type="0">
+      <message>Copying file: 'diagnostics\LogFiles\nodejs\RD00155D430B19-5888-stderr-1362701487482.txt'</message>
+    </entry>
+    <entry time="2013-05-02T02:26:13.0464876+00:00" id="a79a206f-e925-4fd9-be60-67d8e86ce467" type="0">
+      <message>Copying file: 'diagnostics\LogFiles\nodejs\RD00155D430B19-5888-stdout-1362701487436.txt'</message>
+    </entry>
+    <entry time="2013-05-02T02:26:13.0621122+00:00" id="43e03165-d836-4b65-9d20-3ba32e7f4141" type="0">
+      <message>Copying file: 'diagnostics\LogFiles\nodejs\RD00155D4313F9-15000-stdout-1362651441231.txt'</message>
+    </entry>
+    <entry time="2013-05-02T02:26:13.0777368+00:00" id="6a20c975-7801-4984-a7e5-3c2d6ecd69fe" type="0">
+      <message>Copying file: 'diagnostics\LogFiles\nodejs\RD00155D4313F9-16528-stderr-1361979148076.txt'</message>
+    </entry>
+    <entry time="2013-05-02T02:26:13.0777368+00:00" id="1f4a3bb1-f8be-4ebd-9ffe-97046aaff75b" type="0">
+      <message>Copying file: 'diagnostics\LogFiles\nodejs\RD00155D4313F9-16528-stdout-1361979148044.txt'</message>
+    </entry>
+    <entry time="2013-05-02T02:26:13.0933614+00:00" id="1df31325-6b3a-4626-afdd-b30fbcc03005" type="0">
+      <message>Copying file: 'diagnostics\LogFiles\nodejs\RD00155D4313F9-16960-stdout-1362193075256.txt'</message>
+    </entry>
+    <entry time="2013-05-02T02:26:13.108986+00:00" id="9d727d9c-4ff2-47bc-ab39-b082700b32a4" type="0">
+      <message>Copying file: 'diagnostics\LogFiles\nodejs\RD00155D4313F9-20612-stderr-1362701276909.txt'</message>
+    </entry>
+    <entry time="2013-05-02T02:26:13.108986+00:00" id="649a74c0-ff02-4ff2-83c9-17ab087879d9" type="0">
+      <message>Copying file: 'diagnostics\LogFiles\nodejs\RD00155D4313F9-20612-stdout-1362701276862.txt'</message>
+    </entry>
+    <entry time="2013-05-02T02:26:13.1246106+00:00" id="d615f57c-f500-4d6e-83b3-3b4658528506" type="0">
+      <message>Copying file: 'diagnostics\LogFiles\nodejs\RD00155D4313F9-25092-stderr-1362017723213.txt'</message>
+    </entry>
+    <entry time="2013-05-02T02:26:13.1402352+00:00" id="ca8e4f2b-d300-468a-b8ce-c2bd0c1e6bad" type="0">
+      <message>Copying file: 'diagnostics\LogFiles\nodejs\RD00155D4313F9-25092-stdout-1362017723166.txt'</message>
+    </entry>
+    <entry time="2013-05-02T02:26:13.1402352+00:00" id="8b4f4939-17f6-4ac0-a368-a5fdc6599359" type="0">
+      <message>Copying file: 'diagnostics\LogFiles\nodejs\RD00155D4313F9-29524-stderr-1362700228173.txt'</message>
+    </entry>
+    <entry time="2013-05-02T02:26:13.1558598+00:00" id="f7edc043-c0eb-4e0c-9b6d-c5bf42609ad0" type="0">
+      <message>Copying file: 'diagnostics\LogFiles\nodejs\RD00155D4313F9-29524-stdout-1362700228126.txt'</message>
+    </entry>
+    <entry time="2013-05-02T02:26:13.2183582+00:00" id="680d6b4d-2736-4bcc-87f2-49496b07e272" type="0">
+      <message>Copying file: 'diagnostics\LogFiles\nodejs\RD00155D4313F9-3196-stdout-1362529459466.txt'</message>
+    </entry>
+    <entry time="2013-05-02T02:26:13.2496074+00:00" id="e2555c81-310e-44c2-8bb1-d41139733b5a" type="0">
+      <message>Copying file: 'diagnostics\LogFiles\nodejs\RD00155D4313F9-3984-stdout-1362186337902.txt'</message>
+    </entry>
+    <entry time="2013-05-02T02:26:13.265232+00:00" id="a2530027-b2f4-4a11-a25b-45a108eaaef5" type="0">
+      <message>Copying file: 'diagnostics\LogFiles\nodejs\RD00155D4313F9-4940-stderr-1362700604403.txt'</message>
+    </entry>
+    <entry time="2013-05-02T02:26:13.2808566+00:00" id="0ebda209-d0f2-4444-9770-6ac494b7821f" type="0">
+      <message>Copying file: 'diagnostics\LogFiles\nodejs\RD00155D4313F9-4940-stdout-1362700604325.txt'</message>
+    </entry>
+    <entry time="2013-05-02T02:26:13.2808566+00:00" id="49bc4841-f4bf-4aff-b341-7d1d3c23e436" type="0">
+      <message>Copying file: 'diagnostics\LogFiles\nodejs\RD00155D4313F9-6656-stderr-1361941894729.txt'</message>
+    </entry>
+    <entry time="2013-05-02T02:26:13.2964812+00:00" id="23fb8dfe-2bbf-4dde-8722-cf3fdd769347" type="0">
+      <message>Copying file: 'modules\blog.coffee'</message>
+    </entry>
+    <entry time="2013-05-02T02:26:13.3121058+00:00" id="f88f4125-9dde-4e83-9559-e6a772bf13bb" type="0">
+      <message>Copying file: 'modules\blog.js'</message>
+    </entry>
+    <entry time="2013-05-02T02:26:13.3277304+00:00" id="8ed1b62e-07d4-4e80-8545-078dbc0347a8" type="0">
+      <message>Copying file: 'modules\builder.coffee'</message>
+    </entry>
+    <entry time="2013-05-02T02:26:13.3277304+00:00" id="056295d3-8db6-4083-904c-065a6fd1af03" type="0">
+      <message>Copying file: 'modules\builder.js'</message>
+    </entry>
+    <entry time="2013-05-02T02:26:13.343355+00:00" id="2a043634-c5a8-4ce2-82ce-76049422519f" type="0">
+      <message>Copying file: 'modules\helper.coffee'</message>
+    </entry>
+    <entry time="2013-05-02T02:26:13.3589796+00:00" id="58819c6f-e37f-440b-bfcd-5fefa2ab3e12" type="0">
+      <message>Copying file: 'modules\helper.js'</message>
+    </entry>
+    <entry time="2013-05-02T02:26:13.3746042+00:00" id="f5bfcd43-cfe4-4463-8855-420740ee34bd" type="0">
+      <message>Copying file: 'modules\schema.coffee'</message>
+    </entry>
+    <entry time="2013-05-02T02:26:13.3902288+00:00" id="3f276e63-aa0f-4f9d-bef9-1551f4cabffb" type="0">
+      <message>Copying file: 'modules\schema.js'</message>
+    </entry>
+    <entry time="2013-05-02T02:26:13.4058534+00:00" id="dfbc856f-f177-4319-8ca5-74bc26699fb5" type="0">
+      <message>Omitting next output lines...</message>
+    </entry>
+    <entry time="2013-05-02T02:26:14.3902032+00:00" id="751133f8-f56b-467f-8fe2-cccb64d42515" type="0">
+      <message>Node.js versions available on the platform are: 0.6.17, 0.6.20, 0.8.2.</message>
+    </entry>
+    <entry time="2013-05-02T02:26:14.4058278+00:00" id="171c6e97-d05e-44fa-9e4d-b2b8909338aa" type="0">
+      <message>Selected node.js version 0.8.2. Use package.json file to choose a different version.</message>
+    </entry>
+    <entry time="2013-05-02T02:26:16.1245338+00:00" id="11b70bdd-e417-4f82-9265-bb545b72f9b0" type="2">
+      <message>npm http GET https://registry.npmjs.org/newrelic</message>
+    </entry>
+    <entry time="2013-05-02T02:26:16.1401584+00:00" id="836ccc68-b187-4feb-bc08-0d01350a9e01" type="2">
+      <message>npm http GET https://registry.npmjs.org/node-promise</message>
+    </entry>
+    <entry time="2013-05-02T02:26:17.015136+00:00" id="caf1af63-528e-4a56-8362-6c8476be4499" type="2">
+      <message>npm http 200 https://registry.npmjs.org/node-promise</message>
+    </entry>
+    <entry time="2013-05-02T02:26:17.0307606+00:00" id="b0f766ae-c07c-4e15-9cfb-a1a8af4ab8c0" type="2">
+      <message>npm http GET https://registry.npmjs.org/node-promise/-/node-promise-0.5.6.tgz</message>
+    </entry>
+    <entry time="2013-05-02T02:26:17.1557574+00:00" id="62c93e2d-dffd-49f5-ac7a-8ca4d0a1c307" type="2">
+      <message>npm http 200 https://registry.npmjs.org/newrelic</message>
+    </entry>
+    <entry time="2013-05-02T02:26:17.171382+00:00" id="8e6ffbef-65db-4637-8962-f5bf4136f41e" type="2">
+      <message>npm http GET https://registry.npmjs.org/newrelic/-/newrelic-0.9.20.tgz</message>
+    </entry>
+    <entry time="2013-05-02T02:26:17.796366+00:00" id="0e80e781-cc89-4159-a722-a117e46fe79a" type="2">
+      <message>npm http 200 https://registry.npmjs.org/node-promise/-/node-promise-0.5.6.tgz</message>
+    </entry>
+    <entry time="2013-05-02T02:26:17.9994858+00:00" id="c5f42683-105a-4ae5-bd03-fd3ab16db3e9" type="2">
+      <message>npm http 200 https://registry.npmjs.org/newrelic/-/newrelic-0.9.20.tgz</message>
+    </entry>
+    <entry time="2013-05-02T02:26:31.936698+00:00" id="3a3f2cd4-8eca-469a-85b1-08479c8f8f23" type="2">
+      <message>npm http GET https://registry.npmjs.org/bunyan</message>
+    </entry>
+    <entry time="2013-05-02T02:26:33.5147927+00:00" id="86f2867f-dd82-4621-892c-460516726375" type="2">
+      <message>npm http 200 https://registry.npmjs.org/bunyan</message>
+    </entry>
+    <entry time="2013-05-02T02:26:33.5616668+00:00" id="66f53153-d1b5-44da-9b8b-0ddda03eb953" type="2">
+      <message>npm http GET https://registry.npmjs.org/bunyan/-/bunyan-0.14.6.tgz</message>
+    </entry>
+    <entry time="2013-05-02T02:26:34.2491536+00:00" id="442351b2-b740-43ac-a7ee-aeb5b5fdada3" type="2">
+      <message>npm http 200 https://registry.npmjs.org/bunyan/-/bunyan-0.14.6.tgz</message>
+    </entry>
+    <entry time="2013-05-02T02:26:36.1084929+00:00" id="1bc344e6-0d5e-4400-80fe-dd76287cc67f" type="0">
+      <message>node-promise@0.5.6 node_modules\node-promise</message>
+    </entry>
+    <entry time="2013-05-02T02:26:36.1397423+00:00" id="db213479-b5c1-4a09-b1b9-b23bdd263bf7" type="0">
+      <message></message>
+    </entry>
+    <entry time="2013-05-02T02:26:36.1709917+00:00" id="9cab87fd-18ae-4cbb-b164-29c491fdd800" type="0">
+      <message>newrelic@0.9.20 node_modules\newrelic</message>
+    </entry>
+    <entry time="2013-05-02T02:26:36.1866164+00:00" id="9bbf068a-2f42-4d8a-a9f2-3e110a40642f" type="0">
+      <message>└── bunyan@0.14.6</message>
+    </entry>
+    <entry time="2013-05-02T02:26:36.4366116+00:00" id="91694b13-0e5a-411c-8279-c06a047e8551" type="0">
+      <message>Finished successfully.</message>
+    </entry>
+  </entry>
+  <entry time="2013-05-02T02:26:37.499089+00:00" id="075a9168-bda1-4f57-9316-425c9526bffd" type="0">
+    <message>Deployment successful.</message>
+  </entry>
+</entries>
