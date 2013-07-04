@@ -1,5 +1,0 @@
-Express server listening on port \\.\pipe\a64f63b9-a4b4-49fb-bf6a-238fcb86aa2a
-user mehfuz is initialized!
-[90mGET / [36m304 [90m1047ms[0m
-[90mGET / [36m304 [90m32ms[0m
-[90mGET / [36m304 [90m31ms[0m
