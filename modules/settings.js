@@ -9,6 +9,7 @@
         var url;
         this.mongoose = require('mongoose');
         this.Promise = require('node-promise').Promise;
+        this.GridStore = require('mongodb').GridStore;
         url = process.env.MONGODB_URI || process.env.MONGOLAB_URI || 'mongodb://localhost/lighter';
         this.mongoose.connect(url);
         this.marked = require('marked');

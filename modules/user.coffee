@@ -6,7 +6,7 @@ module.exports = (settings)->
 			@crypto = require('crypto')
 			
 		# 	initializes the user from settings.
-		init:	(callback)->
+		init:(callback)->
 			 	@user.findOne username : settings.username, (err, data)=>
 						password = @crypto.createHash('md5').update(settings.password.trim()).digest('hex')
 						if data is null

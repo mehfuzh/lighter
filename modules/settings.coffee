@@ -3,6 +3,7 @@ module.exports = ()->
 		constructor:(app) ->
 			@mongoose = require('mongoose')
 			@Promise = require('node-promise').Promise  
+			@GridStore = require('mongodb').GridStore
 			# init mongo        
 			url = process.env.MONGODB_URI || process.env.MONGOLAB_URI || 'mongodb://localhost/lighter'
 			@mongoose.connect url

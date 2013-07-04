@@ -36,14 +36,20 @@ module.exports = (mongoose)->
 					updated 	: Date
 
 				MapSchema = new Schema
-					id 		: ObjectId
+					id 			: ObjectId
 					permaLink	: String
-					content 	: String 	                 
+					content 	: String 
+				ResourceSchema = new Schema
+					id 		: 	ObjectId
+					url		:	String
+					type	:	String
+					content	:	String
 						
 				mongoose.model 'user', UserSchema
 				mongoose.model 'blog', BlogSchema
 				mongoose.model 'category', CategorySchema
 				mongoose.model 'post', PostSchema
 				mongoose.model 'map', MapSchema
+				mongoose.model 'resource', ResourceSchema
 
 	new Schema(mongoose)

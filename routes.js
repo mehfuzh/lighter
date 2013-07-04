@@ -4,11 +4,12 @@
     _this = this;
 
   routes = function(app, settings) {
-    var authorize, blog, category, helper, parseBody, parseCategories, processFeeds, request, util, xml2js;
+    var authorize, blog, category, helper, parseBody, parseCategories, processFeeds, request, resource, util, xml2js;
     util = require('util');
     blog = (require(__dirname + '/modules/blog'))(settings);
     helper = (require(__dirname + '/modules/helper'))();
     category = (require(__dirname + '/modules/category'))(settings);
+    resource = (require(__dirname + '/modules/resource'))(settings);
     request = (require(__dirname + '/modules/request'))(settings);
     xml2js = require('xml2js');
     authorize = function(req, res, next) {
@@ -191,6 +192,56 @@
       return res.render('rsd', {
         host: app.host,
         engine: settings.engine
+      });
+    });
+    app.post('/api/atom/images', function(req, res) {
+      var promise, slug;
+      slug = req.headers['slug'];
+      console.log(settings.mongoose.connection);
+      promise = resource.create({
+        slug: req.headers['slug'],
+        type: req.headers['content-type']
+      });
+      promise.then(function(result) {
+        var gridStore;
+        gridStore = new settings.GridStore(settings.mongoose.connection.db, result.url, 'w');
+        return gridStore.open(function(err, gs) {
+          return gs.write(req.rawBody, function(err, gs) {
+            return gs.close(function(err) {
+              return console.log('done');
+            });
+          });
+        });
+      });
+      res.statusCode = 201;
+      return res.end();
+    });
+    app.get('/images/:year/:month/:slug', function(req, res) {
+      var promise, url;
+      url = util.format("%s/%s/%s", req.params.year, req.params.month, req.params.slug);
+      promise = resource.get(url);
+      return promise.then(function(result) {
+        var gridStore;
+        if (result !== null) {
+          res.statusCode = 200;
+          res.header({
+            'Content-Type': result.type
+          });
+          gridStore = new settings.GridStore(settings.mongoose.connection.db, result.url, 'r');
+          return gridStore.open(function(err, gs) {
+            return gs.seek(0, function() {
+              return gs.read(function(err, data) {
+                var _this = this;
+                return gs.close(function(err) {
+                  return res.end(data);
+                });
+              });
+            });
+          });
+        } else {
+          res.statusCode = 404;
+          return res.end();
+        }
       });
     });
     app.get('/:year/:month/:title', function(req, res) {
