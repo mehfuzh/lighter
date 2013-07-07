@@ -160,35 +160,22 @@ routes = (app, settings) =>
 			id:new ObjectId()
 			slug:slug
 			type:req.headers['content-type']
+			body:req.rawBody
 		promise.then (result)->
-			gridStore = new settings.GridStore(settings.mongoose.connection.db, result.url, 'w')
-			gridStore.open (err, gs)->
-				gs.write req.rawBody, (err, gs)->
-					gs.close (err)->
-						console.log 'image uploaded'
-						res.statusCode = 201
-						res.render 'atom/media',
-							media : result
-							host  : app.host
-							author:	settings.author
+				res.statusCode = 201
+				res.render 'atom/media',
+					media : result
+					host  : app.host
+					author:	settings.author
 
 	app.get '/images/:year/:month/:slug', (req, res)->
 		url = util.format("%s/%s/%s", req.params.year, req.params.month, req.params.slug)
 		promise = media.get url 
 		promise.then (result)->
 			if result isnt null
-				gridStore = new settings.GridStore(settings.mongoose.connection.db, result.url, 'r')
-				gridStore.open (err, gs)->
-					if typeof gs isnt 'undefined'
-						gs.seek 0, ()->
-							gs.read (err, data)->
-								gs.close (err)=>
-									res.statusCode = 200
-									res.header({ 'Content-Type' : result.type})
-									res.end(data)
-					else
-						res.statusCode = 404
-						res.end("Not found")
+				res.statusCode = 200
+				res.header({ 'Content-Type' : result.type})
+				res.end(result)
 			else
 				res.statusCode = 404
 				res.end("Not found")

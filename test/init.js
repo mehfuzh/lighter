@@ -11,6 +11,7 @@
       require(path.join(__dirname, '../modules/schema'))(settings.mongoose);
       this.blog = (require('../modules/blog'))(settings);
       this.category = (require('../modules/category'))(settings);
+      this.media = (require('../modules/media'))(settings);
       user = require('../modules/user')(settings);
       user.init(function(data) {
         return console.log('Initializing of user %s is completed', data.username);
@@ -20,6 +21,8 @@
     TestBase.prototype.blog = TestBase.blog;
 
     TestBase.prototype.category = TestBase.category;
+
+    TestBase.prototype.media = TestBase.media;
 
     return TestBase;
 

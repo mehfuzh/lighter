@@ -11,6 +11,7 @@
         this.post = settings.mongoose.model('post');
         this.helper = (require(__dirname + '/helper'))();
         this.category = (require(__dirname + '/category'))(settings);
+        this.media = (require(__dirname + '/media'))(settings);
         this.map = settings.mongoose.model('map');
       }
 
@@ -282,6 +283,7 @@
           return _results;
         });
         this.category.clear(function() {});
+        this.media.clear(function() {});
         return this.map.remove(function() {
           return callback();
         });

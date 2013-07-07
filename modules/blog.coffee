@@ -6,6 +6,7 @@ module.exports = (settings)->
 			@post = settings.mongoose.model 'post'
 			@helper = (require __dirname + '/helper')()
 			@category = (require __dirname + '/category')(settings)
+			@media = (require __dirname + '/media')(settings)
 			@map = settings.mongoose.model 'map'
 
 		create: ()->
@@ -178,6 +179,7 @@ module.exports = (settings)->
 					@post.remove id : blog._id, ()=>
 						@blog.remove url : @settings.url
 			@category.clear () ->
+			@media.clear ()->
 			@map.remove ()->
 				callback()
 

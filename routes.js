@@ -201,23 +201,15 @@
       promise = media.create({
         id: new ObjectId(),
         slug: slug,
-        type: req.headers['content-type']
+        type: req.headers['content-type'],
+        body: req.rawBody
       });
       return promise.then(function(result) {
-        var gridStore;
-        gridStore = new settings.GridStore(settings.mongoose.connection.db, result.url, 'w');
-        return gridStore.open(function(err, gs) {
-          return gs.write(req.rawBody, function(err, gs) {
-            return gs.close(function(err) {
-              console.log('image uploaded');
-              res.statusCode = 201;
-              return res.render('atom/media', {
-                media: result,
-                host: app.host,
-                author: settings.author
-              });
-            });
-          });
+        res.statusCode = 201;
+        return res.render('atom/media', {
+          media: result,
+          host: app.host,
+          author: settings.author
         });
       });
     });
@@ -226,28 +218,12 @@
       url = util.format("%s/%s/%s", req.params.year, req.params.month, req.params.slug);
       promise = media.get(url);
       return promise.then(function(result) {
-        var gridStore;
         if (result !== null) {
-          gridStore = new settings.GridStore(settings.mongoose.connection.db, result.url, 'r');
-          return gridStore.open(function(err, gs) {
-            if (typeof gs !== 'undefined') {
-              return gs.seek(0, function() {
-                return gs.read(function(err, data) {
-                  var _this = this;
-                  return gs.close(function(err) {
-                    res.statusCode = 200;
-                    res.header({
-                      'Content-Type': result.type
-                    });
-                    return res.end(data);
-                  });
-                });
-              });
-            } else {
-              res.statusCode = 404;
-              return res.end("Not found");
-            }
+          res.statusCode = 200;
+          res.header({
+            'Content-Type': result.type
           });
+          return res.end(result);
         } else {
           res.statusCode = 404;
           return res.end("Not found");
