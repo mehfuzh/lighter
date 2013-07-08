@@ -47,6 +47,7 @@
         });
         MediaSchema = new Schema({
           id: ObjectId,
+          title: String,
           url: String,
           type: String,
           date: Date

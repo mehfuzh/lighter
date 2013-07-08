@@ -204,12 +204,11 @@ body .linear-gradient {
 body header.main {
   z-index: 9999;
   background: #0c75bb;
-  /*border-bottom: 1px solid #fff;*/
-
   color: #fff;
   height: 60px;
   padding-left: 55px;
   padding-right: 55px;
+  border-bottom: 1px solid #fff;
 }
 body header.main h1 {
   font-family: 'SourceSansProBlack';
@@ -462,7 +461,6 @@ body aside section {
   font-size: .8em;
   line-height: 1.4em;
   margin-bottom: 1.5em;
-  width: 100%;
 }
 body aside section h1 {
   margin: 1.1em 0 0;

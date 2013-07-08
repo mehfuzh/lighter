@@ -13,6 +13,7 @@ request = require 'supertest'
 app = express()         
 
 blog = (require __dirname + '/init').blog
+media = (require __dirname + '/init').media
 
 (require path.join(__dirname, '../config'))(app)
 (require path.join(__dirname, '../routes'))(app, blog.settings)
@@ -163,4 +164,31 @@ describe 'Atom', ()->
 			req.expect(200).end (err, res)->   
 			 if err != null
 					throw err
-			 done() 
+			 done()
+
+	describe 'POST /api/atom/images', ()->
+		it 'should return 201 for successful upload', (done)->
+			req = request.post('/api/atom/images')
+			req.set('slug', 'logo.png')
+			req.set('content-type', 'image/png')
+			req.set('authorization', util.format('Basic %s', new Buffer(credentials).toString('base64')))
+			fs.readFile __dirname + '/../public/logo.png', (err, result)-> 
+				if err != null
+					throw err 
+				req.write(result)
+				req.expect(201).end (err, result)->
+					parser = new xml2js.Parser();
+					parser.parseString result.text, (err, result)->
+						slug = 'logo.png'
+						result.entry.title[0].should.equal slug
+						result.entry.content[0].$.type.should.equal 'image/png'
+						imageUrl = util.format('http://%s/images/%s', req.host, helper.linkify(slug)) 
+						result.entry.content[0].$.src.should.equal imageUrl
+						result.entry.summary[0].should.equal slug
+						done()
+
+		after (done)->
+			url = helper.linkify 'logo.png'
+			media.delete url, ()->
+				done()
+
