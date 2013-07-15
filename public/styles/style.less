@@ -150,15 +150,12 @@ body {
 		min-height:600px; 
 		min-width : 800px;
 		section.content {
-			margin-right : 300px;
-			border-right: 1px solid #e0e0e0;
 			position:relative;
 			section.comments{
 				width:100%;
 				.top-radius;
 				display:block;
 				z-index: 1;
-				position: relative;
 				overflow: hidden;
 				margin: 0px auto 20px 0;
 				padding: 40px 10px 0px 10px;
@@ -181,6 +178,8 @@ body {
 			{ 
 				background :#fff;
 				float:left;
+				max-width: 700px;
+				border-right: 1px solid #e0e0e0;
 				article{
 					.content-left-right-spacing;
 					padding-bottom: 10px;
@@ -213,7 +212,9 @@ body {
 						}
 					}
 					section{
+						border-right: none;
 						float: none;
+						max-width: 600px;
 						h1{
 							font-size : 1.2em;
 							padding-top:5px;
@@ -291,11 +292,13 @@ body {
 					
 						code{
 						  .top-radius;
+						  	position: relative;
 							background:url('/images/code_bg.png') repeat-x 0 0, #002b36;
 							padding-top : 40px;
 							margin-top:20px;
 							margin-bottom:20px;
 							word-wrap:break-word;
+							width: 100%;
 						  }
 						
 						background:url('/images/header-bottom.png') repeat-x 100% 100%;
@@ -337,7 +340,9 @@ body {
 			background:#F2F2F2!important;
 		  	font-size: .8em;
 			line-height: 1.4em;
+			width: 100%!important;
 			margin-bottom: 1.5em; 
+			border-right: none!important;
 			h1{
 				margin: 1.1em 0 0;
 				padding-bottom: .2em;

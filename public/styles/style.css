@@ -270,8 +270,6 @@ body section.main {
   min-width: 800px;
 }
 body section.main section.content {
-  margin-right: 300px;
-  border-right: 1px solid #e0e0e0;
   position: relative;
 }
 body section.main section.content section.comments {
@@ -284,7 +282,6 @@ body section.main section.content section.comments {
   border-top-right-radius: 5px;
   display: block;
   z-index: 1;
-  position: relative;
   overflow: hidden;
   margin: 0px auto 20px 0;
   padding: 40px 10px 0px 10px;
@@ -305,6 +302,8 @@ body section.main section.content section.comments #disqus_thread {
 body section.main section.content section {
   background: #fff;
   float: left;
+  max-width: 700px;
+  border-right: 1px solid #e0e0e0;
 }
 body section.main section.content section article {
   padding-left: 55px;
@@ -340,7 +339,9 @@ body section.main section.content section article header h1 a:hover {
   color: #de3f1c;
 }
 body section.main section.content section article section {
+  border-right: none;
   float: none;
+  max-width: 600px;
   /* twitter bootstrap*/
 
   background: url('/images/header-bottom.png') repeat-x 100% 100%;
@@ -425,11 +426,13 @@ body section.main section.content section article section code {
   moz-border-radius-topright: 5px;
   -webkit-border-top-right-radius: 5px;
   border-top-right-radius: 5px;
+  position: relative;
   background: url('/images/code_bg.png') repeat-x 0 0, #002b36;
   padding-top: 40px;
   margin-top: 20px;
   margin-bottom: 20px;
   word-wrap: break-word;
+  width: 100%;
 }
 body section.main section.content section article:first-child {
   background: none;
@@ -460,7 +463,9 @@ body aside section {
   background: #F2F2F2!important;
   font-size: .8em;
   line-height: 1.4em;
+  width: 100%!important;
   margin-bottom: 1.5em;
+  border-right: none!important;
 }
 body aside section h1 {
   margin: 1.1em 0 0;

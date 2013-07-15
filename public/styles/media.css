@@ -10,9 +10,10 @@
 .layout body section.main {
   min-width: 0px;
 }
-.layout body section.main section.content {
-  margin-right: 0px;
+.layout body section.main section.content section {
   border-right: none;
+  width: 100%;
+  max-width: 100%;
 }
 .layout body section.main section.content aside {
   display: none;
@@ -30,9 +31,10 @@
   body section.main {
     min-width: 0px;
   }
-  body section.main section.content {
-    margin-right: 0px;
+  body section.main section.content section {
     border-right: none;
+    width: 100%;
+    max-width: 100%;
   }
   body section.main section.content aside {
     display: none;
@@ -51,9 +53,10 @@
   body section.main {
     min-width: 0px;
   }
-  body section.main section.content {
-    margin-right: 0px;
+  body section.main section.content section {
     border-right: none;
+    width: 100%;
+    max-width: 100%;
   }
   body section.main section.content aside {
     display: none;
