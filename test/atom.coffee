@@ -122,7 +122,7 @@ describe 'Atom', ()->
 					if err != null
 						throw err
 					done()
-			it 'should update post return correct status code when authorized', (done)=>
+			it 'should update post with correct status code when authorized', (done)=>
 				req = request.put(util.format('/api/atom/entries/%s', id)) 
 				req.set('Content-Type', 'application/atom+xml')
 				req.set('authorization', util.format('Basic %s', new Buffer(credentials).toString('base64')))
@@ -132,9 +132,10 @@ describe 'Atom', ()->
 							if err != null
 								 throw err
 							parser = new xml2js.Parser();
+
 							parser.parseString res.text, (err, result)->
 								result.entry.title[0].should.be.ok 
-								result.entry.content[0]._.length.should.not.equal(0)
+								result.entry.content[0].should.not.equal(0)
 								result.entry.id[0].should.be.ok
 							done()
 		after (done)->

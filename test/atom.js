@@ -192,7 +192,7 @@
           return done();
         });
       });
-      it('should update post return correct status code when authorized', function(done) {
+      it('should update post with correct status code when authorized', function(done) {
         var req;
         req = request.put(util.format('/api/atom/entries/%s', id));
         req.set('Content-Type', 'application/atom+xml');
@@ -207,7 +207,7 @@
             parser = new xml2js.Parser();
             parser.parseString(res.text, function(err, result) {
               result.entry.title[0].should.be.ok;
-              result.entry.content[0]._.length.should.not.equal(0);
+              result.entry.content[0].should.not.equal(0);
               return result.entry.id[0].should.be.ok;
             });
             return done();
