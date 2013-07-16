@@ -59,7 +59,6 @@ module.exports = (settings)->
 					for post in data 
 						if format is 'encode'
 							body = @settings.format(post.body)
-							post.body = @helper.htmlEscape(body)
 						else if format is 'sanitize'
 							post.body = @settings.format(post.body) 
 						post.title = post.title.trim()
