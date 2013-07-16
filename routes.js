@@ -93,8 +93,7 @@
         res.header({
           'Content-Type': 'application/atom+xml'
         });
-        format;
-
+        format = '';
         if (req.headers['accept'] && req.headers['accept'].indexOf('text/html') >= 0) {
           format = 'encode';
         }
@@ -153,7 +152,6 @@
           'Content-Type': 'application/atom+xml'
         });
         if (req.headers['accept'] && req.headers['accept'].indexOf('text/html') >= 0) {
-          result.body = helper.htmlEscape(settings.format(result.body));
           result.body = helper.htmlEscape(settings.format(result.body));
         }
         result.title = result.title.trim();

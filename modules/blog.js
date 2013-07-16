@@ -92,6 +92,7 @@
               post = data[_i];
               if (format === 'encode') {
                 body = _this.settings.format(post.body);
+                post.body = _this.helper.htmlEscape(body);
               } else if (format === 'sanitize') {
                 post.body = _this.settings.format(post.body);
               }

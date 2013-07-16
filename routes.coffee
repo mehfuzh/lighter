@@ -75,12 +75,12 @@ routes = (app, settings) =>
 				res.redirect(settings.feedUrl)
 			else
 				res.header({'Content-Type': 'application/atom+xml' })
-				
-				format
+			
+				format = ''
 			
 				if req.headers['accept'] && req.headers['accept'].indexOf('text/html') >= 0
 					format = 'encode'
-
+				
 				# list all posts when logged in, e.g. MarsEdit
 				request.validate req, (result)=>
 					promise
@@ -89,7 +89,7 @@ routes = (app, settings) =>
 					else
 						promise = blog.find format
 
-					promise.then (result)->		
+					promise.then (result)=>	
 						res.render 'atom/feeds',
 							host		:	app.host
 							title		:	result.title
