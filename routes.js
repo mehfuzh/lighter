@@ -95,7 +95,7 @@
         });
         format = '';
         if (req.headers['accept'] && req.headers['accept'].indexOf('text/html') >= 0) {
-          format = 'sanitize';
+          format = 'encode';
         }
         return request.validate(req, function(result) {
           promise;
