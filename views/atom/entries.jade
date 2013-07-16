@@ -5,7 +5,7 @@ entry(xmlns='http://www.w3.org/2005/Atom')
 	updated #{post.date.toISOString()}
 	author
 		name #{post.author}
-	content <![CDATA[ #{post.body} ]]>
+	content <![CDATA[ !{post.body} ]]>
 	link(href='#{host}api/atom/entries/#{post._id}')
 	link(rel='edit', href='#{host}api/atom/entries/#{post._id}')
 	
