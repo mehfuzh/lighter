@@ -79,7 +79,7 @@ routes = (app, settings) =>
 				format = ''
 			
 				if req.headers['accept'] && req.headers['accept'].indexOf('text/html') >= 0
-					format = 'encode'
+					format = 'sanitize'
 				
 				# list all posts when logged in, e.g. MarsEdit
 				request.validate req, (result)=>
