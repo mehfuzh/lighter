@@ -33,6 +33,12 @@
         return html;
       };
 
+      Helper.prototype.formatWithCDATA = function(content) {
+        util = require('util');
+        content = require('util').format('<![CDATA[%s]]>', content);
+        return content;
+      };
+
       return Helper;
 
     })();

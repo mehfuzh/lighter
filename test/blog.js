@@ -108,7 +108,7 @@
         });
         return promise.then(function(result) {
           result.permaLink.should.equal('1900/01/test');
-          result.body.should.equal(body);
+          result.body.should.equal(helper.formatWithCDATA(body));
           return done();
         });
       });

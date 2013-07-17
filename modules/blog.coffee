@@ -29,14 +29,14 @@ module.exports = (settings)->
 
 			return promise
 
-		createPost: (obj)->
+		createPost: (obj)=>
 			promise = new @settings.Promise()
 			@.create().then (result)=>
 				if result isnt null
 					@_post
 						id 	: result._id
 						post: obj
-						, (data)->
+						, (data)=>
 							promise.resolve data
 			return promise
 
@@ -62,6 +62,9 @@ module.exports = (settings)->
 							post.body = @helper.htmlEscape(body)
 						else if format is 'sanitize'
 							post.body = @settings.format(post.body) 
+						else
+							post.body = @helper.formatWithCDATA(post.body)
+					
 						post.title = post.title.trim()
 						posts.push post
 
@@ -144,6 +147,7 @@ module.exports = (settings)->
 							@category.refresh category
 
 					data.save (err, data)=>
+						data.body = @helper.formatWithCDATA(data.body)
 						post = data
 						permaLink = previous.permaLink
 						@map.findOne
@@ -206,6 +210,7 @@ module.exports = (settings)->
 					if (data.categories)
 						for category in data.categories
 							@category.refresh category, (id)->
+					data.body = @helper.formatWithCDATA(data.body)
 					callback(data)
 					return
 																	

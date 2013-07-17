@@ -153,6 +153,8 @@
         });
         if (req.headers['accept'] && req.headers['accept'].indexOf('text/html') >= 0) {
           result.body = helper.htmlEscape(settings.format(result.body));
+        } else {
+          result.body = helper.formatWithCDATA(result.body);
         }
         result.title = result.title.trim();
         return res.render('atom/entries', {

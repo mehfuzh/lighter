@@ -315,6 +315,8 @@ body section.main section.content section article header {
   background-color: inherit;
   padding-top: 2em;
   padding-bottom: 1em;
+  float: left;
+  width: 100%;
 }
 body section.main section.content section article header time {
   font-family: 'SourceSansProRegular';

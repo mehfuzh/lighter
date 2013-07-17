@@ -123,9 +123,13 @@ routes = (app, settings) =>
 	app.get '/api/atom/entries/:id', (req, res) ->
 		blog.findPostById req.params.id, (result)->
 				res.header({'Content-Type': 'application/atom+xml' })
+				
 				if req.headers['accept'] && req.headers['accept'].indexOf('text/html') >=0
 					result.body = helper.htmlEscape(settings.format(result.body))
+				else
+					result.body = helper.formatWithCDATA(result.body)
 				result.title = result.title.trim()
+
 				res.render 'atom/entries', 
 					post : result
 					host  : app.host
@@ -142,7 +146,7 @@ routes = (app, settings) =>
 				promise.then (result)->
 					res.render 'atom/entries', 
 						post : result
-						host  : app.host
+						host : app.host
 
 	app.delete '/api/atom/entries/:id', authorize , (req, res)->
 		blog.deletePost req.params.id,()->
