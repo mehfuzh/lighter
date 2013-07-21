@@ -487,7 +487,9 @@ body aside section ul {
 }
 body aside section li {
   padding: .5em 0;
-  background: url('/images/header-bottom.png') repeat-x 0 100%;
+  /*background: url('/images/header-bottom.png') repeat-x 0 100%;*/
+
+  border-bottom: 1px solid #e0e0e0;
   -moz-box-shadow: #ffffff 0 1px;
   -webkit-box-shadow: #ffffff 0 1px;
   -o-box-shadow: #ffffff 0 1px;
@@ -495,7 +497,7 @@ body aside section li {
 }
 body aside section li a {
   color: inherit;
-  text-decoration: none;
+  text-decoration: underline;
 }
 body aside section li a:hover {
   color: #de3f1c;
