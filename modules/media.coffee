@@ -8,12 +8,13 @@ module.exports = (settings)->
 		create:(resource)->
 			promise = new @settings.Promise
 			url = @helper.linkify(resource.slug)
+			body = resource.body.toString('binary')
 			@media.findOne url:url, (err, data)=>				
 				if data is null
 					db = @settings.mongoose.connection.db
 					gridStore = new settings.GridStore(db, url, 'w')
 					gridStore.open (err, gs)=>
-						gs.write resource.body, (err, gs)=>
+						gs.write body, (err, gs)=>
 							gs.close (err)=>
 								if err isnt null 
 									throw err

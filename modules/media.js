@@ -14,10 +14,11 @@
       }
 
       Media.prototype.create = function(resource) {
-        var promise, url,
+        var body, promise, url,
           _this = this;
         promise = new this.settings.Promise;
         url = this.helper.linkify(resource.slug);
+        body = resource.body.toString('binary');
         this.media.findOne({
           url: url
         }, function(err, data) {
@@ -26,7 +27,7 @@
             db = _this.settings.mongoose.connection.db;
             gridStore = new settings.GridStore(db, url, 'w');
             return gridStore.open(function(err, gs) {
-              return gs.write(resource.body, function(err, gs) {
+              return gs.write(body, function(err, gs) {
                 return gs.close(function(err) {
                   var media;
                   if (err !== null) {

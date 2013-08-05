@@ -14,8 +14,6 @@ if (process.env.NODE_ENV == 'production'){
 	require('newrelic');	
 }
 
-require (__dirname +'/modules/builder')(settings);
-
 var user = require('./modules/user')(settings);
 
 user.init(function(data){ 
@@ -24,9 +22,11 @@ user.init(function(data){
 	}
 });
 
+require (__dirname +'/modules/builder')(app, settings);
+
 // Routes
 require('./routes')(app, settings);
 
 http.createServer(app).listen(app.get('port'), function(){
-  console.log("Express server listening on port " + app.get('port'));
+  	console.log("Express server listening on port " + app.get('port'));
 });

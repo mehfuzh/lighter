@@ -29,6 +29,7 @@
       var parser, promise, rawBody,
         _this = this;
       parser = new xml2js.Parser();
+      body = new Buffer(body).toString();
       rawBody = body.replace(/atom:/ig, '');
       rawBody = rawBody.replace(/app:/ig, '');
       promise = new settings.Promise();

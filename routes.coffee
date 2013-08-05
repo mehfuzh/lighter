@@ -23,6 +23,8 @@ routes = (app, settings) =>
 
 	parseBody = (body)->
 		parser = new xml2js.Parser()
+		
+		body = new Buffer(body).toString()
 		rawBody = body.replace(/atom:/ig, '')
 		rawBody = rawBody.replace(/app:/ig, '')
 	
@@ -159,7 +161,7 @@ routes = (app, settings) =>
 						engine : settings.engine
 	
 	app.post '/api/atom/images', authorize, (req, res)->
-		slug = req.headers['slug']		
+		slug = req.headers['slug']
 		promise = media.create	
 			id:new ObjectId()
 			slug:slug

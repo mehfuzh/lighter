@@ -19,11 +19,7 @@
         app.host = util.format('http://%s/', req.headers['host']);
         data = '';
         req.on('data', function(chunk) {
-          if (Buffer.isBuffer(chunk)) {
-            data += chunk.toString('binary');
-          } else {
-            data += chunk;
-          }
+          data += chunk;
         });
         return req.on('end', function() {
           req.rawBody = data;
