@@ -2,5 +2,3 @@ language: node_js
 node_js:
   - "0.8"
 services: mongodb
-before_script:
-  - coffee -c -o lib test
