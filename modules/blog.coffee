@@ -63,8 +63,7 @@ module.exports = (settings)->
 							post.body = @helper.htmlEscape(body)
 						else if format is 'sanitize'
 							post.body = @settings.format(post.body) 
-							
-						post.body = @helper.formatWithCDATA(post.body)
+							post.body = @helper.formatWithCDATA(post.body)
 				
 						post.title = post.title.trim()
 						posts.push post
