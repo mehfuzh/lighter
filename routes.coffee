@@ -77,7 +77,7 @@ routes = (app, settings) =>
 			if settings.feedUrl && parseInt(req.params['public']) == 1
 				res.redirect(settings.feedUrl)
 			else
-				res.header({'Content-Type': 'application/atom+xml' })
+				res.header({'Content-Type': 'application/xml' })
 			
 				format = ''
 			
