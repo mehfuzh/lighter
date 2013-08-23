@@ -23,12 +23,13 @@ routes = (app, settings) =>
 
 	parseBody = (body)->
 		parser = new xml2js.Parser()
-		
 		body = new Buffer(body).toString()
+
 		rawBody = body.replace(/atom:/ig, '')
 		rawBody = rawBody.replace(/app:/ig, '')
-	
+
 		promise = new settings.Promise()
+
 		parser.parseString rawBody, (err, result) => 
 			entry = result.entry			
 
@@ -181,11 +182,11 @@ routes = (app, settings) =>
 			if result isnt null
 				res.statusCode = 200
 				res.header({ 'Content-Type' : result.type})
-				res.end(result)
+				res.end(result.data)
 			else
 				res.statusCode = 404
 				res.end("Not found")
-			 
+
 	app.get '/:year/:month/:title', (req, res) ->
 		link = util.format("%s/%s/%s", req.params.year, req.params.month, req.params.title)
 		# get the most recent posts, to be displayed on the right

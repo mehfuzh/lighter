@@ -1,6 +1,8 @@
+require('coffee-script');
+
 var express = require('express')
   , http = require('http');
-
+  
 // Configuration
 var app = express();
 

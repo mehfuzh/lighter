@@ -1,7 +1,6 @@
 express = require 'express'
 util = require 'util'
 config = (app)->
-
 	app.configure ()->
 		app.set('port', process.env.PORT || 3000)
 		app.set('views', __dirname + '/views')
@@ -10,17 +9,19 @@ config = (app)->
 		app.use(express.logger('dev'))
 		app.use (req, res, next)->
 			app.host = util.format('http://%s/', req.headers['host'])
-			data = ''
+			data = []
+			length = 0
 			req.on 'data', (chunk)=>
-				data += chunk
-				return
+				length += chunk.length
+				data.push(chunk)
+				return 
 			req.on 'end', ()=>
-				req.rawBody = data
+				req.rawBody = Buffer.concat(data, length)
 				next()
-				return
+				return 
+		app.use(app.router)
 		app.use(express.bodyParser())
 		app.use(express.methodOverride())
-		app.use(app.router)
 		app.use(require('less-middleware')({ src: __dirname + '/public' }))
 		app.use(express.compress())
 

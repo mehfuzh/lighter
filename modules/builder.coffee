@@ -10,7 +10,7 @@ module.exports = (app, settings) ->
 		user = require(__dirname + '/user')(settings) 
 		fs.readFile __dirname + '/../bin/post.md','utf8', (err, result)->
 			blog.delete ()->
-				posts = []	
+				posts = []
 				# process logo image.	
 				fs.readFile __dirname + '/../public/logo.png', (err, result)->
 					buffer = result

@@ -64,7 +64,7 @@ module.exports = (settings)->
 							post.body = @settings.format(post.body) 
 						else
 							post.body = @helper.formatWithCDATA(post.body)
-					
+				
 						post.title = post.title.trim()
 						posts.push post
 
@@ -78,7 +78,7 @@ module.exports = (settings)->
 
 		findAll:(format)->
 			return @find format, {}
-				
+			
 		findMostRecent: () ->
 			promise = new @settings.Promise()
 			@blog.findOne url: @settings.url, (err, data) =>
@@ -91,7 +91,7 @@ module.exports = (settings)->
 								})
 						promise.resolve(recent)
 			return promise
-				
+			
 		findPost: (permaLink)->
 			promise = new @settings.Promise
 			@blog.findOne url: @settings.url, (err, data) =>
@@ -110,7 +110,7 @@ module.exports = (settings)->
 							post	:	data
 						})
 			return promise
-		
+	
 		hasPostMoved: (permaLink)->
 			promise = new @settings.Promise
 			@map.findOne
@@ -122,7 +122,7 @@ module.exports = (settings)->
 			@post.findOne 
 				_id : id, (err, data)=>
 					callback(data)
-		
+	
 		updatePost: (post)->
 			promise = new @settings.Promise
 			@post.findOne
@@ -132,13 +132,13 @@ module.exports = (settings)->
 						title 		: data.title
 						permaLink 	: data.permaLink
 						body  		: data.body
- 
+
 					data.body = post.body
-					
+				
 					if data.title isnt post.title 
 						data.title = post.title
 						data.permaLink = @helper.linkify post.title
-					
+				
 					data.categories = post.categories
 					data.publish = post.publish
 
@@ -171,13 +171,13 @@ module.exports = (settings)->
 									else
 										throw err
 			return promise
-		
+	
 		deletePost: (id, callback)->
 			@post.remove
 				_id : id, ()=>
 					@map.remove ()->
 					callback()
-		
+	
 		delete: (callback) ->  
 			@blog.find url : @settings.url, (err, data) =>
 				for blog in data
@@ -213,5 +213,5 @@ module.exports = (settings)->
 					data.body = @helper.formatWithCDATA(data.body)
 					callback(data)
 					return
-																	
+																
 	new Blog settings

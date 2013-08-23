@@ -190,6 +190,6 @@ describe 'Atom', ()->
 
 		after (done)->
 			url = helper.linkify 'logo.png'
-			media.delete url, ()->
+			media.remove url, ()->
 				done()
 

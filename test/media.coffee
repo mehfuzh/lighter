@@ -6,7 +6,7 @@ fs = require('fs')
 
 ObjectId = require('mongodb').ObjectID
 
-describe 'media', ()->
+describe 'Media', ()->
 	buffer = null
 
 	before (done)->
@@ -21,19 +21,20 @@ describe 'media', ()->
 				promise.then (result)->
 					done()
 
-	it 'should assert the content', (done)->
+	it 'should assert the content created', (done)->
 		url = helper.linkify 'logo.png'
 		promise = media.get url 
 		promise.then (result)->
-			Buffer.isBuffer(result).should.be.ok
-			result.length.should.equal buffer.length
+			Buffer.isBuffer(result.data).should.be.ok
+			result.data.length.should.equal buffer.length
+			result.type.should.equal 'image/png'
 			for i in [0...result.length]
-				result[i].should.equal buffer[i]
+				result[i].data.should.equal buffer[i]
 			done()
 
 	after (done)->
 		url = helper.linkify 'logo.png'
-		media.delete url, ()->
+		media.remove url, ()->
 			done()
 
 

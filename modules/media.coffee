@@ -8,7 +8,7 @@ module.exports = (settings)->
 		create:(resource)->
 			promise = new @settings.Promise
 			url = @helper.linkify(resource.slug)
-			body = resource.body.toString('binary')
+			body = resource.body
 			@media.findOne url:url, (err, data)=>				
 				if data is null
 					db = @settings.mongoose.connection.db
@@ -33,37 +33,43 @@ module.exports = (settings)->
 		
 		get:(url)->
 			promise = new @settings.Promise
-			@media.findOne url:url, (err, data)=>
-				if data isnt null
+			@media.findOne url:url, (err, result)=>
+				if result isnt null
 					db = @settings.mongoose.connection.db
-					gridStore = new @settings.GridStore(db, data.url, 'r')
+					gridStore = new @settings.GridStore(db, result.url, 'r')
 					gridStore.open (err, gs)->
 						if typeof gs isnt 'undefined'
 							gs.seek 0, ()->
 								gs.read (err, data)->
 									gs.close (err)=>
-										promise.resolve data
+										promise.resolve
+											type : result.type
+											data : data
 						else
 							promise.resolve null
 				else
 					promise.resolve null
 
 			return promise
-		
-		delete:(url, callback)->
+			
+		remove:(url, callback)->
 			@media.remove url:url ,()=>
-					db = @settings.mongoose.connection.db
-					gridStore = new @settings.GridStore(db, url, 'r')
-					gridStore.open (err, gs)=>
+				db = @settings.mongoose.connection.db
+				gridStore = new @settings.GridStore(db, url, 'r')
+				gridStore.open (err, gs)=>
+					if typeof gs isnt 'undefined'
 						gs.unlink (err, result)=>
 							if err != null
 								throw err
 							callback()
+					else
+						callback()
+						
 		clear:(callback)=>
 			@media.find (err, data)=>
 				count = 1
 				for media in data
-					@.delete media.url, ()->
+					@.remove media.url, ()->
 						if (count == data.length)
 							callback()
 						count++
