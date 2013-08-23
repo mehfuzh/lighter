@@ -57,13 +57,14 @@ module.exports = (settings)->
 				@post.find(filter).sort({date: -1}).exec (err, data)=>
 					posts = []
 					for post in data 
+						
 						if format is 'encode'
 							body = @settings.format(post.body)
 							post.body = @helper.htmlEscape(body)
 						else if format is 'sanitize'
 							post.body = @settings.format(post.body) 
-						else
-							post.body = @helper.formatWithCDATA(post.body)
+							
+						post.body = @helper.formatWithCDATA(post.body)
 				
 						post.title = post.title.trim()
 						posts.push post
