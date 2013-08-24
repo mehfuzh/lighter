@@ -74,33 +74,26 @@ routes = (app, settings) =>
 				categories:result
 				
 	processFeeds = (req, res)->
-			if settings.feedUrl && parseInt(req.params['public']) == 1
-				res.redirect(settings.feedUrl)
+		format = ''
+		if req.headers['accept'] && req.headers['accept'].indexOf('text/html') >= 0
+			format = 'encode'
+		# list all posts when logged in, e.g. MarsEdit
+		request.validate req, (result)=>
+			promise
+			if result isnt null
+				promise = blog.findAll format
 			else
-				res.header({'Content-Type': 'application/xml' })
-			
-				format = ''
-			
-				if req.headers['accept'] && req.headers['accept'].indexOf('text/html') >= 0
-					format = 'encode'
-				
-				# list all posts when logged in, e.g. MarsEdit
-				request.validate req, (result)=>
-					promise
-					if result isnt null
-						promise = blog.findAll format
-					else
-						promise = blog.find format
+				promise = blog.find format
 
-					promise.then (result)=>	
-						res.render 'atom/feeds',
-							host		:	app.host
-							title		:	result.title
-							updated		:	result.updated
-							posts		:	result.posts
+			promise.then (result)=>
+				res.header({'Content-Type': 'application/xml' })
+				res.render 'atom/feeds',
+					host		:	app.host
+					title		:	result.title
+					updated		:	result.updated
+					posts		:	result.posts
 
 	app.get '/api/atom/feeds', processFeeds
-	app.get '/api/atom/feeds/:public', processFeeds
 						
 	app.post '/api/atom/feeds', authorize, (req, res) -> 
 		promise = parseBody(req.rawBody)
