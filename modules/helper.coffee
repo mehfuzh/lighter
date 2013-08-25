@@ -23,9 +23,4 @@ module.exports = ()->
 									.replace(/"/g, '&quot;')
 			html
 			
-		formatWithCDATA:(content)->
-			util = require('util')
-			content = require('util').format('<![CDATA[%s]]>', content)
-			content
-
 	return new Helper()

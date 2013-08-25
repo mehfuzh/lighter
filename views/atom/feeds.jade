@@ -13,7 +13,7 @@ feed(xmlns='http://www.w3.org/2005/Atom', xml:base='#{host}')
 			updated #{post.date.toISOString()}
 			author
 				name #{post.author}
-			content(type='html') !{post.body}
+			content(type='html') <![CDATA[ !{post.body} ]]>
 			link(href='#{host}#{post.permaLink}')
 			link(rel='edit', href='#{host}api/atom/entries/#{post._id}')
 			

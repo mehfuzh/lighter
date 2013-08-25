@@ -59,7 +59,6 @@ module.exports = (settings)->
 					for post in data 
 						if format is 'sanitize'
 							post.body = @settings.format(post.body) 
-						post.body = @helper.formatWithCDATA(post.body)
 						post.title = post.title.trim()
 						posts.push post
 
@@ -142,7 +141,6 @@ module.exports = (settings)->
 							@category.refresh category
 
 					data.save (err, data)=>
-						data.body = @helper.formatWithCDATA(data.body)
 						post = data
 						permaLink = previous.permaLink
 						@map.findOne
@@ -205,7 +203,6 @@ module.exports = (settings)->
 					if (data.categories)
 						for category in data.categories
 							@category.refresh category, (id)->
-					data.body = @helper.formatWithCDATA(data.body)
 					callback(data)
 					return
 																
