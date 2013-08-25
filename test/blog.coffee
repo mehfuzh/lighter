@@ -67,7 +67,7 @@ describe 'Blog', ->
 				body 	: body
 			promise.then (result)=>
 				result.permaLink.should.equal '1900/01/test'
-				result.body.should.equal helper.formatWithCDATA(body)
+				result.body.should.equal body
 				done()
 
 		it 'should update the permalink when title is different', (done)->
