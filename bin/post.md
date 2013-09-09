@@ -13,15 +13,11 @@ The quickest way to get started  with _lighter_ is to run the following command 
 
 	npm install
 
-This will install the necessary dependencies for running the project. Once done just start the server by executing the following script:
+This will install the necessary dependencies for running the project. Once done just start the server by executing the following command:
 
-	./bin/devserver
+	npm start
 
-Blog modules are written with coffee script therefore keep coffee with watch command running in a separate terminal or execute the following script:
-
-	./bin/compile 
-	
-You would also need mongodb. Please refer to the following online document for installing mongo locally:
+Blog modules are written with coffee script and automatically compiled in runtime using a coffescript middleware.You will also need mongodb. Please refer to the following online document for installing mongo locally:                            
 
 [Installing MongoDB] (http://docs.mongodb.org/manual/installation/)
 

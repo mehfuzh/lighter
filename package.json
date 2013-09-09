@@ -1,6 +1,6 @@
 {
   "name": "lighter-blog-engine",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
     "express": "*",
@@ -18,7 +18,8 @@
 	"coffee-script":"*"
   },  
   "scripts": {
-  	"test": "mocha --compilers coffee:coffee-script -R spec"
+  	"test": "mocha --compilers coffee:coffee-script -R spec",
+	"start": "node-dev server.js"
   },
   "engines": {
     "node": "0.8.2",
