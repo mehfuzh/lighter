@@ -15,6 +15,10 @@
   width: 100%;
   max-width: 100%;
 }
+.layout body section.main section.content section article img {
+  max-width: 100%;
+  height: auto;
+}
 .layout body section.main section.content aside {
   display: none;
 }
@@ -35,6 +39,10 @@
     border-right: none;
     width: 100%;
     max-width: 100%;
+  }
+  body section.main section.content section article img {
+    max-width: 100%;
+    height: auto;
   }
   body section.main section.content aside {
     display: none;
@@ -57,6 +65,10 @@
     border-right: none;
     width: 100%;
     max-width: 100%;
+  }
+  body section.main section.content section article img {
+    max-width: 100%;
+    height: auto;
   }
   body section.main section.content aside {
     display: none;

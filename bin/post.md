@@ -57,7 +57,7 @@ Tests are written with mocha. It is required that mocha is installed globally:
 
 Once installed, type the following command to run tests.
 
-	mocha --compilers coffee:coffee-script -R spec
+	npm test
 
 ##Further Reading
 
