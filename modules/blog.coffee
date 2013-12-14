@@ -205,5 +205,5 @@ module.exports = (settings)->
 							@category.refresh category, (id)->
 					callback(data)
 					return
-																
+					
 	new Blog settings

@@ -181,12 +181,12 @@ routes = (app, settings) =>
 	app.get '/:year/:month/:title', (req, res) ->
 		link = util.format("%s/%s/%s", req.params.year, req.params.month, req.params.title)
 		# get the most recent posts, to be displayed on the right
-		recent = [] 
-		promise = blog.findMostRecent() 
+		recent = []
+		promise = blog.findMostRecent()
 		promise.then (result)=>
 			recent = result
 			promise = blog.findPost link
-			promise.then (result)->  
+			promise.then (result)->
 				if result isnt null
 					result.host = app.host
 					result.recent = recent
