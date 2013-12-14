@@ -468,11 +468,6 @@ body aside section {
 body aside section h1 {
   margin: 1.1em 0 0;
   padding-bottom: .2em;
-  border-bottom: 1px solid #e0e0e0;
-  -moz-box-shadow: #fff 0 1px;
-  -webkit-box-shadow: #fff 0 1px;
-  -o-box-shadow: #fff 0 1px;
-  box-shadow: #fff 0 1px;
   font-family: 'SourceSansProBlack';
   font-size: 1.5em;
 }
@@ -486,11 +481,6 @@ body aside section ul {
 }
 body aside section li {
   padding: .5em 0;
-  border-bottom: 1px solid #e0e0e0;
-  -moz-box-shadow: #ffffff 0 1px;
-  -webkit-box-shadow: #ffffff 0 1px;
-  -o-box-shadow: #ffffff 0 1px;
-  box-shadow: #ffffff 0 1px;
 }
 body aside section li a {
   color: inherit;
