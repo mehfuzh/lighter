@@ -14,12 +14,11 @@
     "xml2js": "~0.2.2",
     "newrelic": "~0.9.19",
     "node-promise": "~0.5.6",
-    "connect":"*",
-	"coffee-script":"*"
+    "connect":"*"
   },  
   "scripts": {
   	"test": "mocha --compilers coffee:coffee-script -R spec",
-	"start": "node server.js"
+	"start": "node-dev server.js"
   },
   "engines": {
     "node": "0.8.2",
@@ -28,6 +27,12 @@
   "devDependencies": {
     "mocha":  "*",
     "should": "*",
-    "supertest": "~0.5.1"
+    "supertest": "~0.5.1",
+    "grunt": "~0.4.2",
+    "grunt-develop": "~0.2.2",
+    "grunt-contrib-watch": "~0.5.3",
+    "grunt-nodemon": "~0.1.2",
+    "grunt-concurrent": "~0.4.2",
+    "grunt-contrib-coffee": "~0.7.0"
   }
 }

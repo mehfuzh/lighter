@@ -2,9 +2,10 @@ module.exports = (settings)->
 	class Blog
 		constructor: (settings) ->
 			@settings = settings
+			path = require('path')
 			@blog = settings.mongoose.model 'blog'
 			@post = settings.mongoose.model 'post'
-			@helper = (require __dirname + '/helper')()
+			@helper = (require __dirname + '/../helper')()
 			@category = (require __dirname + '/category')(settings)
 			@media = (require __dirname + '/media')(settings)
 			@map = settings.mongoose.model 'map'

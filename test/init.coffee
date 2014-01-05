@@ -2,8 +2,8 @@
 class TestBase
 	constructor: ()->	
 		path = require 'path'
-		settings = (require path.join(__dirname, '../modules/settings'))()
-		require(path.join(__dirname, '../modules/schema'))(settings.mongoose)
+		settings = (require path.join(__dirname, '../settings'))()
+		require(path.join(__dirname, '../schema'))(settings.mongoose)
 		@blog = (require '../modules/blog')(settings)
 		@category = (require '../modules/category')(settings)
 		@media = (require '../modules/media')(settings)

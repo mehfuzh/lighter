@@ -342,7 +342,6 @@ body section.main section.content section article section {
   border-right: none;
   max-width: 600px;
   /* twitter bootstrap*/
-
   background: url('/images/header-bottom.png') repeat-x 100% 100%;
   margin-bottom: 1.5em;
   padding-bottom: 1em;
@@ -492,7 +491,6 @@ body aside section li a:hover {
 body aside section li:last-child {
   /* border-bottom:none;
 		 			.box-shadow(0px);*/
-
 }
 body aside:after {
   content: "";

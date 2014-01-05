@@ -1,6 +1,6 @@
 require 'should'      
 
-helper = (require '../modules/helper')()     
+helper = (require '../helper')()     
 media = (require __dirname + '/init').media
 fs = require('fs')
 

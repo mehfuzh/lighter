@@ -1,7 +1,7 @@
 routes = (app, settings) => 
 	util = require('util')
 	blog = (require __dirname+'/modules/blog')(settings) 
-	helper = (require __dirname+'/modules/helper')()
+	helper = (require __dirname+'/helper')()
 	
 	category = (require __dirname + '/modules/category')(settings) 
 	media = (require __dirname + '/modules/media')(settings) 
@@ -170,6 +170,7 @@ routes = (app, settings) =>
 		url = util.format("%s/%s/%s", req.params.year, req.params.month, req.params.slug)
 		promise = media.get url 
 		promise.then (result)->
+			console.log result
 			if result isnt null
 				res.statusCode = 200
 				res.header({ 'Content-Type' : result.type})

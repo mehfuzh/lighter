@@ -1,5 +1,5 @@
 require 'should'      
-helper = (require '../modules/helper')() 
+helper = (require '../helper')() 
 blog = (require __dirname + '/init').blog
 
 describe 'Blog', ->    

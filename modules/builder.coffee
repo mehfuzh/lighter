@@ -1,7 +1,7 @@
 module.exports = (app, settings) ->
 	blog = (require __dirname + '/blog')(settings) 	
 	media = (require __dirname + '/media')(settings)
-	helper = (require __dirname+'/helper')()
+	helper = (require __dirname+'/../helper')()
 	ObjectId = require('mongodb').ObjectID
 	util = require('util')
 	

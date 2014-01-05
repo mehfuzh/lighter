@@ -2,20 +2,22 @@ module.exports = (settings)->
 	class Media
 		constructor:(settings)->
 			@media = settings.mongoose.model 'media'
-			@helper = (require __dirname + '/helper')()
+			@helper = (require __dirname + '/../helper')()
 			@settings = settings
 	
 		create:(resource)->
 			promise = new @settings.Promise
 			url = @helper.linkify(resource.slug)
 			body = resource.body
-			@media.findOne url:url, (err, data)=>				
+			@media.findOne url:url, (err, data)=>
 				if data is null
 					db = @settings.mongoose.connection.db
 					gridStore = new settings.GridStore(db, url, 'w')
 					gridStore.open (err, gs)=>
 						gs.write body, (err, gs)=>
-							gs.close (err)=>
+							gs.close (err, result)=>
+								GridStore.exist db, result._id, (err, result)=>
+									console.log err
 								if err isnt null 
 									throw err
 								media = new @media
@@ -24,8 +26,8 @@ module.exports = (settings)->
 									url:url
 									type:resource.type
 									date:new Date()
-								media.save (err, data) ->
-							 	 	promise.resolve(data)
+								media.save (err, data)->
+									promise.resolve(data)
 				else
 					promise.resolve(data)
 
@@ -41,7 +43,7 @@ module.exports = (settings)->
 						if typeof gs isnt 'undefined'
 							gs.seek 0, ()->
 								gs.read (err, data)->
-									gs.close (err)=>
+									gs.close (err, result)=>
 										promise.resolve
 											type : result.type
 											data : data

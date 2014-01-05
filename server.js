@@ -1,5 +1,3 @@
-require('coffee-script');
-
 var express = require('express')
   , http = require('http');
   
@@ -8,9 +6,9 @@ var app = express();
 
 require('./config')(app);
 
-var settings = require( __dirname + '/modules/settings')();
+var settings = require( __dirname + '/settings')();
 
-require(__dirname + '/modules/schema')(settings.mongoose);
+require(__dirname + '/schema')(settings.mongoose);
 
 if (process.env.NODE_ENV == 'production'){
 	require('newrelic');	

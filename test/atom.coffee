@@ -1,5 +1,5 @@
 require 'should'      
-helper = (require '../modules/helper')()     
+helper = (require '../helper')()     
 
 xml2js = require 'xml2js'      
 util = require('util')                               

@@ -2,7 +2,7 @@ module.exports = (settings)->
 	class Category
 		constructor:(settings)->
 			@category = settings.mongoose.model 'category'
-			@helper = (require __dirname + '/helper')()
+			@helper = (require __dirname + '/../helper')()
 			@settings = settings
 			@cats = []
 	
