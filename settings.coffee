@@ -7,6 +7,8 @@ module.exports = ()->
 			# init mongo        
 			url = process.env.MONGODB_URI || process.env.MONGOLAB_URI || 'mongodb://localhost/lighter'
 			@mongoose.connect url
+			# if process.env.NODE_ENV isnt 'production'
+			# 	@mongoose.set('debug', true)
 			@marked = require('marked')			
 			@marked.setOptions
 				highlight:(code,lang) ->

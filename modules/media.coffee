@@ -4,6 +4,7 @@ module.exports = (settings)->
 			@media = settings.mongoose.model 'media'
 			@helper = (require __dirname + '/../helper')()
 			@settings = settings
+			@db = settings.mongoose.connection.db
 	
 		create:(resource)->
 			promise = new @settings.Promise
@@ -11,15 +12,10 @@ module.exports = (settings)->
 			body = resource.body
 			@media.findOne url:url, (err, data)=>
 				if data is null
-					db = @settings.mongoose.connection.db
-					gridStore = new settings.GridStore(db, url, 'w')
+					gridStore = new settings.GridStore(@db, url, 'w')
 					gridStore.open (err, gs)=>
 						gs.write body, (err, gs)=>
 							gs.close (err, result)=>
-								GridStore.exist db, result._id, (err, result)=>
-									console.log err
-								if err isnt null 
-									throw err
 								media = new @media
 									title:resource.slug
 									id:resource.id
@@ -37,16 +33,14 @@ module.exports = (settings)->
 			promise = new @settings.Promise
 			@media.findOne url:url, (err, result)=>
 				if result isnt null
-					db = @settings.mongoose.connection.db
-					gridStore = new @settings.GridStore(db, result.url, 'r')
+					gridStore = new @settings.GridStore(@db, result.url, 'r')
 					gridStore.open (err, gs)->
 						if typeof gs isnt 'undefined'
 							gs.seek 0, ()->
 								gs.read (err, data)->
-									gs.close (err, result)=>
-										promise.resolve
-											type : result.type
-											data : data
+									promise.resolve
+										type : result.type
+										data : data
 						else
 							promise.resolve null
 				else

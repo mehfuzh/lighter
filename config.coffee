@@ -1,7 +1,6 @@
 express = require 'express'
 util = require 'util'
 config = (app)->
-	app.configure ()->
 		app.set('port', process.env.PORT || 3000)
 		app.set('views', __dirname + '/views')
 		app.set('view engine', 'jade')
@@ -20,7 +19,8 @@ config = (app)->
 				next()
 				return 
 		app.use(app.router)
-		app.use(express.bodyParser())
+		app.use(express.urlencoded())
+		app.use(express.json())
 		app.use(express.methodOverride())
 		app.use(require('less-middleware')({ src: __dirname + '/public' }))
 		app.use(express.compress())
@@ -32,8 +32,8 @@ config = (app)->
 			app.use(express.static(__dirname + '/public'))
 		
 		app.locals.pretty = true
-
-		app.configure	'production', ()->
-			app.use(express.errorHandler())  
+		
+		if 'development' is app.get 'env'
+			app.use(express.errorHandler())
 	
 module.exports = config

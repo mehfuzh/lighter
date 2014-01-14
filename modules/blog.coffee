@@ -10,7 +10,7 @@ module.exports = (settings)->
 			@media = (require __dirname + '/media')(settings)
 			@map = settings.mongoose.model 'map'
 
-		create: ()->
+		create:()->
 			promise = new @settings.Promise()
 			@blog.findOne url : @settings.url, (err, data)=>
 				if data isnt null
@@ -19,7 +19,7 @@ module.exports = (settings)->
 						data.save (err, data)->
 							promise.resolve(data)
 					else
-						promise.resolve(data)					
+						promise.resolve(data)
 				else
 					blog = new @blog
 						url		: @settings.url
@@ -30,7 +30,7 @@ module.exports = (settings)->
 
 			return promise
 
-		createPost: (obj)=>
+		createPost:(obj)=>
 			promise = new @settings.Promise()
 			@.create().then (result)=>
 				if result isnt null
@@ -74,9 +74,9 @@ module.exports = (settings)->
 		findAll:(format)->
 			return @find format, {}
 			
-		findMostRecent: () ->
-			promise = new @settings.Promise()
-			@blog.findOne url: @settings.url, (err, data) =>
+		findMostRecent:()->
+			promise = new @settings.Promise
+			@blog.findOne url:@settings.url, (err, data) =>
 				@post.find({id : data._id, publish : true}).sort({date: -1}).limit(5).exec (err, data)=>
 						recent = []
 						for post in data

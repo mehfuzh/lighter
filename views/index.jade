@@ -10,6 +10,6 @@ block content
 				time= post.date.toDateString()
 				h1 
 					a(href='#{host}#{post.permaLink}') #{post.title}
-			section!{post.body}
+			section !{post.body}
 				for category in post.categories
 					div(class='category') #{category}

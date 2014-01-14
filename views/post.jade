@@ -1,8 +1,8 @@
 extends layout
 
 block header	
-	meta(name='author', content='#{post.author}') 
-	meta(name='keywords', content='#{post.categories.join()}')	
+	meta(name='author', content='#{post.author}')
+	meta(name='keywords', content='#{post.categories.join()}')
 	meta(property='og:title', content='#{post.title.trim()}')
 	meta(property='og:url', content='#{host}#{post.permaLink}')
 	meta(property='og:type', content='website')
@@ -11,7 +11,7 @@ block header
 	title #{post.title.trim()}
 
 block content
-	article	
+	article
 		header
 			time #{post.date.toDateString()}
 			h1 #{post.title}

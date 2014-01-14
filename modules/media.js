@@ -9,6 +9,7 @@
         this.media = settings.mongoose.model('media');
         this.helper = (require(__dirname + '/../helper'))();
         this.settings = settings;
+        this.db = settings.mongoose.connection.db;
       }
 
       Media.prototype.create = function(resource) {
@@ -20,20 +21,13 @@
         this.media.findOne({
           url: url
         }, function(err, data) {
-          var db, gridStore;
+          var gridStore;
           if (data === null) {
-            db = _this.settings.mongoose.connection.db;
-            gridStore = new settings.GridStore(db, url, 'w');
+            gridStore = new settings.GridStore(_this.db, url, 'w');
             return gridStore.open(function(err, gs) {
               return gs.write(body, function(err, gs) {
                 return gs.close(function(err, result) {
                   var media;
-                  GridStore.exist(db, result._id, function(err, result) {
-                    return console.log(err);
-                  });
-                  if (err !== null) {
-                    throw err;
-                  }
                   media = new _this.media({
                     title: resource.slug,
                     id: resource.id,
@@ -61,20 +55,16 @@
         this.media.findOne({
           url: url
         }, function(err, result) {
-          var db, gridStore;
+          var gridStore;
           if (result !== null) {
-            db = _this.settings.mongoose.connection.db;
-            gridStore = new _this.settings.GridStore(db, result.url, 'r');
+            gridStore = new _this.settings.GridStore(_this.db, result.url, 'r');
             return gridStore.open(function(err, gs) {
               if (typeof gs !== 'undefined') {
                 return gs.seek(0, function() {
                   return gs.read(function(err, data) {
-                    var _this = this;
-                    return gs.close(function(err, result) {
-                      return promise.resolve({
-                        type: result.type,
-                        data: data
-                      });
+                    return promise.resolve({
+                      type: result.type,
+                      data: data
                     });
                   });
                 });

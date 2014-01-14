@@ -116,7 +116,7 @@
       Blog.prototype.findMostRecent = function() {
         var promise,
           _this = this;
-        promise = new this.settings.Promise();
+        promise = new this.settings.Promise;
         this.blog.findOne({
           url: this.settings.url
         }, function(err, data) {

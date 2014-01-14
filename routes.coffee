@@ -170,7 +170,6 @@ routes = (app, settings) =>
 		url = util.format("%s/%s/%s", req.params.year, req.params.month, req.params.slug)
 		promise = media.get url 
 		promise.then (result)->
-			console.log result
 			if result isnt null
 				res.statusCode = 200
 				res.header({ 'Content-Type' : result.type})
@@ -202,7 +201,7 @@ routes = (app, settings) =>
 
 	app.get '/', (req, res) ->
 		recent = []
-		promise = blog.findMostRecent() 
+		promise = blog.findMostRecent()
 		promise.then (result)=>
 			recent = result
 			promise = blog.find 'sanitize'
@@ -210,6 +209,5 @@ routes = (app, settings) =>
 				result.host = app.host
 				result.recent = recent
 				res.render 'index', result
-			return
 				
 module.exports = routes

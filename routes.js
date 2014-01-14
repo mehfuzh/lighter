@@ -211,7 +211,6 @@
       url = util.format("%s/%s/%s", req.params.year, req.params.month, req.params.slug);
       promise = media.get(url);
       return promise.then(function(result) {
-        console.log(result);
         if (result !== null) {
           res.statusCode = 200;
           res.header({
@@ -259,7 +258,7 @@
       return promise.then(function(result) {
         recent = result;
         promise = blog.find('sanitize');
-        promise.then(function(result) {
+        return promise.then(function(result) {
           result.host = app.host;
           result.recent = recent;
           return res.render('index', result);

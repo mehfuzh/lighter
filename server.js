@@ -4,7 +4,7 @@ var express = require('express')
 // Configuration
 var app = express();
 
-require('./config')(app);
+require(__dirname + '/config')(app);
 
 var settings = require( __dirname + '/settings')();
 
@@ -14,7 +14,7 @@ if (process.env.NODE_ENV == 'production'){
 	require('newrelic');	
 }
 
-var user = require('./modules/user')(settings);
+var user = require(__dirname + '/modules/user')(settings);
 
 user.init(function(data){ 
   if (data._id){
