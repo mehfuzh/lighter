@@ -13,8 +13,7 @@
     "marked": ">=0.2.6",
     "xml2js": "~0.2.2",
     "newrelic": "~0.9.19",
-    "node-promise": "~0.5.10",
-	"coffee-script": "*"
+    "node-promise": "~0.5.10"
   },  
   "scripts": {
       "test": "mocha --compilers coffee:coffee-script -R spec",
@@ -23,6 +22,7 @@
   "devDependencies": {
     "mocha":  "*",
     "should": "*",
+	"coffee-script": "*",
     "supertest": "~0.8.3",
     "grunt": "~0.4.2",
     "grunt-develop": "~0.3.0",
