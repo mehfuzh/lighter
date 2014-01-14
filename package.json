@@ -1,7 +1,11 @@
 {
   "name": "lighter-blog-engine",
-  "version": "1.0.0",
-  "private": true,
+  "version": "1.0.1",
+  "description": "Fast, responsive blog engine for geeks.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mehfuzh/lighter.git"
+  },
   "dependencies": {
     "express": "*",
     "jade": ">= 0.0.1",
