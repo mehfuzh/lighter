@@ -171,12 +171,9 @@ routes = (app, settings) =>
 		promise = media.get url 
 		promise.then (result)->
 			if result isnt null
-				res.statusCode = 200
-				res.header({ 'Content-Type' : result.type})
-				res.end(result.data)
-			else
-				res.statusCode = 404
-				res.end("Not found")
+				res.send(result.data)
+		, (err) ->
+			res.send(404, err.message)
 
 	app.get '/:year/:month/:title', (req, res) ->
 		link = util.format("%s/%s/%s", req.params.year, req.params.month, req.params.title)

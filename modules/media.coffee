@@ -42,9 +42,10 @@ module.exports = (settings)->
 										type : result.type
 										data : data
 						else
-							promise.resolve null
+							promise.reject(err)
 				else
-					promise.resolve null
+					promise.reject
+						message	:	"Resource not found"
 
 			return promise
 			

@@ -212,15 +212,10 @@
       promise = media.get(url);
       return promise.then(function(result) {
         if (result !== null) {
-          res.statusCode = 200;
-          res.header({
-            'Content-Type': result.type
-          });
-          return res.end(result.data);
-        } else {
-          res.statusCode = 404;
-          return res.end("Not found");
+          return res.send(result.data);
         }
+      }, function(err) {
+        return res.send(404, err.message);
       });
     });
     app.get('/:year/:month/:title', function(req, res) {

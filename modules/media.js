@@ -69,11 +69,13 @@
                   });
                 });
               } else {
-                return promise.resolve(null);
+                return promise.reject(err);
               }
             });
           } else {
-            return promise.resolve(null);
+            return promise.reject({
+              message: "Resource not found"
+            });
           }
         });
         return promise;
