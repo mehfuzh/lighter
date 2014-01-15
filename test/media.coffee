@@ -3,14 +3,15 @@ require 'should'
 helper = (require '../helper')()     
 media = (require __dirname + '/init').media
 fs = require('fs')
+path = require('path')
 
 ObjectId = require('mongodb').ObjectID
 
 describe 'Media', ()->
 	buffer = null
-
 	before (done)->
-		fs.readFile __dirname + '/../public/logo.png', (err, result)->
+		normalizedPath = path.normalize(__dirname + '/../public/logo.png')
+		fs.readFile normalizedPath, (err, result)=>
 			buffer = result
 			if Buffer.isBuffer(buffer)
 				promise = media.create	
@@ -18,7 +19,7 @@ describe 'Media', ()->
 					slug:'logo.png'
 					type:'image/png'
 					body:buffer
-				promise.then (result)->
+				promise.then (result)=>
 					done()
 
 	it 'should assert the content created', (done)->
