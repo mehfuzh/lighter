@@ -70,6 +70,5 @@ module.exports = (settings)->
 						if (count == data.length)
 							callback()
 						count++
-
 					
 	new Media(settings)
