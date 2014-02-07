@@ -418,6 +418,10 @@ body section.main section.content section article section div.category {
   margin-bottom: 10px;
 }
 body section.main section.content section article section code {
+  font-family: 'SourceSansProExtraLight';
+  font-width: 500;
+}
+body section.main section.content section article section pre code {
   moz-border-radius-topleft: 5px;
   -webkit-border-top-left-radius: 5px;
   border-top-left-radius: 5px;
@@ -467,7 +471,7 @@ body aside section {
 body aside section h1 {
   margin: 1.1em 0 0;
   padding-bottom: .2em;
-  font-family: 'SourceSansProBlack';
+  font-family: 'SourceSansProRegularroBlack';
   font-size: 1.5em;
 }
 body aside section ul,

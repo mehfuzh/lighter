@@ -67,7 +67,7 @@ Please check this post out for further reading:
 [Introducing Lighter Blog Engine](http://www.meonbinary.com/2013/02/introducing-lighter-blog-engine)
 
 ##Key Facts
-The blog does not have an admin panel. It exposes ATOM Pub and I use __MarsEdit__ to view/edit/delete post(s).
+The blog does not have an admin panel. It exposes ATOM Pub and I use `MarsEdit` to view/edit/delete post(s).
 
 #block
 Mehfuz Hossain
