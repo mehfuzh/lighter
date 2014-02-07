@@ -13,12 +13,9 @@
         this.marked.setOptions({
           highlight: function(code, lang) {
             var hl;
-            if (typeof lang === 'undefined') {
-              lang = 'bash';
-            }
             hl = require('highlight.js');
             hl.tabReplace = '    ';
-            return (hl.highlight(lang, code)).value;
+            return (hl.highlightAuto(code)).value;
           }
         });
       }

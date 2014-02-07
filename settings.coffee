@@ -12,11 +12,9 @@ module.exports = ()->
 			@marked = require('marked')			
 			@marked.setOptions
 				highlight:(code,lang) ->
-					if typeof lang == 'undefined'
-						lang = 'bash'
 					hl = require('highlight.js')
 					hl.tabReplace = '    '
-					(hl.highlight lang, code).value
+					(hl.highlightAuto code).value
 					
 		marked		:	@marked
 		mongoose	:	@mongoose
