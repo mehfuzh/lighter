@@ -424,6 +424,10 @@ body section.main section.content section article section pre code {
   moz-border-radius-topright: 5px;
   -webkit-border-top-right-radius: 5px;
   border-top-right-radius: 5px;
+  display: block;
+  padding: 0.5em;
+  background: #002b36;
+  color: #839496;
   font-family: 'SourceSansProRegular';
   font-weight: normal;
   position: relative;
