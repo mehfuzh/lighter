@@ -68,11 +68,11 @@
 body {
 	color: #222;  
 	font-family: 'SourceSansProRegular';
+	font-size: 1.15em;
   	max-width:1000px;
 	background: @brown url('/images/line-tile.png') top left;
 	position: relative;
 	margin: 0 auto;
-	font-size: 1.15em;
 	line-height:1.15em;
 
 	.content-left-right-spacing{
@@ -289,14 +289,11 @@ body {
 							margin-bottom:10px;
 						}
 						
-						code{
-							font-family:'SourceSansProExtraLight';
-							font-width:500;
-						}
-						
 						pre{
 							code{
 							  .top-radius;
+						  		font-family: 'SourceSansProRegular';
+						  		font-weight:normal;
 							  	position: relative;
 								background:url('/images/code_bg.png') repeat-x 0 0, #002b36;
 								padding-top : 40px;
@@ -305,7 +302,10 @@ body {
 								word-wrap:break-word;
 							  }
 					 	}
-						 
+						
+						code{
+							font-family:'SourceSansProExtraLight';
+						}
 						
 						background:url('/images/header-bottom.png') repeat-x 100% 100%;
 						margin-bottom:1.5em;

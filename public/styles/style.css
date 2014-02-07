@@ -118,29 +118,29 @@ video {
 }
 @font-face {
   font-family: 'SourceSansProExtraLight';
-  src: url('SourceSansPro-ExtraLight-webfont.eot');
-  src: url('SourceSansPro-ExtraLight-webfont.eot?#iefix') format('embedded-opentype'), url('SourceSansPro-ExtraLight-webfont.woff') format('woff'), url('SourceSansPro-ExtraLight-webfont.ttf') format('truetype'), url('SourceSansPro-ExtraLight-webfont.svg#SourceSansProExtraLight') format('svg');
+  src: url('fonts/SourceSansPro-ExtraLight-webfont.eot');
+  src: url('fonts/SourceSansPro-ExtraLight-webfont.eot?#iefix') format('embedded-opentype'), url('fonts/SourceSansPro-ExtraLight-webfont.woff') format('woff'), url('fonts/SourceSansPro-ExtraLight-webfont.ttf') format('truetype'), url('fonts/SourceSansPro-ExtraLight-webfont.svg#SourceSansProExtraLight') format('svg');
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: 'SourceSansProExtraLightItalic';
-  src: url('SourceSansPro-ExtraLightIt-webfont.eot');
-  src: url('SourceSansPro-ExtraLightIt-webfont.eot?#iefix') format('embedded-opentype'), url('SourceSansPro-ExtraLightIt-webfont.woff') format('woff'), url('SourceSansPro-ExtraLightIt-webfont.ttf') format('truetype'), url('SourceSansPro-ExtraLightIt-webfont.svg#SourceSansProExtraLightItalic') format('svg');
+  src: url('fonts/SourceSansPro-ExtraLightIt-webfont.eot');
+  src: url('fonts/SourceSansPro-ExtraLightIt-webfont.eot?#iefix') format('embedded-opentype'), url('fonts/sSourceSansPro-ExtraLightIt-webfont.woff') format('woff'), url('fonts/SourceSansPro-ExtraLightIt-webfont.ttf') format('truetype'), url('fonts/SourceSansPro-ExtraLightIt-webfont.svg#SourceSansProExtraLightItalic') format('svg');
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: 'SourceSansProLight';
-  src: url('SourceSansPro-Light-webfont.eot');
-  src: url('SourceSansPro-Light-webfont.eot?#iefix') format('embedded-opentype'), url('SourceSansPro-Light-webfont.woff') format('woff'), url('SourceSansPro-Light-webfont.ttf') format('truetype'), url('SourceSansPro-Light-webfont.svg#SourceSansProLight') format('svg');
+  src: url('fonts/SourceSansPro-Light-webfont.eot');
+  src: url('fonts/SourceSansPro-Light-webfont.eot?#iefix') format('embedded-opentype'), url('fonts/SourceSansPro-Light-webfont.woff') format('woff'), url('fonts/SourceSansPro-Light-webfont.ttf') format('truetype'), url('fonts/SourceSansPro-Light-webfont.svg#SourceSansProLight') format('svg');
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: 'SourceSansProLightItalic';
-  src: url('SourceSansPro-LightIt-webfont.eot');
-  src: url('SourceSansPro-LightIt-webfont.eot?#iefix') format('embedded-opentype'), url('SourceSansPro-LightIt-webfont.woff') format('woff'), url('SourceSansPro-LightIt-webfont.ttf') format('truetype'), url('SourceSansPro-LightIt-webfont.svg#SourceSansProLightItalic') format('svg');
+  src: url('fonts/SourceSansPro-LightIt-webfont.eot');
+  src: url('fonts/SourceSansPro-LightIt-webfont.eot?#iefix') format('embedded-opentype'), url('fonts/SourceSansPro-LightIt-webfont.woff') format('woff'), url('fonts/SourceSansPro-LightIt-webfont.ttf') format('truetype'), url('fonts/SourceSansPro-LightIt-webfont.svg#SourceSansProLightItalic') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -183,11 +183,11 @@ video {
 body {
   color: #222;
   font-family: 'SourceSansProRegular';
+  font-size: 1.15em;
   max-width: 1000px;
   background: #252525 url('/images/line-tile.png') top left;
   position: relative;
   margin: 0 auto;
-  font-size: 1.15em;
   line-height: 1.15em;
 }
 body .content-left-right-spacing {
@@ -417,10 +417,6 @@ body section.main section.content section article section div.category {
   margin-top: 10px;
   margin-bottom: 10px;
 }
-body section.main section.content section article section code {
-  font-family: 'SourceSansProExtraLight';
-  font-width: 500;
-}
 body section.main section.content section article section pre code {
   moz-border-radius-topleft: 5px;
   -webkit-border-top-left-radius: 5px;
@@ -428,12 +424,17 @@ body section.main section.content section article section pre code {
   moz-border-radius-topright: 5px;
   -webkit-border-top-right-radius: 5px;
   border-top-right-radius: 5px;
+  font-family: 'SourceSansProRegular';
+  font-weight: normal;
   position: relative;
   background: url('/images/code_bg.png') repeat-x 0 0, #002b36;
   padding-top: 40px;
   margin-top: 20px;
   margin-bottom: 20px;
   word-wrap: break-word;
+}
+body section.main section.content section article section code {
+  font-family: 'SourceSansProExtraLight';
 }
 body section.main section.content section article:first-child {
   background: none;
