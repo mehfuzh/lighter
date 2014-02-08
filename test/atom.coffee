@@ -1,4 +1,3 @@
-require 'should'      
 helper = (require '../helper')()     
 
 xml2js = require 'xml2js'      
