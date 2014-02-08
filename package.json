@@ -18,7 +18,7 @@
     "xml2js": "~0.2.2",
     "newrelic": "~0.9.19",
     "node-promise": "~0.5.10",
-    "mocha": "~1.17.1"
+    "should": "~3.1.2"
   },
   "scripts": {
     "test": "mocha --compilers coffee:coffee-script -R spec",
