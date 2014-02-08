@@ -419,21 +419,17 @@ body section.main section.content section article section div.category {
   margin-bottom: 10px;
 }
 body section.main section.content section article section a.continue-reading {
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  border-radius: 3px;
   font-family: 'SourceSansProRegular';
-  display: inline-block;
-  background-color: #0c75bb;
-  font-size: 12px;
-  padding: 4px 4px;
-  line-height: 12px;
+  background-color: #046dd5;
+  font-size: 16px;
+  padding: 8px 8px;
   color: #ffffff;
   text-decoration: none;
   margin-right: 5px;
 }
 body section.main section.content section article section a.continue-reading:hover {
   background-color: #fa4b2a;
+  color: #fff;
 }
 body section.main section.content section article section pre code {
   moz-border-radius-topleft: 5px;
