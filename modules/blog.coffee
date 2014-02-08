@@ -40,7 +40,7 @@ module.exports = (settings)->
 						, (data)=>
 							promise.resolve data
 			return promise
-
+		
 		find:(format, filter)->
 			promise = new @settings.Promise()
 			@blog.findOne url : @settings.url, (err, data) =>
@@ -58,8 +58,10 @@ module.exports = (settings)->
 				@post.find(filter).sort({date: -1}).exec (err, data)=>
 					posts = []
 					for post in data 
-						if format is 'sanitize'
+						if format is 'sanitize' || 'list'
 							post.body = @settings.format(post.body) 
+							if format is 'list'
+								post.body = post.body.match(/<p>(.*?)<\/p>/g)[0]
 						post.title = post.title.trim()
 						posts.push post
 

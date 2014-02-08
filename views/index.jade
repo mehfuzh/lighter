@@ -13,3 +13,4 @@ block content
 			section !{post.body}
 				for category in post.categories
 					div(class='category') #{category}
+				a(class='continue-reading',href='#{host}#{post.permaLink}') Continue >>

@@ -3,9 +3,9 @@ Welcome to lighter Blog Engine.
 
 #block
 
-#logo
-
 The blog is built using node and mongo. There is no admin view and exposes AtomPub to create, view and delete posts.
+
+#logo
 
 ##Installation
 

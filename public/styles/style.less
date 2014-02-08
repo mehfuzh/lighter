@@ -147,12 +147,12 @@ body {
 		margin: 0 auto;
 		background:#F2F2F2;
 		border-bottom: 1px solid #BFBFBF;
-		min-height:600px; 
 		min-width : 800px;
 		section.content {
 			position:relative;
 			section.comments{
 				width:100%;
+				min-height:0px;
 				.top-radius;
 				display:block;
 				z-index: 1;
@@ -177,6 +177,7 @@ body {
 				background :#fff;
 				float:left;
 				max-width: 700px;
+				min-height:600px;
 				border-right: 1px solid #e0e0e0;
 				article{
 					.content-left-right-spacing;
@@ -275,7 +276,7 @@ body {
 						div.category{   
 							.radius;
 							font-family: 'SourceSansProRegular'; 
-					  	display: inline-block;
+					  		display: inline-block;
 							padding: 4px 4px;
 							font-size: 12px;
 						  	line-height: 12px;
@@ -283,10 +284,27 @@ body {
 							text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
 							white-space: nowrap;
 							vertical-align: baseline;
-							background-color: #333333;
+							background-color: #9fbf4b;
 							margin-right:5px;
 							margin-top:10px; 
 							margin-bottom:10px;
+						}
+						
+						a.continue-reading{
+							.radius;
+							font-family: 'SourceSansProRegular'; 
+							display:inline-block;
+							background-color:#0c75bb;
+							font-size: 12px;
+							padding: 4px 4px;
+							line-height: 12px;
+							color:#ffffff;
+							text-decoration:none;
+							margin-right:5px;
+							
+							&:hover{
+								background-color: #fa4b2a;
+							}
 						}
 						
 						pre{

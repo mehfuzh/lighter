@@ -252,7 +252,7 @@
       promise = blog.findMostRecent();
       return promise.then(function(result) {
         recent = result;
-        promise = blog.find('sanitize');
+        promise = blog.find('list');
         return promise.then(function(result) {
           result.host = app.host;
           result.recent = recent;

@@ -92,8 +92,11 @@
             posts = [];
             for (_i = 0, _len = data.length; _i < _len; _i++) {
               post = data[_i];
-              if (format === 'sanitize') {
+              if (format === 'sanitize' || 'list') {
                 post.body = _this.settings.format(post.body);
+                if (format === 'list') {
+                  post.body = post.body.match(/<p>(.*?)<\/p>/g)[0];
+                }
               }
               post.title = post.title.trim();
               posts.push(post);

@@ -201,7 +201,7 @@ routes = (app, settings) =>
 		promise = blog.findMostRecent()
 		promise.then (result)=>
 			recent = result
-			promise = blog.find 'sanitize'
+			promise = blog.find 'list'
 			promise.then (result)->
 				result.host = app.host
 				result.recent = recent
