@@ -401,13 +401,10 @@ body section.main section.content section article section blockquote {
   padding: 25px 5px 5px 70px;
 }
 body section.main section.content section article section div.category {
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  border-radius: 3px;
   font-family: 'SourceSansProRegular';
   display: inline-block;
-  padding: 4px 4px;
-  font-size: 12px;
+  padding: 5px 5px;
+  font-size: 13px;
   line-height: 12px;
   color: #ffffff;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
@@ -420,9 +417,9 @@ body section.main section.content section article section div.category {
 }
 body section.main section.content section article section a.continue-reading {
   font-family: 'SourceSansProRegular';
-  background-color: #046dd5;
-  font-size: 16px;
-  padding: 8px 8px;
+  background-color: #80a9cc;
+  font-size: 13px;
+  padding: 5px 5px;
   color: #ffffff;
   text-decoration: none;
   margin-right: 5px;
