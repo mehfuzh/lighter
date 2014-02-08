@@ -417,12 +417,16 @@ body section.main section.content section article section div.category {
 }
 body section.main section.content section article section a.continue-reading {
   font-family: 'SourceSansProRegular';
-  background-color: #80a9cc;
+  background-color: #0c75bb;
   font-size: 13px;
-  padding: 5px 5px;
+  line-height: 12px;
+  padding: 4px 4px;
   color: #ffffff;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
   text-decoration: none;
   margin-right: 5px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 body section.main section.content section article section a.continue-reading:hover {
   background-color: #fa4b2a;
