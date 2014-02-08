@@ -267,6 +267,7 @@ body section.main {
   background: #F2F2F2;
   border-bottom: 1px solid #BFBFBF;
   min-width: 800px;
+  min-height: 600px;
 }
 body section.main section.content {
   position: relative;
@@ -301,7 +302,6 @@ body section.main section.content section {
   background: #fff;
   float: left;
   max-width: 700px;
-  min-height: 600px;
   border-right: 1px solid #e0e0e0;
 }
 body section.main section.content section article {
