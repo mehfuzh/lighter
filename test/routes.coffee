@@ -1,8 +1,8 @@
-require 'should'      
-helper = (require '../helper')()     
+require 'should'
+helper = (require '../helper')()
 
-xml2js = require 'xml2js'      
-util = require('util')                               
+xml2js = require 'xml2js'
+util = require('util')
 
 path = require 'path'
 fs = require('fs')  

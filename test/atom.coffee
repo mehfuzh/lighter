@@ -1,15 +1,15 @@
-helper = (require '../helper')()     
+helper = (require '../helper')()
 
-xml2js = require 'xml2js'      
-util = require('util')                               
+xml2js = require 'xml2js' 
+util = require('util')
 
 path = require 'path'
-fs = require('fs')  
+fs = require('fs')
 
 express = require('express')
 request = require 'supertest'
 
-app = express()         
+app = express()
 
 blog = (require __dirname + '/init').blog
 media = (require __dirname + '/init').media
