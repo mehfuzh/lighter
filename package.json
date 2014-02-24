@@ -22,7 +22,7 @@
 	"coffee-script": "*"
   },
   "scripts": {
-    "test": "mocha --compilers coffee:coffee-script -R spec",
+    "test": "mocha --compilers coffee:coffee-script/register -R spec",
     "start": "node server.js"
   },
   "engines": {

@@ -10,7 +10,7 @@ fs = require('fs')
 express = require('express')
 request = require 'supertest'
 
-app = express()       
+app = express()
 
 blog = (require __dirname + '/init').blog
 
