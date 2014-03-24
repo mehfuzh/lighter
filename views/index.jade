@@ -7,10 +7,10 @@ block content
 	for post in posts
 		article(class='post')
 			header
-				time= post.date.toDateString()
+				time= post.date.toDateString() 
+					|  &nbsp;•&nbsp;
+					a(href='#{host}#{post.permaLink}') permalink
 				h1 
 					a(href='#{host}#{post.permaLink}') #{post.title}
 			section !{post.body}
-				for category in post.categories
-					div(class='category') #{category}
-				a(class='continue-reading',href='#{host}#{post.permaLink}') Continue >>
+				a(class='continue-reading',href='#{host}#{post.permaLink}') Read On →

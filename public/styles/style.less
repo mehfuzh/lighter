@@ -79,7 +79,7 @@ body {
 		padding-left: 55px;
 		padding-right: 55px;
 	}
-  
+	
 	.linear-gradient{
 		background: url('/images/noise.png'),linear-gradient(#e0e0e0,#cccccc,#b0b0b0);
 		background: url('/images/noise.png'),-webkit-linear-gradient(#e0e0e0,#cccccc,#b0b0b0);
@@ -90,13 +90,14 @@ body {
 	}
 
 	header.main{
+		font-family: 'SourceSansProBlack'; 
 		z-index: 9999;
 		background: #0c75bb;
 		color: #fff;
 		height:60px;
+		
 		.content-left-right-spacing;
 		h1{
-			font-family: 'SourceSansProBlack'; 
 			color: inherit;
 			font-size: 2.2em;
 			font-weight: normal;
@@ -106,6 +107,7 @@ body {
 			}
 			&:visited { .header-link-style;}
 			&:visited { .header-link-style;}
+			&:after{content:'•'}
 			padding-top : 10px;
 			width:265px;
 			float:left;
@@ -178,6 +180,7 @@ body {
 				background :#fff;
 				float:left;
 				max-width: 700px;
+				min-height:600px;
 				
 				border-right: 1px solid #e0e0e0;
 				article{
@@ -197,6 +200,16 @@ body {
 							text-transform: uppercase;
 							color : #AAA;
 							font-size: .9em;
+							a{
+								padding:5px 5px;
+								text-transform:lowercase;
+								color:#1863a1;
+								text-decoration:none;
+			
+								&:hover{
+									color:#0c75bb;
+								}
+							}
 						}
 						h1{
 							font-family:'SourceSansProRegular';
@@ -216,6 +229,7 @@ body {
 					section{
 						border-right: none;
 						max-width: 600px;
+						
 						h1{
 							font-size : 1.2em;
 							padding-top:5px;
@@ -292,16 +306,20 @@ body {
 						
 						a.continue-reading{
 							font-family: 'SourceSansProRegular'; 
-							background-color:#0c75bb;
-							font-size: 13px;
-							line-height: 12px;
-							padding: 4px 4px;
-							color:#ffffff;
-							text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-							text-decoration:none;
-							margin-right:5px;
-							margin-top:10px; 
-							margin-bottom:10px;
+		 					font-size: 14px;
+		 					margin-top:10px; 
+		 					margin-bottom:10px;
+							background: #ebebeb;
+							display: inline-block;
+							padding: 0.5em 0.8em;
+							margin-right: .5em;
+							text-decoration: none;
+							color: #5d5d5d;
+							-webkit-transition: background-color 0.5s;
+							-moz-transition: background-color 0.5s;
+							-o-transition: background-color 0.5s;
+							transition: background-color 0.5s;
+							
 							&:hover{
 								background-color: #fa4b2a;
 								color:#fff;

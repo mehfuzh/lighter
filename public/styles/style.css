@@ -202,6 +202,7 @@ body .linear-gradient {
   background: url('/images/noise.png'), linear-gradient(#e0e0e0, #cccccc, #b0b0b0);
 }
 body header.main {
+  font-family: 'SourceSansProBlack';
   z-index: 9999;
   background: #0c75bb;
   color: #fff;
@@ -211,7 +212,6 @@ body header.main {
   border-bottom: 1px solid #fff;
 }
 body header.main h1 {
-  font-family: 'SourceSansProBlack';
   color: inherit;
   font-size: 2.2em;
   font-weight: normal;
@@ -234,6 +234,9 @@ body header.main h1:visited {
   color: #fff;
   text-decoration: none;
   cursor: hand;
+}
+body header.main h1:after {
+  content: '•';
 }
 body header.main nav {
   font-family: 'SourceSansProRegular';
@@ -302,6 +305,7 @@ body section.main section.content section {
   background: #fff;
   float: left;
   max-width: 700px;
+  min-height: 600px;
   border-right: 1px solid #e0e0e0;
 }
 body section.main section.content section article {
@@ -324,6 +328,15 @@ body section.main section.content section article header time {
   text-transform: uppercase;
   color: #AAA;
   font-size: .9em;
+}
+body section.main section.content section article header time a {
+  padding: 5px 5px;
+  text-transform: lowercase;
+  color: #1863a1;
+  text-decoration: none;
+}
+body section.main section.content section article header time a:hover {
+  color: #0c75bb;
 }
 body section.main section.content section article header h1 {
   font-family: 'SourceSansProRegular';
@@ -417,16 +430,19 @@ body section.main section.content section article section div.category {
 }
 body section.main section.content section article section a.continue-reading {
   font-family: 'SourceSansProRegular';
-  background-color: #0c75bb;
-  font-size: 13px;
-  line-height: 12px;
-  padding: 4px 4px;
-  color: #ffffff;
-  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-  text-decoration: none;
-  margin-right: 5px;
+  font-size: 14px;
   margin-top: 10px;
   margin-bottom: 10px;
+  background: #ebebeb;
+  display: inline-block;
+  padding: 0.5em 0.8em;
+  margin-right: .5em;
+  text-decoration: none;
+  color: #5d5d5d;
+  -webkit-transition: background-color 0.5s;
+  -moz-transition: background-color 0.5s;
+  -o-transition: background-color 0.5s;
+  transition: background-color 0.5s;
 }
 body section.main section.content section article section a.continue-reading:hover {
   background-color: #fa4b2a;
