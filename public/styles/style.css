@@ -235,9 +235,6 @@ body header.main h1:visited {
   text-decoration: none;
   cursor: hand;
 }
-body header.main h1:after {
-  content: '•';
-}
 body header.main nav {
   font-family: 'SourceSansProRegular';
   float: right;
@@ -305,7 +302,6 @@ body section.main section.content section {
   background: #fff;
   float: left;
   max-width: 700px;
-  min-height: 600px;
   border-right: 1px solid #e0e0e0;
 }
 body section.main section.content section article {
