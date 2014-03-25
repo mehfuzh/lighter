@@ -330,6 +330,7 @@ body section.main section.content section article header time a {
   text-transform: lowercase;
   color: #1863a1;
   text-decoration: none;
+  text-transform: uppercase;
 }
 body section.main section.content section article header time a:hover {
   color: #0c75bb;
@@ -339,6 +340,7 @@ body section.main section.content section article header h1 {
   color: #222;
   font-size: 2.0em;
   line-height: 1.2em;
+  margin-top: 5px;
 }
 body section.main section.content section article header h1 a {
   cursor: hand;
