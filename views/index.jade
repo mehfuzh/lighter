@@ -8,8 +8,6 @@ block content
 		article(class='post')
 			header
 				time= post.date.toDateString() 
-					|  &nbsp;•&nbsp;
-					a(href='#{host}#{post.permaLink}') permalink
 				h1 
 					a(href='#{host}#{post.permaLink}') #{post.title}
 			section !{post.body}
