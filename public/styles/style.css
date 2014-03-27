@@ -312,6 +312,7 @@ body section.main section.content section article {
 }
 body section.main section.content section article:first-child header {
   padding-top: 2em;
+  padding-bottom: 1em;
 }
 body section.main section.content section article:first-child header time {
   /*display: block;*/
@@ -329,7 +330,7 @@ body section.main section.content section article header {
   position: relative;
   background-color: inherit;
   padding-top: 0;
-  padding-bottom: 1em;
+  padding-bottom: 0.5em;
   float: left;
   width: 100%;
 }
