@@ -298,9 +298,6 @@ body section.main section.content section.comments #disqus_thread {
   padding: 20px 20px 0 20px;
   background: white;
 }
-body section.main section.content:first-child article header h1 {
-  font-size: 1.6em;
-}
 body section.main section.content section {
   background: #fff;
   float: left;
@@ -312,6 +309,9 @@ body section.main section.content section article {
   padding-right: 55px;
   padding-bottom: 10px;
   position: relative;
+}
+body section.main section.content section article:first-child header h1 {
+  font-size: 2.0em;
 }
 body section.main section.content section article header {
   padding: 0px;
@@ -341,7 +341,7 @@ body section.main section.content section article header time a:hover {
 body section.main section.content section article header h1 {
   font-family: 'SourceSansProRegular';
   color: #222;
-  font-size: 2.0em;
+  font-size: 1.5em;
   line-height: 1.2em;
   margin-top: 5px;
 }
